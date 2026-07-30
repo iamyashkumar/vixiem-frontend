@@ -1,213 +1,203 @@
-import { useState, useRef, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import {
-  Activity, Mail, Lock, Eye, EyeOff, ArrowRight,
-  AlertCircle, CheckCircle2
-} from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-import { isValidEmail, getPasswordStrength } from '../lib/utils';
-import toast from 'react-hot-toast';
+import { PageTransition } from '../components/animations/PageTransition';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { GoogleLogin } from '@react-oauth/google';
+import { Logo } from '../components/common/Logo';
 
-export default function Login() {
+export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [attempts, setAttempts] = useState(0);
-  const [locked, setLocked] = useState(false);
+  const [error, setError] = useState('');
+  const [unverifiedEmail, setUnverifiedEmail] = useState('');
+  const { login, loginWithGoogle, isLoading } = useAuth();
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const emailRef = useRef(null);
-
-  const validate = useCallback(() => {
-    const newErrors = {};
-    if (!email.trim()) newErrors.email = 'Email is required';
-    else if (!isValidEmail(email)) newErrors.email = 'Please enter a valid email';
-    if (!password) newErrors.password = 'Password is required';
-    else if (password.length < 6) newErrors.password = 'Password must be at least 6 characters';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  }, [email, password]);
+  const [resending, setResending] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (locked) {
-      toast.error('Too many attempts. Please try again later.');
-      return;
-    }
-    if (!validate()) {
-      // Shake animation trigger
+    setError('');
+
+    if (!email || !password) {
+      setError('Please fill in all fields');
       return;
     }
 
-    setLoading(true);
-    const result = await login({ email: email.trim(), password });
-    setLoading(false);
+    try {
+      setUnverifiedEmail('');
+      const success = await login(email, password);
+      if (success) {
+        navigate('/dashboard');
+      } else {
+        setError('Login failed. Please try again.');
+      }
+    } catch (err) {
+      if (err.message === 'EMAIL_NOT_VERIFIED' || err.response?.data?.error === 'EMAIL_NOT_VERIFIED' || err.response?.data?.message === 'EMAIL_NOT_VERIFIED') {
+        setError('Your email is not verified. Please check your inbox.');
+        setUnverifiedEmail(email);
+      } else {
+        setError(err.message || 'Login failed');
+      }
+    }
+  };
 
-    if (result.success) {
-      toast.success('Welcome back!');
-      navigate('/dashboard');
-    } else {
-      setAttempts(prev => {
-        const newAttempts = prev + 1;
-        if (newAttempts >= 5) {
-          setLocked(true);
-          toast.error('Account temporarily locked due to too many failed attempts.');
-          setTimeout(() => { setLocked(false); setAttempts(0); }, 300000); // 5 min
-        }
-        return newAttempts;
-      });
-      toast.error(result.error);
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      setError('');
+      setUnverifiedEmail('');
+      const success = await loginWithGoogle(credentialResponse.credential);
+      if (success) {
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      setError(err.message || 'Google login failed');
+    }
+  };
+
+  const handleResend = async () => {
+    try {
+      setResending(true);
+      await import('../services/auth').then(m => m.authService.resendVerification(unverifiedEmail));
+    } catch (err) {
+      // Error is handled in authService toast
+    } finally {
+      setResending(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background Elements - GPU optimized */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-velorix-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md relative z-10"
-      >
-        {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center justify-center gap-2 mb-8 focus:outline-none focus:ring-2 focus:ring-velorix-400 rounded-lg p-1 mx-auto w-fit"
-        >
-          <div className="w-10 h-10 bg-gradient-to-br from-velorix-400 to-velorix-600 rounded-xl flex items-center justify-center">
-            <Activity className="w-6 h-6 text-white" />
+    <PageTransition>
+      <div className="min-h-screen flex bg-slate-50 dark:bg-[#0B0F17] text-slate-800 dark:text-slate-200 transition-colors duration-200">
+        
+        {/* Left Side - Graphic Panel */}
+        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-white dark:bg-[#0F172A] border-r border-slate-200 dark:border-slate-800 items-center justify-center">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sky-500/10 blur-[140px] pointer-events-none"></div>
+          
+          <div className="relative z-20 flex flex-col items-center text-center px-12">
+            <div className="mb-8 transform scale-125">
+              <Logo size="xl" showText={false} link={false} />
+            </div>
+            <h2 className="text-5xl font-display font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Welcome to <span className="text-sky-500 dark:text-sky-400">Vixiem</span></h2>
+            <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-md">Experience the next generation of API monitoring and intelligence.</p>
           </div>
-          <span className="text-2xl font-bold text-white">Velorix</span>
-        </Link>
+        </div>
 
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 shadow-2xl">
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-white mb-2">Welcome back</h1>
-            <p className="text-slate-400">Sign in to your account</p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                <input
-                  ref={emailRef}
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => { setEmail(e.target.value); setErrors(prev => ({...prev, email: null})); }}
-                  placeholder="you@example.com"
-                  disabled={loading || locked}
-                  className={`w-full pl-10 pr-4 py-3 bg-slate-800/50 border rounded-xl text-white placeholder-slate-500 transition-all focus:outline-none focus:ring-2 ${
-                    errors.email
-                      ? 'border-red-500/50 focus:ring-red-400'
-                      : 'border-slate-700 focus:ring-velorix-400 focus:border-velorix-400'
-                  }`}
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? 'email-error' : undefined}
-                  autoComplete="email"
-                />
-              </div>
-              {errors.email && (
-                <motion.p
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  id="email-error"
-                  className="text-red-400 text-sm mt-1.5 flex items-center gap-1"
-                >
-                  <AlertCircle className="w-3.5 h-3.5" /> {errors.email}
-                </motion.p>
-              )}
+        {/* Right Side - Form */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative">
+          
+          <motion.div
+            className="w-full max-w-md bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 p-10 rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/50 relative z-10"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="mb-8 lg:hidden text-center flex justify-center">
+              <Logo size="lg" link={false} />
             </div>
 
-            {/* Password */}
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-                <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => { setPassword(e.target.value); setErrors(prev => ({...prev, password: null})); }}
-                  placeholder="••••••••"
-                  disabled={loading || locked}
-                  className={`w-full pl-10 pr-12 py-3 bg-slate-800/50 border rounded-xl text-white placeholder-slate-500 transition-all focus:outline-none focus:ring-2 ${
-                    errors.password
-                      ? 'border-red-500/50 focus:ring-red-400'
-                      : 'border-slate-700 focus:ring-velorix-400 focus:border-velorix-400'
-                  }`}
-                  aria-invalid={!!errors.password}
-                  aria-describedby={errors.password ? 'password-error' : undefined}
-                  autoComplete="current-password"
+            <h1 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-2">Sign In</h1>
+            <p className="text-slate-600 dark:text-slate-400 mb-6 font-light">Welcome back! Please enter your details.</p>
+
+            {/* Google Login at TOP */}
+            <div className="mb-6">
+              <div className="flex justify-center w-full">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={() => setError('Google Sign-In failed')}
+                  theme="outline"
+                  size="large"
+                  width="100%"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 focus:outline-none focus:ring-2 focus:ring-velorix-400 rounded"
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
-                >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                </button>
               </div>
-              {errors.password && (
-                <motion.p
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  id="password-error"
-                  className="text-red-400 text-sm mt-1.5 flex items-center gap-1"
-                >
-                  <AlertCircle className="w-3.5 h-3.5" /> {errors.password}
-                </motion.p>
-              )}
+
+              <div className="relative flex py-4 items-center">
+                <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
+                <span className="flex-shrink mx-4 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Or continue with email</span>
+                <div className="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
+              </div>
             </div>
 
-            {/* Rate Limit Warning */}
-            {attempts >= 3 && attempts < 5 && (
-              <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-amber-300 text-sm flex items-center gap-2">
-                <AlertCircle className="w-4 h-4" />
-                Warning: {5 - attempts} attempts remaining before lockout.
+            {error && (
+              <div className="bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 p-4 rounded-xl mb-6 text-sm flex flex-col gap-2">
+                <div>{error}</div>
+                {unverifiedEmail && (
+                  <button
+                    type="button"
+                    onClick={handleResend}
+                    disabled={resending}
+                    className="text-xs text-sky-600 dark:text-sky-400 underline hover:text-sky-500 text-left font-medium"
+                  >
+                    {resending ? 'Sending email...' : 'Click here to resend verification email'}
+                  </button>
+                )}
               </div>
             )}
 
-            <button
-              type="submit"
-              disabled={loading || locked}
-              className="w-full py-3 bg-gradient-to-r from-velorix-500 to-velorix-600 hover:from-velorix-400 hover:to-velorix-500 text-white font-semibold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-velorix-400 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  Sign In <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
-          </form>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wider">Email Address</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <Mail size={18} />
+                  </div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm"
+                    placeholder="name@company.com"
+                    required
+                  />
+                </div>
+              </div>
 
-          <div className="mt-6 text-center">
-            <p className="text-slate-400 text-sm">
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wider">Password</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <Lock size={18} />
+                  </div>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 pr-10 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm"
+                    placeholder="••••••••"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full btn-primary h-12 flex items-center justify-center font-semibold text-base shadow-lg shadow-sky-500/20"
+              >
+                {isLoading ? 'Signing in...' : 'Sign In'}
+              </button>
+            </form>
+
+            <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
               Don't have an account?{' '}
-              <Link to="/register" className="text-velorix-400 hover:text-velorix-300 font-medium focus:outline-none focus:ring-2 focus:ring-velorix-400 rounded">
-                Create one
+              <Link to="/register" className="text-sky-600 dark:text-sky-400 hover:underline font-medium">
+                Sign up
               </Link>
             </p>
-          </div>
+          </motion.div>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </PageTransition>
   );
-}
+};
+
+export default Login;

@@ -1,111 +1,77 @@
-import { FiX, FiActivity, FiList, FiMoon, FiSun, FiLogOut, FiBarChart2 } from 'react-icons/fi';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../hooks/useAuth';
+import { LogOut, X, FileText, Activity, LayoutDashboard, Cpu } from 'lucide-react';
+import { Logo } from './common/Logo';
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen, darkMode, setDarkMode }) {
-  const navigate = useNavigate();
+export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+  const { logout } = useAuth();
   const location = useLocation();
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate('/login');
-  };
+  // Settings removed from sidebar menu as requested
+  const navItems = [
+    { name: 'Overview', path: '/dashboard/overview', icon: LayoutDashboard },
+    { name: 'Endpoints', path: '/dashboard/endpoints', icon: Activity },
+    { name: 'Logs', path: '/dashboard/logs', icon: FileText },
+    { name: 'AI Assistant', path: '/dashboard/ai', icon: Cpu },
+  ];
 
-  const closeOnMobile = () => {
-    if (window.innerWidth < 768) setSidebarOpen(false);
+  const isActive = (path) => {
+    return location.pathname === path || (path === '/dashboard/overview' && location.pathname === '/dashboard');
   };
-
-  const isActive = (path) => location.pathname === path;
 
   return (
-    <aside
-      className={`fixed top-0 left-0 z-50 h-full w-64 bg-[#111c24] border-r border-[#1e2d38] flex flex-col transition-transform duration-300 ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } md:translate-x-0 md:sticky md:h-screen`}
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between p-5 border-b border-[#1e2d38]">
-        <div className="flex items-center space-x-3">
-          <div className="text-2xl">🚀</div>
-          <h2 className="text-xl font-bold text-white tracking-wide">Velorix</h2>
+    <>
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-900/60 dark:bg-black/70 z-40 md:hidden backdrop-blur-sm"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
-          {/* Theme Toggle Button Matched precisely with image_be1f0d.png */}
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-1.5 rounded-lg text-amber-400 hover:text-amber-300 transition-colors ml-1"
-          >
-            {darkMode ? <FiSun size={18} /> : <FiMoon size={18} className="text-gray-400" />}
+      <motion.aside
+        className={`fixed md:sticky top-24 left-0 h-[calc(100vh-8rem)] w-64 bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-lg dark:shadow-xl dark:shadow-black/40 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+      >
+        <div className="flex items-center justify-between md:hidden mb-5 pb-3 border-b border-slate-200 dark:border-slate-800">
+          <Logo size="sm" />
+          <button onClick={() => setSidebarOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white p-1">
+            <X size={22} />
           </button>
         </div>
-        <button
-          onClick={() => setSidebarOpen(false)}
-          className="md:hidden text-white hover:text-gray-300"
-        >
-          <FiX size={24} />
-        </button>
-      </div>
 
-      {/* Navigation Links */}
-      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        <nav className="flex flex-col gap-2 flex-grow mt-1">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              onClick={() => setSidebarOpen(false)}
+              className={`px-4 py-3 rounded-xl flex items-center font-medium text-sm transition-all duration-200 ${
+                isActive(item.path)
+                  ? 'text-sky-600 dark:text-sky-400 bg-sky-500/10 shadow-sm border border-sky-500/30 font-semibold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80 border border-transparent'
+              }`}
+            >
+              <item.icon size={18} className="mr-3 shrink-0" /> {item.name}
+            </Link>
+          ))}
+        </nav>
 
-        {/* Dashboard */}
         <button
-          onClick={() => {
-            navigate('/dashboard');
-            closeOnMobile();
-          }}
-          className={`flex items-center w-full px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
-            isActive('/dashboard')
-              ? 'bg-[#2563eb] text-white shadow-lg shadow-blue-600/10'
-              : 'text-gray-400 hover:bg-[#162530] hover:text-gray-200'
-          }`}
+          onClick={logout}
+          className="mt-auto px-4 py-3 rounded-xl flex items-center text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/30 border border-transparent font-medium text-sm transition-all duration-200 w-full"
         >
-          <FiActivity className="mr-3 text-current" size={20} />
-          <span>Dashboard</span>
+          <LogOut size={18} className="mr-3 shrink-0" /> Logout
         </button>
-
-        {/* Analytics */}
-        <button
-          onClick={() => {
-            navigate('/analytics');
-            closeOnMobile();
-          }}
-          className={`flex items-center w-full px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
-            isActive('/analytics')
-              ? 'bg-[#2563eb] text-white shadow-lg shadow-blue-600/10'
-              : 'text-gray-400 hover:bg-[#162530] hover:text-gray-200'
-          }`}
-        >
-          <FiBarChart2 className="mr-3 text-current" size={20} />
-          <span>Analytics</span>
-        </button>
-
-        {/* Log Viewer */}
-        <button
-          onClick={() => {
-            navigate('/logs');
-            closeOnMobile();
-          }}
-          className={`flex items-center w-full px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
-            isActive('/logs')
-              ? 'bg-[#2563eb] text-white shadow-lg shadow-blue-600/10'
-              : 'text-gray-400 hover:bg-[#162530] hover:text-gray-200'
-          }`}
-        >
-          <FiList className="mr-3 text-current" size={20} />
-          <span>Log Viewer</span>
-        </button>
-      </nav>
-
-      {/* Logout Button */}
-      <div className="p-4 border-t border-[#1e2d38] bg-[#111c24] mt-auto">
-        <button
-          onClick={handleLogout}
-          className="flex items-center w-full px-4 py-3 rounded-xl font-semibold text-sm text-rose-400/90 hover:text-rose-400 hover:bg-rose-500/5 transition-colors duration-200"
-        >
-          <FiLogOut className="mr-3 rotate-180" size={18} />
-          <span>Logout</span>
-        </button>
-      </div>
-    </aside>
+      </motion.aside>
+    </>
   );
-}
+};
+
+export default Sidebar;

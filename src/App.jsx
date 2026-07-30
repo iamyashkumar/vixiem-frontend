@@ -1,96 +1,88 @@
-import { Suspense, lazy } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Toaster } from 'react-hot-toast';
-import ErrorBoundary from './components/ErrorBoundary';
-import ProtectedRoute from './components/ProtectedRoute';
-import { useTheme } from './hooks/useTheme';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { AnimatedBackground } from './components/animations/AnimatedBackground';
+import { Navbar } from './components/common/Navbar';
+import { Footer } from './components/common/Footer';
+import { LoadingSpinner } from './components/common/LoadingSpinner';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
-// Lazy load all pages for code splitting
+// Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Analytics = lazy(() => import('./pages/Analytics'));
-const Logs = lazy(() => import('./pages/Logs'));
 const Status = lazy(() => import('./pages/Status'));
+const Unauthorized = lazy(() => import('./pages/Unauthorized'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
-function PageTransition({ children }) {
-  const { reducedMotion } = useTheme();
-  if (reducedMotion) return children;
+// Dashboard Routes
+const DashboardLayout = lazy(() => import('./layouts/DashboardLayout'));
+const OverviewTab = lazy(() => import('./pages/dashboard/OverviewTab'));
+const EndpointsTab = lazy(() => import('./pages/dashboard/EndpointsTab'));
+const LogsTab = lazy(() => import('./pages/dashboard/LogsTab'));
+const AiTab = lazy(() => import('./pages/dashboard/AiTab'));
+const SettingsTab = lazy(() => import('./pages/dashboard/SettingsTab'));
+const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
-      transition={{ duration: 0.25, ease: 'easeInOut' }}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from './components/ErrorFallback';
 
-function AppRoutes() {
+import { ThemeToggleFAB } from './components/common/ThemeToggleFAB';
+
+export default function App() {
+  const navigate = useNavigate();
   const location = useLocation();
+  const isDashboardRoute = location.pathname.startsWith('/dashboard');
+
+  useEffect(() => {
+    const handleLogout = () => {
+      navigate('/login');
+    };
+    window.addEventListener('auth:logout', handleLogout);
+    return () => window.removeEventListener('auth:logout', handleLogout);
+  }, [navigate]);
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-        <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
-        <Route path="/register" element={<PageTransition><Register /></PageTransition>} />
-        <Route path="/status" element={<PageTransition><Status /></PageTransition>} />
+    <ErrorBoundary 
+      FallbackComponent={ErrorFallback}
+      onReset={() => window.location.reload()}
+      onError={(error) => console.error("Global Error Boundary caught:", error)}
+    >
+      <AnimatedBackground />
+      <Navbar />
+      <ThemeToggleFAB />
 
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <PageTransition><Dashboard /></PageTransition>
-          </ProtectedRoute>
-        } />
-        <Route path="/analytics" element={
-          <ProtectedRoute>
-            <PageTransition><Analytics /></PageTransition>
-          </ProtectedRoute>
-        } />
-        <Route path="/logs" element={
-          <ProtectedRoute>
-            <PageTransition><Logs /></PageTransition>
-          </ProtectedRoute>
-        } />
-
-        <Route path="/404" element={<PageTransition><NotFound /></PageTransition>} />
-        <Route path="*" element={<Navigate to="/404" replace />} />
-      </Routes>
-    </AnimatePresence>
-  );
-}
-
-function App() {
-  return (
-    <ErrorBoundary>
-      <Suspense fallback={
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-velorix-400 border-t-transparent rounded-full animate-spin" />
-        </div>
-      }>
-        <AppRoutes />
+      <Suspense fallback={<LoadingSpinner />}>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname.split('/')[1] || 'home'}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<OverviewTab />} />
+            <Route path="endpoints" element={<EndpointsTab />} />
+            <Route path="logs" element={<LogsTab />} />
+            <Route path="ai" element={<AiTab />} />
+            <Route path="settings" element={<SettingsTab />} />
+          </Route>
+          <Route path="/status" element={<Status />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
+        </AnimatePresence>
       </Suspense>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          duration: 4000,
-          style: {
-            background: '#1e293b',
-            color: '#fff',
-            border: '1px solid #334155',
-          },
-          success: { iconTheme: { primary: '#14b8a6', secondary: '#fff' } },
-          error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
-        }}
-      />
+
+      {!isDashboardRoute && <Footer />}
     </ErrorBoundary>
   );
 }
-
-export default App;
