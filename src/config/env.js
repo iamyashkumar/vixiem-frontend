@@ -2,8 +2,8 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 let apiBaseUrl = API_URL;
 
 if (!API_URL || API_URL.trim() === '') {
-  console.warn("VITE_API_BASE_URL is not explicitly set. Falling back to default backend URL (http://localhost:8080).");
-  apiBaseUrl = 'http://localhost:8080';
+  console.warn("VITE_API_BASE_URL is not explicitly set. Defaulting to production backend (https://vixiem-backend.onrender.com).");
+  apiBaseUrl = 'https://vixiem-backend.onrender.com';
 }
 
 export const config = {
