@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const hydrate = async () => {
       try {
-        await authService.fetchCsrf();
         const userData = await authService.getCurrentUser();
         if (userData) {
           setUser(userData);
