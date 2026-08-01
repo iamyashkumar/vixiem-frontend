@@ -13,6 +13,11 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const hydrate = async () => {
+      const isAuthPage = window.location.pathname === '/login' || window.location.pathname === '/register';
+      if (isAuthPage) {
+        setIsInitializing(false);
+        return;
+      }
       try {
         const userData = await authService.getCurrentUser();
         if (userData) {
