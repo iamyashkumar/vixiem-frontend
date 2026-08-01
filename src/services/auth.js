@@ -66,8 +66,12 @@ export const authService = {
   },
 
   async getCurrentUser() {
-    const response = await api.get('/api/auth/me');
-    return response.data;
+    try {
+      const response = await api.get('/api/auth/me');
+      return response.data;
+    } catch (error) {
+      return null;
+    }
   },
 
   async fetchCsrf() {

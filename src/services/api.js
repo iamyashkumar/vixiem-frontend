@@ -55,7 +55,8 @@ api.interceptors.response.use(
         originalRequest.url.includes(API_ENDPOINTS.AUTH.REFRESH) ||
         originalRequest.url.includes(API_ENDPOINTS.AUTH.LOGIN) ||
         originalRequest.url.includes(API_ENDPOINTS.AUTH.REGISTER) ||
-        originalRequest.url.includes(API_ENDPOINTS.AUTH.GOOGLE)
+        originalRequest.url.includes(API_ENDPOINTS.AUTH.GOOGLE) ||
+        originalRequest.url.includes(API_ENDPOINTS.AUTH.ME)
       ) {
         return Promise.reject(error);
       }
