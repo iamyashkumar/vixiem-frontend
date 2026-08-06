@@ -4,19 +4,31 @@ export const API_ENDPOINTS = {
     REGISTER: '/api/auth/register',
     LOGOUT: '/api/auth/logout',
     REFRESH: '/api/auth/refresh',
+    GOOGLE: '/api/auth/google',
+    ME: '/api/auth/me',
+    VERIFY_EMAIL: '/api/auth/verify-email',
+    RESEND_VERIFICATION: '/api/auth/resend-verification',
+    CSRF: '/api/auth/csrf',
   },
   HEALTH: {
     CHECK: '/health',
-    CURRENT_USER: '/health/current-user',
+    PING: '/ping',
   },
   AI: {
-    ANALYZE: '/ai/analyze-errors',
-    LIMIT_STATUS: '/ai/limit-status',
-    STATS: '/ai/stats',
+    ANALYZE: '/api/ai/analyze',
+    LIMIT_STATUS: '/api/ai/limit-status',
+    STATS: '/api/ai/stats',
   },
   LOGS: {
-    GET_ALL: '/logs',
-    GET_ONE: '/logs/:id',
+    GET_ALL: '/api/logs',
+    GET_ONE: '/api/logs/:id',
+  },
+  ENDPOINTS: {
+    GET_ALL: '/api/endpoints',
+    CREATE: '/api/endpoints',
+    GET_ONE: '/api/endpoints/:id',
+    UPDATE: '/api/endpoints/:id',
+    DELETE: '/api/endpoints/:id',
   },
 };
 

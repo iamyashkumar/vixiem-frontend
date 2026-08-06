@@ -1,16 +1,57 @@
-# React + Vite
+# Vixiem Frontend — API Monitoring & Intelligence Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Modern, high-performance React application for **Vixiem** — the real-time API monitoring, endpoint health intelligence, and AI-powered log analysis platform.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Real-Time Monitoring Dashboard**: Interactive status overview, active endpoints list, live latency charts, and filterable log history.
+- **AI Error Intelligence**: DeepSeek-powered automated log analysis identifying root causes, fix suggestions, and prevention steps.
+- **Instant Cold-Start Resilience**: Non-blocking public route hydration ensuring instantaneous page load times without cold-start UI lockups.
+- **Google OAuth2 Authentication**: Official Google Sign-In with signed Google ID Token verification.
+- **Dark / Light Theme System**: Sleek glassmorphism UI built with Tailwind CSS and smooth Framer Motion transitions.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Technology Stack
 
-## Expanding the ESLint configuration
+- **Core**: React 18, Vite 5, JavaScript (ESNext)
+- **Styling**: Tailwind CSS, Lucide Icons, Framer Motion
+- **HTTP & State**: Axios (with CSRF interceptor), React Context API
+- **Auth**: `@react-oauth/google`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ⚙️ Environment Configuration (`.env`)
+
+Copy `.env.example` to `.env` before starting the application:
+
+```env
+VITE_API_BASE_URL=https://vixiem-backend.onrender.com
+VITE_GOOGLE_CLIENT_ID=804602267087-d7s242t4t960shink1df3m0vi5h8tetd.apps.googleusercontent.com
+VITE_APP_NAME=Vixiem
+```
+
+---
+
+## 💻 Local Development Setup
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/iamyashkumar/vixiem-frontend.git
+   cd vixiem-frontend
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start Development Server**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Build Production Bundle**:
+   ```bash
+   npm run build
+   ```
