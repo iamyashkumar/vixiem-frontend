@@ -132,7 +132,7 @@ export const Register = () => {
                   onError={() => setError('Google Sign-Up failed')}
                   theme="outline"
                   size="large"
-                  width="100%"
+                  width="350"
                 />
               </div>
 
