@@ -78,11 +78,12 @@ export const AuthProvider = ({ children }) => {
       const response = await authService.register(email, password, username);
       if (response.user) {
         setUser(response.user);
+        setIsAuthenticated(true);
       }
       return true;
     } catch (error) {
       console.error('Register error:', error);
-      return false;
+      throw error;
     } finally {
       setIsLoading(false);
     }
