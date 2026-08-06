@@ -62,7 +62,7 @@ export const Register = () => {
     try {
       const successResp = await register(email, password, username);
       if (successResp) {
-        navigate('/dashboard');
+        setSuccess(true);
       }
     } catch (err) {
       if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
@@ -82,13 +82,13 @@ export const Register = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-              <CheckCircle size={40} />
+            <div className="w-20 h-20 bg-sky-500/10 text-sky-500 dark:text-sky-400 border border-sky-500/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(14,165,233,0.3)]">
+              <Mail size={40} />
             </div>
-            <h1 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-2">Account Created!</h1>
+            <h1 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-2">Check Your Email</h1>
             <p className="text-slate-600 dark:text-slate-400 mb-8 font-light">
-              Welcome aboard! Your account <span className="text-slate-900 dark:text-white font-medium">{email}</span> has been created. 
-              You can log in to your dashboard right away.
+              We've sent a verification link to <span className="text-slate-900 dark:text-white font-medium">{email}</span>. 
+              Please verify your email address to log in.
             </p>
             <button
               onClick={() => navigate('/login')}
