@@ -29,12 +29,17 @@ import { ErrorFallback } from './components/ErrorFallback';
 
 import { ThemeToggleFAB } from './components/common/ThemeToggleFAB';
 
+import { warmupBackend } from './services/api';
+import authService from './services/auth';
+
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith('/dashboard');
 
   useEffect(() => {
+    warmupBackend();
+    authService.fetchCsrf().catch(() => {});
     const handleLogout = () => {
       navigate('/login');
     };

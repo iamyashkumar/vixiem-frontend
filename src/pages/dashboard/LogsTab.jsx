@@ -7,12 +7,16 @@ import { LogStatusBadge } from '../../components/LogStatusBadge';
 import { PageLoader } from '../../components/PageLoader';
 import { ApiError } from '../../components/ApiError';
 
+import { config } from '../../config/env';
+
 export const LogsTab = () => {
   const [logs, setLogs] = useState([]);
   const [endpoints, setEndpoints] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isLiveConnected, setIsLiveConnected] = useState(false);
+  const [highlightLogId, setHighlightLogId] = useState(null);
   
   // Filters & Pagination
   const [page, setPage] = useState(0);
@@ -65,6 +69,47 @@ export const LogsTab = () => {
     fetchLogs(true);
   }, [fetchLogs]);
 
+  // Connect to SSE for real-time log updates
+  useEffect(() => {
+    const sseUrl = `${config.apiBaseUrl}/api/sse/subscribe`;
+    let eventSource;
+
+    try {
+      eventSource = new EventSource(sseUrl, { withCredentials: true });
+
+      eventSource.addEventListener('INIT', () => {
+        setIsLiveConnected(true);
+      });
+
+      eventSource.addEventListener('LOG_ENTRY', (event) => {
+        try {
+          const newLog = JSON.parse(event.data);
+          setHighlightLogId(newLog.id);
+          setLogs(prev => [newLog, ...prev]);
+          setTotalElements(prev => prev + 1);
+
+          setTimeout(() => {
+            setHighlightLogId(null);
+          }, 3000);
+        } catch (e) {
+          console.error("Failed to parse SSE log payload", e);
+        }
+      });
+
+      eventSource.onerror = (err) => {
+        setIsLiveConnected(false);
+      };
+    } catch (err) {
+      console.error("SSE setup error", err);
+    }
+
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
+  }, []);
+
   const handleFilterChange = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }));
     setPage(0);
@@ -93,6 +138,12 @@ export const LogsTab = () => {
              <span className="bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold text-xs px-3 py-1 rounded-full border border-sky-500/20">
                {totalElements} entries
              </span>
+             {isLiveConnected && (
+               <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-xs px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1.5 animate-in fade-in">
+                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                 LIVE SSE
+               </span>
+             )}
            </div>
            <p className="text-slate-600 dark:text-slate-400 font-light">Real-time event and error logs.</p>
         </div>
@@ -156,8 +207,11 @@ export const LogsTab = () => {
                   </td>
                 </tr>
               ) : (
-                logs.map((log) => (
-                  <tr key={log.id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors">
+                logs.map((log, idx) => (
+                  <tr 
+                    key={log.id || `log-${idx}`} 
+                    className={`transition-all duration-500 ${log.id && log.id === highlightLogId ? 'bg-sky-500/10 dark:bg-sky-500/20 ring-1 ring-sky-500/40' : 'hover:bg-slate-50/80 dark:hover:bg-slate-800/30'}`}
+                  >
                     <td className="px-6 py-4 text-xs font-mono text-slate-600 dark:text-slate-400 whitespace-nowrap">
                       {formatDate(log.timestamp)}
                     </td>

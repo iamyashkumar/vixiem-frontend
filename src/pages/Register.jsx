@@ -55,7 +55,11 @@ export const Register = () => {
         setError('Registration failed. Please try again.');
       }
     } catch (err) {
-      setError(err.message || 'Registration failed');
+      if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        setError('Server is waking up (cold start). Please wait a few seconds and try again.');
+      } else {
+        setError(err.message || 'Registration failed');
+      }
     }
   };
 

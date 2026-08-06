@@ -56,14 +56,14 @@ app.use(vixiem.middleware());
 // Your API Endpoints are now monitored live!`,
     curl: `# Ingest Telemetry for an API Endpoint
 curl -X GET "https://api.vixiem.dev/v1/telemetry/health" \\
-  -H "X-Vixiem-Key: vx_live_9f83a27e" \\
+  -H "X-Vixiem-Key: vx_live_your_api_key" \\
   -H "Content-Type: application/json"`,
     python: `# Install SDK: pip install vixiem-sdk
 from vixiem import VixiemMiddleware
 from fastapi import FastAPI
 
 app = FastAPI()
-app.add_middleware(VixiemMiddleware, api_key="vx_live_9f83a27e")`,
+app.add_middleware(VixiemMiddleware, api_key="vx_live_your_api_key")`,
     java: `// Add Maven dependency: com.vixiem:vixiem-spring-boot-starter
 @SpringBootApplication
 @EnableVixiemTelemetry
@@ -85,8 +85,8 @@ public class Application {
     { icon: BarChart3, title: 'Latency Analytics', desc: 'Track sub-second response times, p95/p99 latency distribution, and throughput.' },
     { icon: Cpu, title: 'AI Anomaly Detection', desc: 'Automatically flag 5xx surges, memory leaks, and slow endpoints before outages happen.' },
     { icon: Bell, title: 'Instant Alerting', desc: 'Receive instant notifications via Slack, Webhooks, PagerDuty, or Email on endpoint errors.' },
-    { icon: Shield, title: 'Enterprise Security', desc: 'Bank-grade telemetry encryption with zero request payload storing.' },
-    { icon: Rocket, title: 'Infinitely Scalable', desc: 'Handles millions of request telemetry events per second with zero latency overhead.' },
+    { icon: Shield, title: 'Security-first monitoring', desc: 'Cookie-protected sessions and ownership-scoped workspaces for your monitored services.' },
+    { icon: Rocket, title: 'Built for growing systems', desc: 'A focused monitoring workspace that keeps endpoint health easy to scan and act on.' },
   ];
 
   const steps = [

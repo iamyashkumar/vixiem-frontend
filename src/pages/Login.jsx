@@ -38,6 +38,8 @@ export const Login = () => {
       if (err.message === 'EMAIL_NOT_VERIFIED' || err.response?.data?.error === 'EMAIL_NOT_VERIFIED' || err.response?.data?.message === 'EMAIL_NOT_VERIFIED') {
         setError('Your email is not verified. Please check your inbox.');
         setUnverifiedEmail(email);
+      } else if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        setError('Server is waking up (cold start). Please wait a few seconds and try again.');
       } else {
         setError(err.message || 'Login failed');
       }
@@ -53,7 +55,11 @@ export const Login = () => {
         navigate('/dashboard');
       }
     } catch (err) {
-      setError(err.message || 'Google login failed');
+      if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+        setError('Server is waking up (cold start). Please try again in 5-10 seconds.');
+      } else {
+        setError(err.message || 'Google login failed');
+      }
     }
   };
 

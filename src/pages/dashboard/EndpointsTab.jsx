@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Plus, Search, Server, Clock, Trash2, Edit3, ArrowUpRight } from 'lucide-react';
+import { Plus, Search, Server, Clock, Trash2, Edit3, ArrowUpRight, Mail, MessageSquare } from 'lucide-react';
 import { endpointsService } from '../../services/endpointsService';
 import { PageLoader } from '../../components/PageLoader';
 import { ApiError } from '../../components/ApiError';
@@ -216,6 +216,16 @@ export const EndpointsTab = () => {
                   <span className="flex items-center gap-1 font-mono">
                     <Clock size={13} /> {endpoint.checkIntervalSeconds || 60}s
                   </span>
+                  {endpoint.alertsEnabled && (
+                    <span className="flex items-center gap-1 text-sky-600 dark:text-sky-400" title={`Email Alerts Active (${endpoint.alertEmail || 'Account Email'})`}>
+                      <Mail size={13} /> Email
+                    </span>
+                  )}
+                  {endpoint.discordWebhookUrl && (
+                    <span className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400" title="Discord Webhook Active">
+                      <MessageSquare size={13} /> Discord
+                    </span>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-1">

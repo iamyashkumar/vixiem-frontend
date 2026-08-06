@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Globe, Type, Clock, Mail } from 'lucide-react';
+import { X, Globe, Type, Clock, Mail, MessageSquare, Bell } from 'lucide-react';
 
 export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
   const isEditing = !!initialData;
@@ -11,6 +11,8 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
     checkIntervalSeconds: 60,
     isActive: true,
     alertsEnabled: false,
+    alertEmail: '',
+    discordWebhookUrl: '',
     tags: []
   });
   const [tagInput, setTagInput] = useState('');
@@ -24,10 +26,12 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
         checkIntervalSeconds: initialData.checkIntervalSeconds || 60,
         isActive: initialData.isActive !== undefined ? initialData.isActive : (initialData.active !== undefined ? initialData.active : true),
         alertsEnabled: initialData.alertsEnabled || false,
+        alertEmail: initialData.alertEmail || '',
+        discordWebhookUrl: initialData.discordWebhookUrl || '',
         tags: initialData.tags || []
       });
     } else {
-      setFormData({ name: '', url: '', checkIntervalSeconds: 60, isActive: true, alertsEnabled: false, tags: [] });
+      setFormData({ name: '', url: '', checkIntervalSeconds: 60, isActive: true, alertsEnabled: false, alertEmail: '', discordWebhookUrl: '', tags: [] });
     }
     setTagInput('');
     setErrors({});
@@ -42,7 +46,10 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
       newErrors.url = "URL is required";
     } else {
       try {
-        new URL(formData.url);
+        const parsed = new URL(formData.url);
+        if (!['http:', 'https:'].includes(parsed.protocol) || parsed.username || parsed.password) {
+          throw new Error('Unsupported URL');
+        }
       } catch (e) {
         newErrors.url = "Please enter a valid URL (e.g., https://api.example.com)";
       }
@@ -97,6 +104,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
             </h3>
             <button 
               onClick={onClose} 
+              aria-label="Close endpoint dialog"
               className="p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 dark:bg-slate-800 rounded-xl transition-all border border-slate-200 dark:border-slate-700"
             >
               <X size={20} />
@@ -205,6 +213,44 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
                   <Mail size={18} className="mr-2.5 text-sky-500 dark:text-sky-400" />
                   Receive Email Alerts
                 </label>
+              </div>
+
+              {formData.alertsEnabled && (
+                <div className="pl-2 animate-in fade-in duration-200">
+                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 tracking-wide uppercase">Custom Alert Email (Optional)</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                      <Mail size={18} />
+                    </div>
+                    <input
+                      type="email"
+                      value={formData.alertEmail}
+                      onChange={(e) => setFormData({ ...formData, alertEmail: e.target.value })}
+                      className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-2.5 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm"
+                      placeholder="alerts@yourcompany.com (Defaults to account email)"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className="pt-2 border-t border-slate-100 dark:border-slate-800/60">
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 tracking-wide uppercase flex items-center gap-2">
+                  <MessageSquare size={16} className="text-indigo-500 dark:text-indigo-400" />
+                  Discord Webhook Alert (Optional)
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                    <Bell size={18} className="text-indigo-500/70" />
+                  </div>
+                  <input
+                    type="url"
+                    value={formData.discordWebhookUrl}
+                    onChange={(e) => setFormData({ ...formData, discordWebhookUrl: e.target.value })}
+                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all font-mono text-xs"
+                    placeholder="https://discord.com/api/webhooks/..."
+                  />
+                </div>
+                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Receive instant rich embed downtime & recovery notifications directly in Discord.</p>
               </div>
             </div>
             

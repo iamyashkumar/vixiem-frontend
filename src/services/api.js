@@ -8,7 +8,7 @@ const apiBaseUrl = config.apiBaseUrl;
 
 const api = axios.create({
   baseURL: apiBaseUrl,
-  timeout: 10000,
+  timeout: 45000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -16,6 +16,18 @@ const api = axios.create({
   xsrfCookieName: 'XSRF-TOKEN',
   xsrfHeaderName: 'X-XSRF-TOKEN',
 });
+
+// Silent background warmup call for Render free tier sleep mode
+export const warmupBackend = async () => {
+  try {
+    await axios.get(`${apiBaseUrl}/health`, { timeout: 30000, withCredentials: true });
+  } catch (e) {
+    // Ignore warmup errors
+  }
+};
+
+// Fire warmup ping immediately when api module loads
+warmupBackend();
 
 // We no longer need a request interceptor to inject Authorization headers 
 // because HttpOnly cookies are handled automatically by Axios.
@@ -50,7 +62,21 @@ api.interceptors.response.use(
     const status = error.response?.status;
     const originalRequest = error.config;
 
-    if (status === 401) {
+    // Automatic retry once for timed out requests (Render cold starts)
+    if ((error.code === 'ECONNABORTED' || error.message?.includes('timeout')) && originalRequest && !originalRequest._isRetryAttempt) {
+      originalRequest._isRetryAttempt = true;
+      toast.loading('Server is starting up, please wait a moment...', { id: 'cold-start-warmup', duration: 4000 });
+      try {
+        return await api(originalRequest);
+      } catch (retryErr) {
+        error = retryErr;
+      }
+    }
+
+    if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+      error.message = 'Server request timed out. Please check back in a few seconds while the server wakes up.';
+      toast.error(error.message, { id: 'timeout-error' });
+    } else if (status === 401) {
       if (
         originalRequest.url.includes(API_ENDPOINTS.AUTH.REFRESH) ||
         originalRequest.url.includes(API_ENDPOINTS.AUTH.LOGIN) ||
