@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { PageTransition } from '../components/animations/PageTransition';
-import { Mail, Lock, User, Eye, EyeOff, Check, X } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, Check, X, CheckCircle } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
 import { Logo } from '../components/common/Logo';
 
@@ -84,19 +84,19 @@ export const Register = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="w-20 h-20 bg-sky-500/10 text-sky-500 dark:text-sky-400 border border-sky-500/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(14,165,233,0.3)]">
-              <Mail size={40} />
+            <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+              <CheckCircle size={40} />
             </div>
-            <h1 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-2">Check Your Email</h1>
+            <h1 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-2">Account Created!</h1>
             <p className="text-slate-600 dark:text-slate-400 mb-8 font-light">
-              We've sent a verification link to <span className="text-slate-900 dark:text-white font-medium">{email}</span>. 
-              Please verify your email address to log in.
+              Welcome aboard! Your account <span className="text-slate-900 dark:text-white font-medium">{email}</span> has been created. 
+              You can log in to your dashboard right away.
             </p>
             <button
               onClick={() => navigate('/login')}
               className="w-full btn-primary h-12 flex items-center justify-center font-semibold"
             >
-              Go to Login
+              Log In Now
             </button>
           </motion.div>
         </div>
@@ -133,6 +133,7 @@ export const Register = () => {
                   theme="outline"
                   size="large"
                   width="350"
+                  useOneTap={false}
                 />
               </div>
 

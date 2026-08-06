@@ -13,10 +13,9 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const hydrate = async () => {
-      const isAuthPage = window.location.pathname === '/login' || window.location.pathname === '/register';
-      if (isAuthPage) {
+      const isDashboardRoute = window.location.pathname.startsWith('/dashboard');
+      if (!isDashboardRoute) {
         setIsInitializing(false);
-        return;
       }
       try {
         const userData = await authService.getCurrentUser();

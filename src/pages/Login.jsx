@@ -116,6 +116,7 @@ export const Login = () => {
                   theme="outline"
                   size="large"
                   width="350"
+                  useOneTap={false}
                 />
               </div>
 
