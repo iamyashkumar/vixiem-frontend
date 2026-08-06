@@ -132,6 +132,7 @@ export const Register = () => {
                   size="large"
                   width="350"
                   useOneTap={false}
+                  ux_mode="redirect"
                 />
               </div>
 
