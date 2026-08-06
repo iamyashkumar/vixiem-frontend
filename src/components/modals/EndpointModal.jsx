@@ -96,10 +96,10 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl relative overflow-hidden"
+          className="bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl relative flex flex-col max-h-[90vh] my-auto overflow-hidden"
         >
-          <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-slate-800 relative z-10">
-            <h3 className="text-2xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
+          <div className="flex justify-between items-center p-5 sm:p-6 border-b border-slate-200 dark:border-slate-800 shrink-0 relative z-10">
+            <h3 className="text-xl sm:text-2xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
               {isEditing ? 'Edit Endpoint' : 'Add New Endpoint'}
             </h3>
             <button 
@@ -111,7 +111,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
             </button>
           </div>
           
-          <form onSubmit={handleSubmit} className="p-6 space-y-6 relative z-10">
+          <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-5 overflow-y-auto flex-1 relative z-10">
             <div>
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 tracking-wide uppercase">Endpoint Name</label>
               <div className="relative">

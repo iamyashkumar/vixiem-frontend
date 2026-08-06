@@ -34,6 +34,10 @@ warmupBackend();
 // However, because frontend (5173) and backend (8080) are different origins (ports),
 // Axios will not automatically read and send the XSRF-TOKEN cookie. We must inject it manually.
 api.interceptors.request.use((config) => {
+  const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN) || localStorage.getItem('accessToken');
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
   const match = document.cookie.match(new RegExp('(^| )XSRF-TOKEN=([^;]+)'));
   if (match) {
     config.headers['X-XSRF-TOKEN'] = decodeURIComponent(match[2]);
@@ -105,9 +109,15 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       return new Promise(function(resolve, reject) {
-        // Refresh using the HttpOnly refresh token cookie
-        axios.post(`${apiBaseUrl}${API_ENDPOINTS.AUTH.REFRESH}`, {}, { withCredentials: true })
-          .then(() => {
+        const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN) || localStorage.getItem('refreshToken');
+        axios.post(`${apiBaseUrl}${API_ENDPOINTS.AUTH.REFRESH}`, { refresh_token: refreshToken }, { withCredentials: true })
+          .then((res) => {
+            if (res.data?.accessToken) {
+              localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.data.accessToken);
+              if (res.data.refreshToken) {
+                localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.data.refreshToken);
+              }
+            }
             processQueue(null);
             resolve(api(originalRequest));
           })
