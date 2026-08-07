@@ -13,9 +13,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const hydrate = async () => {
-      const isDashboardRoute = window.location.pathname.startsWith('/dashboard');
-      if (!isDashboardRoute) {
+      const token = localStorage.getItem('vixiem_access_token') || localStorage.getItem('accessToken');
+      if (!token) {
+        setUser(null);
+        setIsAuthenticated(false);
         setIsInitializing(false);
+        return;
       }
       try {
         const userData = await authService.getCurrentUser();
