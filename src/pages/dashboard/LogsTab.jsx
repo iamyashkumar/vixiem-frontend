@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, RefreshCw, ChevronLeft, ChevronRight, FileText, ExternalLink } from 'lucide-react';
+import { Search, Filter, RefreshCw, ChevronLeft, ChevronRight, FileText, ExternalLink, XCircle } from 'lucide-react';
 import { logsService } from '../../services/logsService';
 import { endpointsService } from '../../services/endpointsService';
 import { LogStatusBadge } from '../../components/LogStatusBadge';
@@ -22,11 +22,21 @@ export const LogsTab = () => {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     endpointId: '',
     status: '', // 'UP' or 'DOWN'
     keyword: ''
   });
+
+  // Debounce search input changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilters(prev => (prev.keyword === searchTerm ? prev : { ...prev, keyword: searchTerm }));
+      setPage(0);
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   const fetchEndpoints = async () => {
     try {
@@ -161,19 +171,44 @@ export const LogsTab = () => {
             <option value="ERROR">ERROR</option>
           </select>
 
-          {/* Search */}
-          <div className="relative flex-1 sm:w-64">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search size={16} className="text-slate-400" />
-            </div>
+          {/* Interactive Search Form */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setFilters(prev => ({ ...prev, keyword: searchTerm }));
+              setPage(0);
+            }}
+            className="relative flex-1 sm:w-64 flex items-center"
+          >
+            <button
+              type="submit"
+              className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 hover:text-sky-500 transition-colors"
+              title="Click to search"
+            >
+              <Search size={16} />
+            </button>
             <input
               type="text"
-              placeholder="Search logs..."
-              value={filters.keyword || ''}
-              onChange={(e) => handleFilterChange('keyword', e.target.value)}
-              className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-9 px-4 py-2.5 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all h-full text-sm"
+              placeholder="Search logs (e.g. Github, 200, UP)..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-9 pr-8 py-2.5 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all h-full text-sm"
             />
-          </div>
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchTerm('');
+                  setFilters(prev => ({ ...prev, keyword: '' }));
+                  setPage(0);
+                }}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-rose-500 transition-colors"
+                title="Clear search"
+              >
+                <XCircle size={16} />
+              </button>
+            )}
+          </form>
           
           <button
             onClick={() => fetchLogs(false)}
