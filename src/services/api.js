@@ -8,7 +8,7 @@ const apiBaseUrl = config.apiBaseUrl;
 
 const api = axios.create({
   baseURL: apiBaseUrl,
-  timeout: 45000,
+  timeout: 75000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -20,7 +20,7 @@ const api = axios.create({
 // Silent background warmup call for Render free tier sleep mode
 export const warmupBackend = async () => {
   try {
-    await axios.get(`${apiBaseUrl}/health`, { timeout: 30000, withCredentials: true });
+    await axios.get(`${apiBaseUrl}/health`, { timeout: 75000, withCredentials: true });
   } catch (e) {
     // Ignore warmup errors
   }
