@@ -86,7 +86,8 @@ api.interceptors.response.use(
         originalRequest.url.includes(API_ENDPOINTS.AUTH.LOGIN) ||
         originalRequest.url.includes(API_ENDPOINTS.AUTH.REGISTER) ||
         originalRequest.url.includes(API_ENDPOINTS.AUTH.GOOGLE) ||
-        originalRequest.url.includes(API_ENDPOINTS.AUTH.ME)
+        originalRequest.url.includes(API_ENDPOINTS.AUTH.ME) ||
+        originalRequest.url.includes('/api/ai/')
       ) {
         return Promise.reject(error);
       }
@@ -105,17 +106,26 @@ api.interceptors.response.use(
         });
       }
 
+      const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN) || localStorage.getItem('refreshToken') || localStorage.getItem('vixiem_refresh_token');
+      if (!refreshToken) {
+        if (window.location.pathname.startsWith('/dashboard')) {
+          window.dispatchEvent(new Event('auth:logout'));
+        }
+        return Promise.reject(error);
+      }
+
       originalRequest._retry = true;
       isRefreshing = true;
 
       return new Promise(function(resolve, reject) {
-        const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN) || localStorage.getItem('refreshToken');
         axios.post(`${apiBaseUrl}${API_ENDPOINTS.AUTH.REFRESH}`, { refresh_token: refreshToken }, { withCredentials: true })
           .then((res) => {
             if (res.data?.accessToken) {
               localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.data.accessToken);
+              localStorage.setItem('vixiem_access_token', res.data.accessToken);
               if (res.data.refreshToken) {
                 localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.data.refreshToken);
+                localStorage.setItem('vixiem_refresh_token', res.data.refreshToken);
               }
             }
             processQueue(null);
@@ -123,7 +133,9 @@ api.interceptors.response.use(
           })
           .catch((err) => {
             processQueue(err);
-            window.dispatchEvent(new Event('auth:logout'));
+            if (window.location.pathname.startsWith('/dashboard')) {
+              window.dispatchEvent(new Event('auth:logout'));
+            }
             reject(err);
           })
           .finally(() => {

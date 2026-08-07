@@ -10,7 +10,15 @@ export const authService = {
         username,
       });
 
-      const { user } = response.data;
+      if (response.data?.accessToken) {
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
+        localStorage.setItem('vixiem_access_token', response.data.accessToken);
+      }
+      if (response.data?.refreshToken) {
+        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
+        localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
+      }
+
       toast.success('Registration successful!');
       return response.data;
     } catch (error) {
@@ -27,7 +35,15 @@ export const authService = {
         password,
       });
 
-      const { user } = response.data;
+      if (response.data?.accessToken) {
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
+        localStorage.setItem('vixiem_access_token', response.data.accessToken);
+      }
+      if (response.data?.refreshToken) {
+        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
+        localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
+      }
+
       toast.success('Login successful!');
       return response.data;
     } catch (error) {
@@ -46,6 +62,15 @@ export const authService = {
         credential,
       });
 
+      if (response.data?.accessToken) {
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
+        localStorage.setItem('vixiem_access_token', response.data.accessToken);
+      }
+      if (response.data?.refreshToken) {
+        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
+        localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
+      }
+
       toast.success('Google Login successful!');
       return response.data;
     } catch (error) {
@@ -61,6 +86,10 @@ export const authService = {
     } catch (e) {
       console.error('Logout failed:', e);
     }
+    localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+    localStorage.removeItem('vixiem_access_token');
+    localStorage.removeItem('vixiem_refresh_token');
     window.dispatchEvent(new Event('auth:logout'));
     toast.success('Logged out successfully');
   },
