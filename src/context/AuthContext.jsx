@@ -5,16 +5,31 @@ import { Loader2 } from 'lucide-react';
 
 export const AuthContext = createContext();
 
+const getInitialAuthState = () => {
+  try {
+    const token = localStorage.getItem('vixiem_access_token') || localStorage.getItem('accessToken');
+    const cachedUserStr = localStorage.getItem('vixiem_user');
+    if (token) {
+      let userObj = null;
+      if (cachedUserStr) {
+        try { userObj = JSON.parse(cachedUserStr); } catch (e) {}
+      }
+      return { isAuth: true, user: userObj, isInit: false };
+    }
+  } catch (e) {}
+  return { isAuth: false, user: null, isInit: false };
+};
+
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const initial = getInitialAuthState();
+  const [isAuthenticated, setIsAuthenticated] = useState(initial.isAuth);
   const [isLoading, setIsLoading] = useState(false);
-  const [isInitializing, setIsInitializing] = useState(true);
-  const [user, setUser] = useState(null);
+  const [isInitializing, setIsInitializing] = useState(initial.isInit);
+  const [user, setUser] = useState(initial.user);
 
   useEffect(() => {
     const hydrate = async () => {
       const token = localStorage.getItem('vixiem_access_token') || localStorage.getItem('accessToken');
-      const cachedUserStr = localStorage.getItem('vixiem_user');
       
       if (!token) {
         setUser(null);
@@ -23,15 +38,8 @@ export const AuthProvider = ({ children }) => {
         return;
       }
 
-      // Token exists -> user is authenticated on frontend
+      // Ensure state matches valid token
       setIsAuthenticated(true);
-      if (cachedUserStr) {
-        try {
-          setUser(JSON.parse(cachedUserStr));
-        } catch (e) {
-          // ignore json parse error
-        }
-      }
 
       try {
         const userData = await authService.getCurrentUser();

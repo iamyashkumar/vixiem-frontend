@@ -13,9 +13,15 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [unverifiedEmail, setUnverifiedEmail] = useState('');
-  const { login, loginWithGoogle, isLoading } = useAuth();
+  const { login, loginWithGoogle, isLoading, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [resending, setResending] = useState(false);
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleGoogleLoginHook = useGoogleLogin({
     onSuccess: async (tokenResponse) => {

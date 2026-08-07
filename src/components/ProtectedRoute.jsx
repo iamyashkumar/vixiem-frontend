@@ -4,13 +4,14 @@ import { useAuth } from '../hooks/useAuth';
 import { LoadingSpinner } from './common/LoadingSpinner';
 
 export const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { isAuthenticated, isLoading, user } = useAuth();
+  const { isAuthenticated, isLoading, isInitializing, user } = useAuth();
+  const token = typeof window !== 'undefined' ? (localStorage.getItem('vixiem_access_token') || localStorage.getItem('accessToken')) : null;
 
-  if (isLoading) {
+  if (isLoading || isInitializing) {
     return <LoadingSpinner />;
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !token) {
     return <Navigate to="/login" replace />;
   }
 
