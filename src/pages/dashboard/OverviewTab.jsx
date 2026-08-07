@@ -37,14 +37,18 @@ export const OverviewTab = () => {
     try {
       const sum = await analyticsService.getSummary();
       
-      const trend = [
-        { time: '00:00', uptime: parseFloat(sum?.uptimePercentage || 100), responseTime: sum?.averageResponseTime || 120 },
-        { time: '04:00', uptime: 99.8, responseTime: 145 },
-        { time: '08:00', uptime: 100, responseTime: 110 },
-        { time: '12:00', uptime: 100, responseTime: 160 },
-        { time: '16:00', uptime: 99.5, responseTime: 210 },
-        { time: '20:00', uptime: 100, responseTime: 130 },
-      ];
+      const uptimeVal = parseFloat(sum?.uptimePercentage || 0);
+      const avgResp = sum?.averageResponseTime || 0;
+      const hasEndpoints = (sum?.totalEndpoints || 0) > 0;
+
+      const trend = hasEndpoints ? [
+        { time: '00:00', uptime: uptimeVal, responseTime: avgResp },
+        { time: '04:00', uptime: uptimeVal, responseTime: avgResp },
+        { time: '08:00', uptime: uptimeVal, responseTime: avgResp },
+        { time: '12:00', uptime: uptimeVal, responseTime: avgResp },
+        { time: '16:00', uptime: uptimeVal, responseTime: avgResp },
+        { time: '20:00', uptime: uptimeVal, responseTime: avgResp },
+      ] : [];
 
       setSummary(sum);
       setTrendData(trend);
