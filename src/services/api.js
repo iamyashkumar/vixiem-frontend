@@ -86,7 +86,6 @@ api.interceptors.response.use(
         originalRequest.url.includes(API_ENDPOINTS.AUTH.LOGIN) ||
         originalRequest.url.includes(API_ENDPOINTS.AUTH.REGISTER) ||
         originalRequest.url.includes(API_ENDPOINTS.AUTH.GOOGLE) ||
-        originalRequest.url.includes(API_ENDPOINTS.AUTH.ME) ||
         originalRequest.url.includes('/api/ai/')
       ) {
         return Promise.reject(error);

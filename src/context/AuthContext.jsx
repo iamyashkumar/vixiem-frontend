@@ -14,21 +14,33 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const hydrate = async () => {
       const token = localStorage.getItem('vixiem_access_token') || localStorage.getItem('accessToken');
+      const cachedUserStr = localStorage.getItem('vixiem_user');
+      
       if (!token) {
         setUser(null);
         setIsAuthenticated(false);
         setIsInitializing(false);
         return;
       }
+
+      // Token exists -> user is authenticated on frontend
+      setIsAuthenticated(true);
+      if (cachedUserStr) {
+        try {
+          setUser(JSON.parse(cachedUserStr));
+        } catch (e) {
+          // ignore json parse error
+        }
+      }
+
       try {
         const userData = await authService.getCurrentUser();
         if (userData) {
           setUser(userData);
-          setIsAuthenticated(true);
+          localStorage.setItem('vixiem_user', JSON.stringify(userData));
         }
       } catch (err) {
-        setUser(null);
-        setIsAuthenticated(false);
+        console.warn("Background user hydration warning:", err);
       } finally {
         setIsInitializing(false);
       }
