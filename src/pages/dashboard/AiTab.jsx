@@ -105,7 +105,7 @@ export const AiTab = () => {
   if (loadingInitial) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 text-sky-500 animate-spin" />
+        <Loader2 className="w-8 h-8 text-sky-400 animate-spin" />
       </div>
     );
   }
@@ -118,8 +118,8 @@ export const AiTab = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-10">
       <div className="flex items-center gap-4 mb-8">
-        <div className="w-14 h-14 rounded-2xl bg-sky-500/10 dark:bg-indigo-500/20 flex items-center justify-center border border-sky-500/30 dark:border-indigo-500/30 shadow-[0_0_20px_rgba(14,165,233,0.2)]">
-          <Brain className="w-7 h-7 text-sky-600 dark:text-indigo-400" />
+        <div className="w-14 h-14 rounded-2xl bg-sky-400/10 dark:bg-sky-400/20 flex items-center justify-center border border-sky-400/40 dark:border-sky-400/30 shadow-[0_0_20px_rgba(14,165,233,0.2)]">
+          <Brain className="w-7 h-7 text-sky-500 dark:text-sky-400" />
         </div>
         <div>
            <h2 className="text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">AI Error Analysis</h2>
@@ -135,20 +135,20 @@ export const AiTab = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <div className="flex justify-between items-center mb-5">
               <h3 className="font-display font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                <Zap className="w-5 h-5 text-amber-500 fill-amber-500" />
+                <Zap className="w-5 h-5 text-sky-400 fill-sky-400" />
                 Daily AI Quota
               </h3>
               <span className="text-xs font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-slate-700 dark:text-slate-300 tracking-wider">
                 {limitStatus?.subscriptionPlan || 'FREE'}
               </span>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-[#0F172A] rounded-full h-2.5 mb-3 overflow-hidden border border-slate-200 dark:border-slate-800">
+            <div className="w-full bg-slate-100 dark:bg-[#08080A] rounded-full h-2.5 mb-3 overflow-hidden border border-slate-200 dark:border-slate-800">
               <div 
-                className={`h-full rounded-full transition-all duration-1000 ${percentage > 90 ? 'bg-rose-500' : percentage > 75 ? 'bg-amber-500' : 'bg-sky-500 dark:bg-indigo-500'}`}
+                className={`h-full rounded-full transition-all duration-1000 ${percentage > 90 ? 'bg-rose-500' : percentage > 75 ? 'bg-sky-400' : 'bg-sky-400 dark:bg-sky-400'}`}
                 style={{ width: `${percentage}%` }}
               ></div>
             </div>
@@ -163,19 +163,19 @@ export const AiTab = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <h3 className="font-display font-semibold text-slate-900 dark:text-white mb-5 text-lg">Select Errors to Analyze</h3>
             
             <div className="mb-5">
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 tracking-wide uppercase">Target Endpoint</label>
               <select
-                className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all"
+                className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all"
                 value={selectedEndpoint}
                 onChange={(e) => setSelectedEndpoint(e.target.value)}
               >
                 {endpoints.map(ep => (
-                  <option key={ep.id} value={ep.id} className="bg-white dark:bg-[#0F172A] text-slate-900 dark:text-white">{ep.name} ({ep.url})</option>
+                  <option key={ep.id} value={ep.id} className="bg-white dark:bg-[#08080A] text-slate-900 dark:text-white">{ep.name} ({ep.url})</option>
                 ))}
               </select>
             </div>
@@ -184,21 +184,21 @@ export const AiTab = () => {
               {loadingLogs ? (
                 <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-slate-400" /></div>
               ) : errorLogs.length === 0 ? (
-                <div className="text-center py-12 text-sm text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-[#0F172A] rounded-xl border border-slate-200 dark:border-slate-800">No recent errors found for this endpoint.</div>
+                <div className="text-center py-12 text-sm text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-[#08080A] rounded-xl border border-slate-200 dark:border-slate-800">No recent errors found for this endpoint.</div>
               ) : (
                 errorLogs.map(log => (
                   <label 
                     key={log.id} 
                     className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
                       selectedLogs.includes(log.id) 
-                        ? 'bg-sky-500/10 dark:bg-indigo-500/10 border-sky-500/50 dark:border-indigo-500/50 shadow-sm' 
-                        : 'bg-slate-50 dark:bg-[#0F172A] border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                        ? 'bg-sky-400/10 dark:bg-sky-400/10 border-sky-400/50 dark:border-sky-400/50 shadow-sm' 
+                        : 'bg-slate-50 dark:bg-[#08080A] border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <div className="pt-0.5">
                       <input 
                         type="checkbox" 
-                        className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 text-sky-500 dark:text-indigo-500 focus:ring-sky-500 cursor-pointer"
+                        className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 text-sky-400 dark:text-sky-400 focus:ring-sky-400 cursor-pointer"
                         checked={selectedLogs.includes(log.id)}
                         onChange={() => handleToggleLog(log.id)}
                       />
@@ -241,7 +241,7 @@ export const AiTab = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 min-h-[660px] shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 min-h-[660px] shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             {aiError === 'QUOTA' && (
               <div className="p-6 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-600 dark:text-rose-400 flex flex-col items-center text-center">
@@ -261,7 +261,7 @@ export const AiTab = () => {
 
             {!analyzing && !analysisResult && !aiError && (
               <div className="flex flex-col items-center justify-center h-[550px] text-center text-slate-500 dark:text-slate-400">
-                <div className="w-20 h-20 rounded-full bg-slate-100 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 flex items-center justify-center mb-6 text-sky-500 dark:text-indigo-400">
+                <div className="w-20 h-20 rounded-full bg-slate-100 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 flex items-center justify-center mb-6 text-sky-400 dark:text-sky-400">
                   <Brain size={40} />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display mb-2">No Analysis Running</h3>
@@ -273,7 +273,7 @@ export const AiTab = () => {
 
             {analyzing && (
               <div className="flex flex-col items-center justify-center h-[550px] text-center">
-                <Loader2 className="w-12 h-12 text-sky-500 animate-spin mb-4" />
+                <Loader2 className="w-12 h-12 text-sky-400 animate-spin mb-4" />
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display mb-2">Analyzing Logs with AI...</h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 font-light">Diagnosing stack traces and root causes...</p>
               </div>
@@ -290,7 +290,7 @@ export const AiTab = () => {
                     {analysisResult.severity && (
                       <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border font-mono ${
                         analysisResult.severity === 'HIGH' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30' :
-                        analysisResult.severity === 'MEDIUM' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30' :
+                        analysisResult.severity === 'MEDIUM' ? 'bg-sky-400/10 text-sky-500 dark:text-sky-400 border-sky-400/30' :
                         'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
                       }`}>
                         {analysisResult.severity} SEVERITY
@@ -309,12 +309,12 @@ export const AiTab = () => {
                 </div>
 
                 <div className="space-y-5">
-                  <div className="p-5 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
-                    <h4 className="text-xs font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-2">ROOT CAUSE</h4>
+                  <div className="p-5 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                    <h4 className="text-xs font-semibold text-sky-500 dark:text-sky-400 uppercase tracking-wider mb-2">ROOT CAUSE</h4>
                     <p className="text-sm font-medium text-slate-900 dark:text-white leading-relaxed">{analysisResult.rootCause || analysisResult.summary || 'Root cause identified.'}</p>
                   </div>
 
-                  <div className="p-5 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                  <div className="p-5 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
                     <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">SUGGESTED RESOLUTION</h4>
                     {Array.isArray(analysisResult.recommendations) && analysisResult.recommendations.length > 0 ? (
                       <ul className="space-y-2.5">

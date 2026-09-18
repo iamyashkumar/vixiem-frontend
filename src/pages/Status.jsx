@@ -6,11 +6,11 @@ import { CheckCircle } from 'lucide-react';
 export const Status = () => {
   return (
     <PageTransition>
-      <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 bg-[#0B0F17] text-slate-200">
+      <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 bg-[#0D0D10] text-slate-200">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto bg-[#131C2E] border border-slate-800 rounded-2xl p-8 shadow-2xl shadow-black/50 text-center"
+          className="max-w-4xl mx-auto bg-[#0D0D10] border border-slate-800 rounded-2xl p-8 shadow-2xl shadow-black/50 text-center"
         >
           <h1 className="text-3xl font-bold text-white mb-2 font-display">System Status</h1>
           <p className="text-slate-400 flex items-center justify-center gap-2 mt-4 text-lg font-light">

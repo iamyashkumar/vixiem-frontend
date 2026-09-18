@@ -9,7 +9,6 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { logout } = useAuth();
   const location = useLocation();
 
-  // Settings removed from sidebar menu as requested
   const navItems = [
     { name: 'Overview', path: '/dashboard/overview', icon: LayoutDashboard },
     { name: 'Endpoints', path: '/dashboard/endpoints', icon: Activity },
@@ -30,18 +29,18 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/60 dark:bg-black/70 z-40 md:hidden backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60 dark:bg-black/80 z-40 md:hidden backdrop-blur-sm"
             onClick={() => setSidebarOpen(false)}
           />
         )}
       </AnimatePresence>
 
       <motion.aside
-        className={`fixed md:sticky top-24 left-0 h-[calc(100vh-8rem)] w-64 bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-lg dark:shadow-xl dark:shadow-black/40 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        className={`fixed md:sticky top-24 left-0 h-[calc(100vh-8rem)] w-64 bg-white dark:bg-[#0D0D10] border border-sky-200/80 dark:border-sky-400/20 rounded-2xl p-5 z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-lg dark:shadow-xl dark:shadow-black/60 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
       >
-        <div className="flex items-center justify-between md:hidden mb-5 pb-3 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between md:hidden mb-5 pb-3 border-b border-sky-200 dark:border-sky-400/20">
           <Logo size="sm" />
-          <button onClick={() => setSidebarOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white p-1">
+          <button onClick={() => setSidebarOpen(false)} className="text-zinc-500 dark:text-zinc-400 hover:text-sky-400 p-1">
             <X size={22} />
           </button>
         </div>
@@ -54,11 +53,11 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               onClick={() => setSidebarOpen(false)}
               className={`px-4 py-3 rounded-xl flex items-center font-medium text-sm transition-all duration-200 ${
                 isActive(item.path)
-                  ? 'text-sky-600 dark:text-sky-400 bg-sky-500/10 shadow-sm border border-sky-500/30 font-semibold'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80 border border-transparent'
+                  ? 'text-sky-800 dark:text-sky-300 bg-sky-400/20 dark:bg-sky-400/10 shadow-sm border border-sky-400/40 font-bold'
+                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-sky-50 dark:hover:bg-sky-400/10 border border-transparent'
               }`}
             >
-              <item.icon size={18} className="mr-3 shrink-0" /> {item.name}
+              <item.icon size={18} className={`mr-3 shrink-0 ${isActive(item.path) ? 'text-sky-500 dark:text-sky-400' : ''}`} /> {item.name}
             </Link>
           ))}
         </nav>

@@ -43,7 +43,7 @@ export const AnalyticsChart = ({ endpointId }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 text-sky-500 animate-spin" />
+        <Loader2 className="w-8 h-8 text-sky-400 animate-spin" />
       </div>
     );
   }
@@ -59,9 +59,9 @@ export const AnalyticsChart = ({ endpointId }) => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 p-3 rounded-xl shadow-lg text-xs font-mono">
+        <div className="bg-white dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 p-3 rounded-xl shadow-lg text-xs font-mono">
           <p className="text-slate-500 dark:text-slate-400 font-semibold mb-1">{label}</p>
-          <p className="text-sky-600 dark:text-sky-400 font-bold">
+          <p className="text-sky-500 dark:text-sky-400 font-bold">
             Avg Response: {payload[0].value}ms
           </p>
           {payload[0].payload.errorCount > 0 && (
@@ -87,8 +87,8 @@ export const AnalyticsChart = ({ endpointId }) => {
         >
           <defs>
             <linearGradient id="colorAvg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.4}/>
-              <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0}/>
+              <stop offset="5%" stopColor="#38BDF8" stopOpacity={0.4}/>
+              <stop offset="95%" stopColor="#38BDF8" stopOpacity={0}/>
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
@@ -112,7 +112,7 @@ export const AnalyticsChart = ({ endpointId }) => {
           <Area 
             type="monotone" 
             dataKey="avgResponseTime" 
-            stroke="#0ea5e9" 
+            stroke="#38BDF8" 
             strokeWidth={2.5}
             fillOpacity={1} 
             fill="url(#colorAvg)" 

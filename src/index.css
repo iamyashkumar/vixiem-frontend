@@ -11,17 +11,18 @@
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: dark light;
   }
 
   body {
     font-family: 'Inter', sans-serif;
-    background-color: #0B0F17;
+    background-color: #08080A;
     color: #F8FAFC;
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -38,64 +39,60 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #1E293B;
+    background: #18181B;
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #38BDF8;
   }
 
   ::selection {
-    background: #0EA5E9;
-    color: #ffffff;
+    background: #38BDF8;
+    color: #000000;
   }
 
   :focus-visible {
-    outline: 2px solid #0EA5E9;
+    outline: 2px solid #38BDF8;
     outline-offset: 3px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      scroll-behavior: auto !important;
-      transition-duration: 0.01ms !important;
-    }
   }
 }
 
-/* Light Theme Root Body Overrides */
+/* Light Mode Overrides (White + Yellow Palette) */
 html.light, html[data-theme='light'] {
   color-scheme: light;
 }
 
 html.light body, html[data-theme='light'] body {
-  background-color: #F8FAFC;
-  color: #0F172A;
+  background-color: #FFFFFF;
+  color: #09090B;
 }
 
-/* Custom Component Tokens */
+/* Custom Component Tokens for Yellow & White (Light) & Yellow & Black (Dark) */
 @layer components {
+  /* Panels */
   .glass-panel {
-    @apply bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-black/40;
+    @apply bg-white dark:bg-[#0D0D10] border border-sky-200 dark:border-sky-400/20 rounded-2xl shadow-xl shadow-sky-400/5 dark:shadow-black/60 transition-colors duration-300;
   }
   
+  /* Cards */
   .glass-card {
-    @apply bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800/90 rounded-xl shadow-md dark:shadow-black/30 transition-all duration-300 hover:border-sky-500/40 hover:-translate-y-1;
+    @apply bg-[#FFFDF5] dark:bg-[#141418] border border-sky-200/90 dark:border-sky-400/20 rounded-xl shadow-sm dark:shadow-black/50 transition-all duration-300 hover:border-sky-400 dark:hover:border-sky-400/60 hover:shadow-md hover:shadow-sky-400/10 hover:-translate-y-0.5;
   }
 
+  /* Gradient Text - Golden Yellow Accents */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-cyan-400 to-indigo-500 dark:from-sky-400 dark:via-cyan-300 dark:to-indigo-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-sky-400 to-sky-600 dark:from-sky-400 dark:via-sky-300 dark:to-sky-400;
   }
   
+  /* Primary Button - High Contrast Cyber Yellow */
   .btn-primary {
-    @apply relative overflow-hidden bg-gradient-to-r from-sky-500 via-sky-600 to-indigo-600 !text-white font-semibold rounded-xl px-6 py-2.5 transition-all duration-300 hover:shadow-[0_0_20px_rgba(14,165,233,0.4)] hover:scale-[1.02] active:scale-[0.98];
+    @apply relative overflow-hidden bg-gradient-to-r from-sky-400 via-sky-400 to-sky-400 text-white font-extrabold rounded-xl px-6 py-2.5 transition-all duration-300 hover:shadow-[0_0_24px_rgba(14,165,233,0.45)] hover:scale-[1.02] active:scale-[0.98];
   }
 
+  /* Secondary Button */
   .btn-secondary {
-    @apply bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-medium rounded-xl px-6 py-2.5 transition-all duration-300 hover:bg-slate-200 dark:hover:bg-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 active:scale-[0.98];
+    @apply bg-sky-50 dark:bg-[#18181C] border border-sky-200 dark:border-sky-400/25 text-sky-800 dark:text-sky-100 font-semibold rounded-xl px-6 py-2.5 transition-all duration-300 hover:bg-sky-100 dark:hover:bg-sky-400/15 hover:border-sky-300 dark:hover:border-sky-400/50 active:scale-[0.98];
   }
 }
 

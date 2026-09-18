@@ -32,7 +32,7 @@ export const Dashboard = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-[#0B0F17] text-slate-200 pt-16 flex">
+      <div className="min-h-screen bg-[#0D0D10] text-slate-200 pt-16 flex">
         
         {/* Mobile Menu Overlay */}
         <AnimatePresence>
@@ -49,7 +49,7 @@ export const Dashboard = () => {
 
         {/* Sidebar */}
         <motion.aside
-          className={`fixed md:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-[#131C2E] border-r border-slate-800 p-6 z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+          className={`fixed md:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-[#0D0D10] border-r border-slate-800 p-6 z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
         >
           <div className="flex items-center justify-between md:hidden mb-6">
             <span className="font-bold text-lg text-white">Menu</span>
@@ -59,7 +59,7 @@ export const Dashboard = () => {
           </div>
 
           <nav className="flex flex-col gap-2 flex-grow">
-            <Link to="/dashboard" className="px-4 py-3 rounded-xl flex items-center text-sky-400 bg-sky-500/10 border border-sky-500/20 font-semibold transition-colors">
+            <Link to="/dashboard" className="px-4 py-3 rounded-xl flex items-center text-sky-400 bg-sky-400/10 border border-sky-400/20 font-semibold transition-colors">
               <BarChart2 size={18} className="mr-3" /> Dashboard
             </Link>
             <Link to="/analytics" className="px-4 py-3 rounded-xl flex items-center text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium transition-colors">
@@ -118,7 +118,7 @@ export const Dashboard = () => {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                className="bg-[#182234] border border-slate-800/90 rounded-2xl p-6 shadow-xl shadow-black/30 hover:border-sky-500/40 transition-colors"
+                className="bg-[#141418] border border-slate-800/90 rounded-2xl p-6 shadow-xl shadow-black/30 hover:border-sky-400/40 transition-colors"
                 variants={itemVariants}
                 whileHover={{ translateY: -4 }}
               >
@@ -133,7 +133,7 @@ export const Dashboard = () => {
 
           {/* Recent Activity & Chart */}
           <motion.div
-            className="bg-[#182234] border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/30"
+            className="bg-[#141418] border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/30"
             variants={itemVariants}
             initial="hidden"
             animate="visible"

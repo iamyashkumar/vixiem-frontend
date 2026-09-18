@@ -152,62 +152,69 @@ public class Application {
 
   return (
     <PageTransition>
-      <div className="min-h-screen text-slate-800 dark:text-slate-200 bg-transparent overflow-x-hidden selection:bg-sky-500 selection:text-white pt-24 sm:pt-28 pb-16 w-full">
+      <div className="min-h-screen text-slate-800 dark:text-slate-200 bg-transparent overflow-x-hidden selection:bg-sky-400 selection:text-white pt-24 sm:pt-28 pb-16 w-full">
         
-        {/* HERO SECTION */}
+        {/* HERO SECTION - STRIPE / LINEAR STYLE */}
         <section className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 pb-16 lg:pb-24">
+          
+          {/* Ambient Warm Gold Glow Blob */}
+          <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-sky-400/15 dark:bg-sky-400/10 blur-[130px] rounded-full pointer-events-none -z-10 animate-pulse-slow"></div>
+
           <motion.div 
             className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
-            {/* Left Column */}
+                        {/* Left Column */}
             <motion.div variants={itemVariants} className="lg:col-span-7 xl:col-span-7 text-center lg:text-left space-y-6">
               
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 dark:bg-[#182234] border border-sky-500/30 text-sky-600 dark:text-sky-400 text-xs sm:text-sm font-medium shadow-sm">
+              {/* Datadog Live Status Badge */}
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-sky-500/10 dark:bg-sky-500/15 border border-sky-500/25 text-sky-700 dark:text-sky-300 text-xs font-semibold tracking-wide">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-400"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
                 </span>
-                Vixiem Endpoint Monitoring v2.0 is Live
+                <span className="font-mono">LIVE TELEMETRY & AI DIAGNOSTICS</span>
               </div>
               
-              {/* Main Headline */}
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
-                Monitor & Track API Endpoints <br className="hidden sm:block" />
-                <span className="text-gradient">in Real Time</span>
+              {/* Single-Line Bold Datadog Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-black tracking-tight text-zinc-950 dark:text-white leading-[1.14]">
+                Monitor & Track{" "}
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-sky-400 to-cyan-500 dark:from-sky-300 dark:via-sky-400 dark:to-cyan-300">
+                  API Endpoints
+                </span>{" "}
+                in Real Time
               </h1>
               
               {/* Sub-headline */}
-              <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                The all-in-one endpoint observability platform. Track status codes, response times, 
+              <p className="text-base sm:text-lg lg:text-xl text-zinc-600 dark:text-zinc-400 font-normal max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                The all-in-one endpoint observability platform. Track response times, status codes, 
                 and live telemetry across all your backend services with instant AI anomaly alerts.
               </p>
               
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2 w-full">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-1 w-full">
                 {isAuthenticated ? (
                   <Link 
                     to="/dashboard" 
-                    className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 group px-8 py-4 text-base sm:text-lg shadow-xl"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-base shadow-lg shadow-sky-500/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
                   >
                     Go to Dashboard
-                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight className="w-4 h-4" />
                   </Link>
                 ) : (
                   <>
                     <Link 
                       to="/register" 
-                      className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2.5 group px-8 py-4 text-base sm:text-lg shadow-xl"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-base shadow-lg shadow-sky-500/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
                     >
-                      Get Started Free
-                      <Zap className="w-5 h-5 group-hover:scale-110 transition-transform text-yellow-300 fill-yellow-300" />
+                      Start Monitoring Free
+                      <ChevronRight className="w-4 h-4" />
                     </Link>
                     <Link 
                       to="/login" 
-                      className="btn-secondary w-full sm:w-auto px-8 py-4 text-base sm:text-lg flex items-center justify-center"
+                      className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 hover:border-sky-400 text-zinc-800 dark:text-zinc-200 font-semibold text-base transition-all duration-200 hover:bg-zinc-50 dark:hover:bg-zinc-800/80"
                     >
                       Sign In
                     </Link>
@@ -216,81 +223,129 @@ public class Application {
               </div>
 
               {/* Trust Bullets */}
-              <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-sky-500 dark:text-sky-400 shrink-0" /> No credit card required</span>
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-sky-500 dark:text-sky-400 shrink-0" /> 2-minute SDK setup</span>
-                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-sky-500 dark:text-sky-400 shrink-0" /> 99.99% Endpoint Uptime</span>
+              <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-medium">
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> No credit card required</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 2-minute SDK setup</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 99.99% Uptime SLA</span>
               </div>
             </motion.div>
 
-            {/* Right Live Telemetry Terminal */}
+            {/* Right Live Telemetry Terminal (Datadog Developer Style) */}
             <motion.div variants={itemVariants} className="lg:col-span-5 xl:col-span-5 w-full">
-              <div className="rounded-2xl bg-[#090D16] border border-slate-800 shadow-2xl overflow-hidden shadow-sky-500/10 w-full">
+              <div className="rounded-2xl bg-white dark:bg-[#08080A] border border-zinc-200 dark:border-zinc-800/90 shadow-2xl shadow-sky-500/10 overflow-hidden w-full transition-all">
                 
-                {/* Terminal Header */}
-                <div className="bg-[#0F172A] px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <div className="w-3 h-3 rounded-full bg-rose-500/90 shrink-0" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/90 shrink-0" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-500/90 shrink-0" />
-                    <span className="text-xs text-slate-300 font-mono truncate ml-2">telemetry-stream.log</span>
+                {/* Console Header Bar */}
+                <div className="bg-zinc-50 dark:bg-[#0D0D10] px-4 py-3 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                    </div>
+                    <span className="text-xs font-mono font-medium text-zinc-600 dark:text-zinc-400 truncate pl-1">
+                      vixiem-agent • us-east-1
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/30 font-mono shrink-0 font-bold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                    LIVE
-                  </div>
-                </div>
-
-                {/* Key Metric Indicators */}
-                <div className="p-3.5 sm:p-4 grid grid-cols-3 gap-2.5 border-b border-slate-800/90 bg-[#131C2E]/60">
-                  <div className="bg-[#0B0F17] p-2.5 sm:p-3 rounded-xl border border-slate-800 text-center sm:text-left">
-                    <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Avg Latency</p>
-                    <p className="text-sm sm:text-lg font-bold text-sky-400 font-mono">14.2 ms</p>
-                  </div>
-                  <div className="bg-[#0B0F17] p-2.5 sm:p-3 rounded-xl border border-slate-800 text-center sm:text-left">
-                    <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Req Rate</p>
-                    <p className="text-sm sm:text-lg font-bold text-emerald-400 font-mono">1,420 rps</p>
-                  </div>
-                  <div className="bg-[#0B0F17] p-2.5 sm:p-3 rounded-xl border border-slate-800 text-center sm:text-left">
-                    <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Success</p>
-                    <p className="text-sm sm:text-lg font-bold text-indigo-400 font-mono">99.98%</p>
+                  <div className="flex items-center gap-1.5 text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    HEALTHY
                   </div>
                 </div>
 
-                {/* Stream Console */}
-                <div className="p-4 sm:p-5 font-mono text-xs space-y-3 bg-[#0B0F17] min-h-[200px] overflow-x-auto">
-                  <div className="flex items-center justify-between text-slate-200 gap-2">
-                    <span className="text-emerald-400 font-semibold truncate">POST /api/v1/auth/verify</span>
-                    <span className="bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded text-[10px] shrink-0 border border-emerald-500/30">200 OK</span>
-                    <span className="text-slate-400 shrink-0">18ms</span>
+                {/* Key Metric HUD Cards */}
+                <div className="p-3 grid grid-cols-3 gap-2 border-b border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-[#0A0A0E]">
+                  <div className="bg-white dark:bg-[#111116] p-2.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 text-left">
+                    <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-semibold uppercase tracking-wider">Avg Latency</p>
+                    <p className="text-sm sm:text-base font-bold text-sky-500 dark:text-sky-400 font-mono mt-0.5">14.2 ms</p>
                   </div>
-
-                  <div className="flex items-center justify-between text-slate-200 gap-2">
-                    <span className="text-sky-400 font-semibold truncate">GET /api/v1/endpoints/health</span>
-                    <span className="bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded text-[10px] shrink-0 border border-emerald-500/30">200 OK</span>
-                    <span className="text-slate-400 shrink-0">12ms</span>
+                  <div className="bg-white dark:bg-[#111116] p-2.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 text-left">
+                    <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-semibold uppercase tracking-wider">Throughput</p>
+                    <p className="text-sm sm:text-base font-bold text-emerald-500 dark:text-emerald-400 font-mono mt-0.5">1,420 rps</p>
                   </div>
-
-                  <div className="flex items-center justify-between text-slate-200 gap-2">
-                    <span className="text-indigo-400 font-semibold truncate">POST /api/v1/telemetry/ingest</span>
-                    <span className="bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded text-[10px] shrink-0 border border-emerald-500/30">201 CREATED</span>
-                    <span className="text-slate-400 shrink-0">24ms</span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-slate-200 gap-2">
-                    <span className="text-purple-400 font-semibold truncate">GET /api/v1/users/profile</span>
-                    <span className="bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded text-[10px] shrink-0 border border-emerald-500/30">200 OK</span>
-                    <span className="text-slate-400 shrink-0">9ms</span>
+                  <div className="bg-white dark:bg-[#111116] p-2.5 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 text-left">
+                    <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-semibold uppercase tracking-wider">Success</p>
+                    <p className="text-sm sm:text-base font-bold text-sky-500 dark:text-sky-400 font-mono mt-0.5">99.98%</p>
                   </div>
                 </div>
 
-                {/* Footer Bar */}
-                <div className="p-3 bg-[#0F172A] border-t border-slate-800 flex items-center justify-between text-xs text-slate-300">
-                  <div className="flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                    <span className="truncate">AI Anomaly Guard Active</span>
+                {/* Live Endpoint Cards with Latency Bars */}
+                <div className="p-3.5 space-y-2.5 font-mono text-xs bg-white dark:bg-[#08080A]">
+                  {/* Endpoint 1 */}
+                  <div className="p-2.5 rounded-xl bg-zinc-50 dark:bg-[#0E0E12] border border-zinc-200/70 dark:border-zinc-800/70 hover:border-sky-400/40 transition-colors">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <div className="flex items-center gap-2 truncate">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">POST</span>
+                        <span className="text-zinc-800 dark:text-zinc-200 font-semibold truncate text-[11px]">/api/v1/auth/verify</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded shrink-0">200 OK</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px]">
+                      <div className="flex-1 bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-emerald-500 h-full rounded-full" style={{ width: '28%' }} />
+                      </div>
+                      <span className="font-mono text-zinc-600 dark:text-zinc-400 font-medium shrink-0">18ms</span>
+                    </div>
                   </div>
-                  <span className="text-slate-400 font-mono shrink-0">0 Errors</span>
+
+                  {/* Endpoint 2 */}
+                  <div className="p-2.5 rounded-xl bg-zinc-50 dark:bg-[#0E0E12] border border-zinc-200/70 dark:border-zinc-800/70 hover:border-sky-400/40 transition-colors">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <div className="flex items-center gap-2 truncate">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">GET</span>
+                        <span className="text-zinc-800 dark:text-zinc-200 font-semibold truncate text-[11px]">/api/v1/endpoints/health</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded shrink-0">200 OK</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px]">
+                      <div className="flex-1 bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-sky-400 h-full rounded-full" style={{ width: '18%' }} />
+                      </div>
+                      <span className="font-mono text-zinc-600 dark:text-zinc-400 font-medium shrink-0">12ms</span>
+                    </div>
+                  </div>
+
+                  {/* Endpoint 3 */}
+                  <div className="p-2.5 rounded-xl bg-zinc-50 dark:bg-[#0E0E12] border border-zinc-200/70 dark:border-zinc-800/70 hover:border-sky-400/40 transition-colors">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <div className="flex items-center gap-2 truncate">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">POST</span>
+                        <span className="text-zinc-800 dark:text-zinc-200 font-semibold truncate text-[11px]">/api/v1/telemetry/ingest</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded shrink-0">201 CREATED</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px]">
+                      <div className="flex-1 bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-emerald-500 h-full rounded-full" style={{ width: '36%' }} />
+                      </div>
+                      <span className="font-mono text-zinc-600 dark:text-zinc-400 font-medium shrink-0">24ms</span>
+                    </div>
+                  </div>
+
+                  {/* Endpoint 4 */}
+                  <div className="p-2.5 rounded-xl bg-zinc-50 dark:bg-[#0E0E12] border border-zinc-200/70 dark:border-zinc-800/70 hover:border-sky-400/40 transition-colors">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <div className="flex items-center gap-2 truncate">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">GET</span>
+                        <span className="text-zinc-800 dark:text-zinc-200 font-semibold truncate text-[11px]">/api/v1/users/profile</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded shrink-0">200 OK</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px]">
+                      <div className="flex-1 bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-sky-400 h-full rounded-full" style={{ width: '14%' }} />
+                      </div>
+                      <span className="font-mono text-zinc-600 dark:text-zinc-400 font-medium shrink-0">9ms</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Console Footer */}
+                <div className="p-3 bg-zinc-50 dark:bg-[#0D0D10] border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs text-zinc-600 dark:text-zinc-400">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-3.5 h-3.5 text-sky-500 shrink-0" />
+                    <span className="font-medium truncate">AI Anomaly Guard Active</span>
+                  </div>
+                  <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">0 Anomalies Detected</span>
                 </div>
               </div>
             </motion.div>
@@ -298,7 +353,7 @@ public class Application {
         </section>
 
         {/* SDK CODE PREVIEW */}
-        <section className="w-full bg-slate-200/50 dark:bg-[#131C2E]/60 py-16 sm:py-20 border-y border-slate-200 dark:border-slate-800">
+        <section className="w-full bg-sky-50/30 dark:bg-[#0D0D10]/60 py-16 sm:py-20 border-y border-slate-200 dark:border-slate-800">
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
             <div className="text-center max-w-2xl mx-auto mb-10">
               <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 dark:text-white font-display mb-3">
@@ -309,9 +364,9 @@ public class Application {
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto bg-slate-900 dark:bg-[#0F172A] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl w-full">
+            <div className="max-w-4xl mx-auto bg-slate-900 dark:bg-[#08080A] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl w-full">
               {/* Tab Nav */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 bg-slate-950 dark:bg-[#182234] border-b border-slate-800 gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-3.5 bg-slate-950 dark:bg-[#141418] border-b border-slate-800 gap-3">
                 <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none w-full sm:w-auto">
                   {[
                     { id: 'node', label: 'Node.js / Express' },
@@ -324,7 +379,7 @@ public class Application {
                       onClick={() => setActiveCodeTab(tab.id)}
                       className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all shrink-0 ${
                         activeCodeTab === tab.id
-                          ? 'bg-sky-500 text-white shadow-md'
+                          ? 'bg-sky-400 text-white font-extrabold shadow-md shadow-sky-500/20'
                           : 'text-slate-400 hover:text-white hover:bg-slate-800'
                       }`}
                     >
@@ -352,7 +407,7 @@ public class Application {
               </div>
 
               {/* Code */}
-              <div className="p-5 sm:p-6 bg-slate-950 dark:bg-[#0B0F17] overflow-x-auto font-mono text-xs sm:text-sm leading-relaxed text-sky-200 w-full">
+              <div className="p-5 sm:p-6 bg-slate-950 dark:bg-[#0D0D10] overflow-x-auto font-mono text-xs sm:text-sm leading-relaxed text-sky-200 w-full">
                 <pre className="whitespace-pre">{codeSnippets[activeCodeTab]}</pre>
               </div>
             </div>
@@ -376,10 +431,10 @@ public class Application {
               return (
                 <div
                   key={index}
-                  className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-7 hover:border-sky-500/40 transition-all duration-300 group shadow-sm dark:shadow-none"
+                  className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-7 hover:border-sky-400/50 transition-all duration-300 group shadow-sm dark:shadow-none"
                 >
-                  <div className="w-12 h-12 bg-sky-500/10 border border-sky-500/20 rounded-xl flex items-center justify-center mb-5 group-hover:bg-sky-500/20 transition-colors">
-                    <Icon size={24} className="text-sky-600 dark:text-sky-400" />
+                  <div className="w-12 h-12 bg-sky-400/10 border border-sky-400/20 rounded-xl flex items-center justify-center mb-5 group-hover:bg-sky-400/20 transition-colors">
+                    <Icon size={24} className="text-sky-500 dark:text-sky-400" />
                   </div>
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 font-display">
                     {feature.title}
@@ -392,7 +447,7 @@ public class Application {
         </section>
 
         {/* HOW IT WORKS */}
-        <section id="how-it-works" className="w-full bg-slate-200/50 dark:bg-[#131C2E]/60 py-20 border-y border-slate-200 dark:border-slate-800">
+        <section id="how-it-works" className="w-full bg-sky-50/30 dark:bg-[#0D0D10]/60 py-20 border-y border-slate-200 dark:border-slate-800">
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
             <div className="text-center max-w-2xl mx-auto mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white font-display mb-3">
@@ -407,11 +462,11 @@ public class Application {
               {steps.map((step, idx) => {
                 const Icon = step.icon;
                 return (
-                  <div key={idx} className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-7 shadow-sm dark:shadow-none">
+                  <div key={idx} className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-7 shadow-sm dark:shadow-none">
                     <div className="flex items-center justify-between mb-5">
-                      <span className="text-3xl font-extrabold text-sky-500/40 font-display">{step.step}</span>
-                      <div className="w-10 h-10 bg-sky-500/10 border border-sky-500/30 rounded-xl flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+                      <span className="text-3xl font-extrabold text-sky-400/40 font-display">{step.step}</span>
+                      <div className="w-10 h-10 bg-sky-400/10 border border-sky-400/30 rounded-xl flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-sky-500 dark:text-sky-400" />
                       </div>
                     </div>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 font-display">{step.title}</h3>
@@ -433,11 +488,11 @@ public class Application {
               Start free and scale as your traffic grows.
             </p>
 
-            <div className="inline-flex items-center gap-2 p-1.5 rounded-xl bg-slate-100 dark:bg-[#182234] border border-slate-200 dark:border-slate-800">
+            <div className="inline-flex items-center gap-2 p-1.5 rounded-xl bg-slate-100 dark:bg-[#141418] border border-slate-200 dark:border-slate-800">
               <button
                 onClick={() => setBillingCycle('monthly')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  billingCycle === 'monthly' ? 'bg-sky-500 text-white shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  billingCycle === 'monthly' ? 'bg-sky-400 text-white font-extrabold shadow-md shadow-sky-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Monthly Billing
@@ -445,7 +500,7 @@ public class Application {
               <button
                 onClick={() => setBillingCycle('annual')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 ${
-                  billingCycle === 'annual' ? 'bg-sky-500 text-white shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  billingCycle === 'annual' ? 'bg-sky-400 text-white font-extrabold shadow-md shadow-sky-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 <span>Annual Billing</span>
@@ -462,12 +517,12 @@ public class Application {
                   key={index}
                   className={`rounded-2xl p-7 flex flex-col justify-between relative ${
                     plan.highlight
-                      ? 'bg-gradient-to-b from-sky-50 to-white dark:from-[#18253D] dark:to-[#131C2E] border-2 border-sky-500 shadow-xl shadow-sky-500/10 md:scale-[1.02]'
-                      : 'bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none'
+                      ? 'bg-gradient-to-b from-sky-400/10 via-sky-400/5 to-white dark:from-[#141418] dark:to-[#0D0D10] border-2 border-sky-400 shadow-xl shadow-sky-400/10/10 md:scale-[1.02]'
+                      : 'bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none'
                   }`}
                 >
                   {plan.highlight && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-500 to-indigo-500 text-white text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow">
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-400 via-sky-400 to-sky-400 text-white font-black text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow">
                       Most Popular
                     </div>
                   )}
@@ -484,7 +539,7 @@ public class Application {
                     <ul className="space-y-3 mb-6">
                       {plan.features.map((feat, fIdx) => (
                         <li key={fIdx} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-light">
-                          <Check className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400 shrink-0" />
+                          <Check className="w-3.5 h-3.5 text-sky-400 dark:text-sky-400 shrink-0" />
                           <span>{feat}</span>
                         </li>
                       ))}
@@ -508,12 +563,12 @@ public class Application {
         </section>
 
         {/* STATS BANNER */}
-        <section className="w-full bg-slate-200/50 dark:bg-[#131C2E] py-16 border-y border-slate-200 dark:border-slate-800">
+        <section className="w-full bg-sky-50/30 dark:bg-[#0D0D10] py-16 border-y border-slate-200 dark:border-slate-800">
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
               {stats.map((stat, index) => (
                 <div key={index} className="space-y-1">
-                  <h2 className="text-3xl sm:text-4xl font-extrabold text-sky-600 dark:text-sky-400 font-display">
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-sky-500 dark:text-sky-400 font-display">
                     {stat.value}
                   </h2>
                   <p className="text-slate-600 dark:text-slate-400 font-medium tracking-wide uppercase text-xs">{stat.label}</p>
@@ -523,25 +578,32 @@ public class Application {
           </div>
         </section>
 
-        {/* CTA BANNER */}
+                {/* CTA BANNER - CYBER YELLOW & OBSIDIAN STYLING */}
         <section className="w-full max-w-[1000px] mx-auto px-4 sm:px-8 lg:px-12 py-20">
-          <div className="rounded-3xl bg-gradient-to-r from-sky-600 via-sky-500 to-indigo-600 p-8 sm:p-14 text-center shadow-2xl shadow-sky-500/20">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white font-display mb-4 tracking-tight">
-              Ready to Monitor Your API Endpoints?
+          <div className="rounded-3xl bg-gradient-to-r from-sky-400 via-sky-400 to-sky-400 dark:from-zinc-950 dark:via-black dark:to-zinc-950 border border-sky-400/40 p-8 sm:p-14 text-center shadow-2xl shadow-sky-400/20 backdrop-blur-xl relative overflow-hidden">
+            
+            {/* Soft Ambient Radial Glow */}
+            <div className="absolute inset-0 bg-sky-400/10 dark:bg-sky-400/5 blur-2xl pointer-events-none"></div>
+
+            <h2 className="text-2xl sm:text-4xl font-black text-zinc-950 dark:text-white font-display mb-4 tracking-tight relative z-10">
+              Ready to Monitor Your{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-950 dark:from-sky-400 dark:to-sky-300">
+                API Endpoints?
+              </span>
             </h2>
-            <p className="text-sky-100 text-sm sm:text-base max-w-xl mx-auto mb-8 font-light">
-              Join thousands of developers using Vixiem for real-time endpoint monitoring and telemetry.
+            <p className="text-zinc-900 dark:text-zinc-300 text-sm sm:text-base max-w-xl mx-auto mb-8 font-medium relative z-10">
+              Join thousands of developers using Vixiem for real-time endpoint monitoring and AI diagnostics.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
               <Link
                 to="/register"
-                className="bg-white text-slate-950 hover:bg-slate-100 font-bold px-8 py-3.5 rounded-xl text-base transition-all shadow-md w-full sm:w-auto"
+                className="bg-zinc-950 dark:bg-sky-400 text-sky-400 dark:text-black hover:bg-zinc-900 dark:hover:bg-sky-300 font-extrabold px-8 py-3.5 rounded-xl text-base transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto"
               >
                 Start Free Trial
               </Link>
               <Link
                 to="/login"
-                className="bg-slate-950/40 text-white hover:bg-slate-950/60 font-semibold px-8 py-3.5 rounded-xl text-base transition-all border border-white/20 w-full sm:w-auto"
+                className="bg-sky-500/20 dark:bg-zinc-900 text-zinc-950 dark:text-sky-300 hover:bg-sky-500/30 dark:hover:bg-zinc-800 font-bold px-8 py-3.5 rounded-xl text-base transition-all border border-sky-400/40 w-full sm:w-auto"
               >
                 Sign In
               </Link>

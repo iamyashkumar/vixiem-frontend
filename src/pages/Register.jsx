@@ -90,13 +90,13 @@ export const Register = () => {
   if (success) {
     return (
       <PageTransition>
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#0B0F17] p-8 text-center transition-colors duration-200">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#0D0D10] p-8 text-center transition-colors duration-200">
           <motion.div
-            className="w-full max-w-md bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 p-10 rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/50"
+            className="w-full max-w-md bg-white dark:bg-[#0D0D10] border border-slate-200 dark:border-slate-800 p-10 rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/50"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="w-20 h-20 bg-sky-500/10 text-sky-500 dark:text-sky-400 border border-sky-500/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(14,165,233,0.3)]">
+            <div className="w-20 h-20 bg-sky-400/10 text-sky-400 dark:text-sky-400 border border-sky-400/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(14,165,233,0.3)]">
               <Mail size={40} />
             </div>
             <h1 className="text-3xl font-display font-bold text-slate-900 dark:text-white mb-2">Check Your Email</h1>
@@ -118,13 +118,13 @@ export const Register = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen flex bg-slate-50 dark:bg-[#0B0F17] text-slate-800 dark:text-slate-200 transition-colors duration-200">
+      <div className="min-h-screen flex bg-slate-50 dark:bg-[#0D0D10] text-slate-800 dark:text-slate-200 transition-colors duration-200">
         
         {/* Left Side - Form */}
         <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative overflow-y-auto">
           
           <motion.div
-            className="w-full max-w-md bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 p-10 rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/50 relative z-10 my-auto"
+            className="w-full max-w-md bg-white dark:bg-[#0D0D10] border border-slate-200 dark:border-slate-800 p-10 rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/50 relative z-10 my-auto"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
@@ -178,7 +178,7 @@ export const Register = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all text-sm"
                     placeholder="name@company.com"
                     required
                   />
@@ -195,7 +195,7 @@ export const Register = () => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm font-semibold"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all text-sm font-semibold"
                     placeholder="e.g. yash"
                     required
                   />
@@ -212,7 +212,7 @@ export const Register = () => {
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 pr-10 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 pr-10 py-3 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all text-sm"
                     placeholder="••••••••"
                     required
                   />
@@ -227,7 +227,7 @@ export const Register = () => {
 
                 {/* Password Rules Checklist */}
                 {password.length > 0 && (
-                  <div className="mt-3 p-3 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-xl space-y-1.5 text-xs">
+                  <div className="mt-3 p-3 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 rounded-xl space-y-1.5 text-xs">
                     {passwordRules.map((rule, idx) => (
                       <div key={idx} className="flex items-center gap-2">
                         {rule.met ? (
@@ -254,7 +254,7 @@ export const Register = () => {
                     type={showConfirmPassword ? 'text' : 'password'}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 pr-10 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 pr-10 py-3 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all text-sm"
                     placeholder="••••••••"
                     required
                   />
@@ -271,7 +271,7 @@ export const Register = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full btn-primary h-12 flex items-center justify-center font-semibold text-base shadow-lg shadow-sky-500/20"
+                className="w-full btn-primary h-12 flex items-center justify-center font-semibold text-base shadow-lg shadow-sky-400/10"
               >
                 {isLoading ? 'Creating Account...' : 'Sign Up'}
               </button>
@@ -279,7 +279,7 @@ export const Register = () => {
 
             <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
               Already have an account?{' '}
-              <Link to="/login" className="text-sky-600 dark:text-sky-400 hover:underline font-medium">
+              <Link to="/login" className="text-sky-500 dark:text-sky-400 hover:underline font-medium">
                 Sign in
               </Link>
             </p>
@@ -287,14 +287,14 @@ export const Register = () => {
         </div>
 
         {/* Right Side - Graphic Panel */}
-        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-white dark:bg-[#0F172A] border-l border-slate-200 dark:border-slate-800 items-center justify-center">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sky-500/10 blur-[140px] pointer-events-none"></div>
+        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-white dark:bg-[#08080A] border-l border-slate-200 dark:border-slate-800 items-center justify-center">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sky-400/10 blur-[140px] pointer-events-none"></div>
           
           <div className="relative z-20 flex flex-col items-center text-center px-12">
             <div className="mb-8 transform scale-125">
               <Logo size="xl" showText={false} link={false} />
             </div>
-            <h2 className="text-5xl font-display font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Join <span className="text-sky-500 dark:text-sky-400">Vixiem</span> Today</h2>
+            <h2 className="text-5xl font-display font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Join <span className="text-sky-400 dark:text-sky-400">Vixiem</span> Today</h2>
             <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-md">Get instant automated monitoring and AI-powered failure resolution for all your APIs.</p>
           </div>
         </div>

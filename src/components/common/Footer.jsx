@@ -21,7 +21,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-slate-100 dark:bg-[#0F172A] border-t border-slate-200 dark:border-slate-800 pt-16 pb-8 transition-colors duration-200">
+    <footer className="bg-slate-100 dark:bg-[#08080A] border-t border-slate-200 dark:border-slate-800 pt-16 pb-8 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
@@ -37,7 +37,7 @@ export const Footer = () => {
                 <motion.a
                   key={social}
                   href={`#${social.toLowerCase()}`}
-                  className="text-slate-500 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
+                  className="text-slate-500 dark:text-slate-400 hover:text-sky-400 dark:hover:text-sky-400 transition-colors"
                   whileHover={{ y: -2 }}
                 >
                   <span className="text-sm font-medium">{social}</span>
@@ -55,7 +55,7 @@ export const Footer = () => {
                   <li key={linkIndex}>
                     <a
                       href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="text-slate-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 text-sm transition-colors font-light"
+                      className="text-slate-600 dark:text-slate-400 hover:text-sky-400 dark:hover:text-sky-400 text-sm transition-colors font-light"
                     >
                       {link}
                     </a>

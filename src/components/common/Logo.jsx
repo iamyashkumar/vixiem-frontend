@@ -18,14 +18,12 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
       whileHover="hover"
       initial="initial"
     >
-      {/* Animated V Emblem */}
       <motion.div 
         className="relative flex items-center justify-center"
         variants={{
           hover: { scale: 1.1, rotate: [0, -4, 4, 0], transition: { duration: 0.4 } }
         }}
       >
-        {/* Glow backdrop pulse */}
         <motion.div 
           className="absolute inset-0 bg-sky-400/30 blur-md rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
@@ -33,12 +31,11 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
         />
 
         <svg
-          className={`${currentSize.icon} text-sky-500 dark:text-sky-400 relative z-10`}
+          className={`${currentSize.icon} text-sky-400 dark:text-sky-400 relative z-10`}
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Top Left Connecting Bar */}
           <motion.path 
             d="M 12 14 L 38 14" 
             stroke="currentColor" 
@@ -49,7 +46,6 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
             transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
           />
           
-          {/* Outer V Stripe */}
           <motion.path 
             d="M 12 14 L 50 86 L 88 14" 
             stroke="currentColor" 
@@ -61,7 +57,6 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
           />
           
-          {/* Middle Left & Intertwined M Line */}
           <motion.path 
             d="M 25 14 L 50 62 L 64 34 L 75 14" 
             stroke="#38BDF8" 
@@ -73,10 +68,9 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
             transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
           />
           
-          {/* Inner V Stripe */}
           <motion.path 
             d="M 38 14 L 50 38 L 62 14" 
-            stroke="#818CF8" 
+            stroke="#38BDF8" 
             strokeWidth="6" 
             strokeLinecap="round" 
             strokeLinejoin="round"
@@ -85,7 +79,6 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
             transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
           />
 
-          {/* Animated Telemetry Core Node */}
           <motion.circle 
             cx="50" 
             cy="86" 
@@ -97,12 +90,11 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
         </svg>
       </motion.div>
 
-      {/* Brand Typography - Vixiem */}
       {showText && (
-        <span className={`font-display font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center ${currentSize.text}`}>
+        <span className={`font-display font-extrabold tracking-tight text-zinc-950 dark:text-white flex items-center ${currentSize.text}`}>
           Vixiem
           <motion.span 
-            className="text-sky-500 font-black ml-0.5 inline-block"
+            className="text-sky-400 font-black ml-0.5 inline-block"
             animate={{ y: [0, -3, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           >

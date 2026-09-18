@@ -7,7 +7,7 @@ export const ApiError = ({ message, onRetry }) => {
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center justify-center p-8 text-center bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl w-full shadow-sm dark:shadow-xl"
+      className="flex flex-col items-center justify-center p-8 text-center bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl w-full shadow-sm dark:shadow-xl"
     >
       <div className="w-12 h-12 rounded-full bg-rose-500/10 flex items-center justify-center mb-4">
         <AlertCircle className="text-rose-500" size={24} />

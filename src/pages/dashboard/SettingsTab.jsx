@@ -96,8 +96,8 @@ export const SettingsTab = () => {
     <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in duration-300 pb-12 w-full">
       {/* Header Banner */}
       <div className="flex items-center gap-4 mb-6">
-        <div className="w-12 h-12 rounded-2xl bg-sky-500/10 dark:bg-sky-500/20 flex items-center justify-center border border-sky-500/30">
-          <Shield className="w-6 h-6 text-sky-600 dark:text-sky-400" />
+        <div className="w-12 h-12 rounded-2xl bg-sky-400/10 dark:bg-sky-400/20 flex items-center justify-center border border-sky-400/30">
+          <Shield className="w-6 h-6 text-sky-500 dark:text-sky-400" />
         </div>
         <div>
            <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">Account & Security Settings</h2>
@@ -114,17 +114,17 @@ export const SettingsTab = () => {
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 text-center shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 text-center shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <div className="flex flex-col items-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-3xl font-display font-bold text-white shadow-md mb-3 border-2 border-white/20">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center text-3xl font-display font-bold text-white shadow-md mb-3 border-2 border-white/20">
                 {(user?.username || user?.email)?.charAt(0).toUpperCase() || 'U'}
               </div>
               <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-0.5 truncate w-full">
                 @{user?.username || user?.email?.split('@')[0]}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 truncate w-full">{user?.email}</p>
-              <p className="text-sky-600 dark:text-sky-400 font-semibold text-xs mb-6 tracking-wider uppercase">{user?.role || 'DEVELOPER'}</p>
+              <p className="text-sky-500 dark:text-sky-400 font-semibold text-xs mb-6 tracking-wider uppercase">{user?.role || 'DEVELOPER'}</p>
               
               <button 
                 onClick={() => {
@@ -143,10 +143,10 @@ export const SettingsTab = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
-              <Zap className="w-5 h-5 text-sky-500 fill-sky-500" />
+              <Zap className="w-5 h-5 text-sky-400 fill-sky-400" />
               <h4 className="text-base font-bold text-slate-900 dark:text-white font-display">AI Debugging Credits</h4>
             </div>
 
@@ -154,7 +154,7 @@ export const SettingsTab = () => {
               <div>
                 <div className="flex items-center justify-between text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
                   <span>Available Credits</span>
-                  <span className="font-bold font-mono text-sky-600 dark:text-sky-400">
+                  <span className="font-bold font-mono text-sky-500 dark:text-sky-400">
                     {aiQuota ? `${aiQuota.remainingCalls} / ${aiQuota.dailyCallsLimit}` : 'Loading...'}
                   </span>
                 </div>
@@ -162,7 +162,7 @@ export const SettingsTab = () => {
                 {/* Progress Bar */}
                 <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
                   <div 
-                    className="bg-gradient-to-r from-sky-500 to-indigo-500 h-full rounded-full transition-all duration-500"
+                    className="bg-gradient-to-r from-sky-400 to-sky-400 h-full rounded-full transition-all duration-500"
                     style={{
                       width: aiQuota ? `${Math.min(100, (aiQuota.remainingCalls / aiQuota.dailyCallsLimit) * 100)}%` : '0%'
                     }}
@@ -170,9 +170,9 @@ export const SettingsTab = () => {
                 </div>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#0F172A] p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-xs space-y-1.5 text-slate-600 dark:text-slate-400 font-light">
+              <div className="bg-slate-50 dark:bg-[#08080A] p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-xs space-y-1.5 text-slate-600 dark:text-slate-400 font-light">
                 <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1"><Cpu className="w-3.5 h-3.5 text-sky-500" /> Current Plan</span>
+                  <span className="flex items-center gap-1"><Cpu className="w-3.5 h-3.5 text-sky-400" /> Current Plan</span>
                   <span className="font-semibold text-slate-800 dark:text-slate-200">Free Tier</span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -193,11 +193,11 @@ export const SettingsTab = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.12 }}
-            className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-              <div className="p-2 bg-sky-500/10 border border-sky-500/20 rounded-xl">
-                <User size={20} className="text-sky-500" />
+              <div className="p-2 bg-sky-400/10 border border-sky-400/20 rounded-xl">
+                <User size={20} className="text-sky-400" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">Unique Username</h3>
@@ -216,13 +216,13 @@ export const SettingsTab = () => {
               <div>
                 <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">Username Handle</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-500 font-bold text-sm">@</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-400 font-bold text-sm">@</span>
                   <input
                     type="text"
                     value={usernameInput}
                     onChange={(e) => setUsernameInput(e.target.value)}
                     placeholder="e.g. yash"
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-9 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-all text-xs sm:text-sm font-semibold"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-9 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-sky-400 transition-all text-xs sm:text-sm font-semibold"
                     required
                   />
                 </div>
@@ -243,11 +243,11 @@ export const SettingsTab = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-              <div className="p-2 bg-indigo-500/10 border border-indigo-500/20 rounded-xl">
-                <Key size={20} className="text-indigo-500" />
+              <div className="p-2 bg-sky-400/10 border border-sky-400/20 rounded-xl">
+                <Key size={20} className="text-sky-400" />
               </div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">Change Password</h3>
             </div>
@@ -269,7 +269,7 @@ export const SettingsTab = () => {
                     name="currentPassword"
                     value={passwordForm.currentPassword}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-all text-xs sm:text-sm"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-sky-400 transition-all text-xs sm:text-sm"
                     required
                   />
                 </div>
@@ -284,7 +284,7 @@ export const SettingsTab = () => {
                     name="newPassword"
                     value={passwordForm.newPassword}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-all text-xs sm:text-sm"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-sky-400 transition-all text-xs sm:text-sm"
                     required
                   />
                 </div>
@@ -299,7 +299,7 @@ export const SettingsTab = () => {
                     name="confirmPassword"
                     value={passwordForm.confirmPassword}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-all text-xs sm:text-sm"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white focus:outline-none focus:border-sky-400 transition-all text-xs sm:text-sm"
                     required
                   />
                 </div>

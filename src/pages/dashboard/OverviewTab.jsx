@@ -12,10 +12,10 @@ const StatCard = ({ label, value, icon: Icon, colorClass, bgBadgeClass, index })
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: index * 0.05 }}
     whileHover={{ translateY: -3 }}
-    className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800/90 rounded-2xl p-5 shadow-sm dark:shadow-lg dark:shadow-black/30 transition-all duration-300 hover:border-sky-500/40"
+    className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800/90 rounded-2xl p-5 shadow-sm dark:shadow-lg dark:shadow-black/30 transition-all duration-300 hover:border-sky-400/50 hover:shadow-sky-400/10"
   >
     <div className="flex justify-between items-start mb-3">
-      <div className={`p-2.5 rounded-xl ${bgBadgeClass || 'bg-slate-100 dark:bg-[#0F172A]'} border border-slate-200 dark:border-slate-700/60`}>
+      <div className={`p-2.5 rounded-xl ${bgBadgeClass || 'bg-slate-100 dark:bg-[#08080A]'} border border-slate-200 dark:border-slate-700/60`}>
         <Icon className={colorClass} size={22} />
       </div>
     </div>
@@ -76,14 +76,14 @@ export const OverviewTab = () => {
            <p className="text-slate-600 dark:text-slate-400 font-light text-xs sm:text-sm mt-0.5">Real-time metrics and endpoint health status across your services.</p>
         </div>
         
-        <div className="flex bg-slate-100 dark:bg-[#0F172A] p-1 rounded-xl border border-slate-200 dark:border-slate-800">
+        <div className="flex bg-slate-100 dark:bg-[#08080A] p-1 rounded-xl border border-slate-200 dark:border-slate-800">
           {['24h', '7d', '30d'].map(range => (
             <button
               key={range}
               onClick={() => setTimeRange(range)}
               className={`px-4 sm:px-5 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all ${
                 timeRange === range 
-                  ? 'bg-sky-500 text-white shadow-md font-semibold' 
+                  ? 'bg-sky-400 text-zinc-950 shadow-md font-bold' 
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -95,13 +95,13 @@ export const OverviewTab = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-        <StatCard index={0} label="Total Endpoints" value={summary?.totalEndpoints || 0} icon={Server} colorClass="text-sky-600 dark:text-sky-400" />
+        <StatCard index={0} label="Total Endpoints" value={summary?.totalEndpoints || 0} icon={Server} colorClass="text-sky-500 dark:text-sky-400" />
         <StatCard index={1} label="Healthy Endpoints" value={summary?.upEndpoints || 0} icon={ShieldCheck} colorClass="text-emerald-600 dark:text-emerald-400" />
         <StatCard index={2} label="Failed Endpoints" value={summary?.downEndpoints || 0} icon={XCircle} colorClass="text-rose-600 dark:text-rose-400" />
         <StatCard index={3} label="Avg Response Time" value={(summary?.averageResponseTime || 0) + 'ms'} icon={Clock} colorClass="text-purple-600 dark:text-purple-400" />
-        <StatCard index={4} label="System Uptime" value={(summary?.uptimePercentage || '0.00') + '%'} icon={Activity} colorClass="text-cyan-600 dark:text-cyan-400" />
-        <StatCard index={5} label="Total Requests" value={summary?.totalRequests || 0} icon={AlertTriangle} colorClass="text-amber-600 dark:text-amber-400" />
-        <StatCard index={6} label="SLA Health Status" value={summary?.slaStatus || 'Healthy'} icon={Zap} colorClass="text-yellow-500 dark:text-yellow-400" />
+        <StatCard index={4} label="System Uptime" value={(summary?.uptimePercentage || '0.00') + '%'} icon={Activity} colorClass="text-cyan-600 dark:text-sky-400" />
+        <StatCard index={5} label="Total Requests" value={summary?.totalRequests || 0} icon={AlertTriangle} colorClass="text-sky-500 dark:text-sky-400" />
+        <StatCard index={6} label="SLA Health Status" value={summary?.slaStatus || 'Healthy'} icon={Zap} colorClass="text-sky-500 dark:text-sky-400" />
       </div>
 
       {/* Charts Section */}
@@ -110,7 +110,7 @@ export const OverviewTab = () => {
            initial={{ opacity: 0, y: 15 }}
            animate={{ opacity: 1, y: 0 }}
            transition={{ delay: 0.3 }}
-           className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 col-span-1 lg:col-span-2 shadow-sm dark:shadow-xl dark:shadow-black/30"
+           className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 col-span-1 lg:col-span-2 shadow-sm dark:shadow-xl dark:shadow-black/30"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
              <div>
@@ -119,7 +119,7 @@ export const OverviewTab = () => {
              </div>
              <div className="flex items-center gap-4">
                 <span className="flex items-center text-xs text-slate-600 dark:text-slate-400 font-medium">
-                  <div className="w-2.5 h-2.5 rounded-full bg-sky-500 dark:bg-sky-400 mr-2"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-sky-400 dark:bg-sky-400 mr-2"></div>
                   Avg Response (ms)
                 </span>
              </div>

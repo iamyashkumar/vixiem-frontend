@@ -126,7 +126,7 @@ export const EndpointsTab = () => {
               placeholder="Search endpoints..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-2.5 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm"
+              className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-2.5 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all text-sm"
             />
           </div>
           
@@ -134,7 +134,7 @@ export const EndpointsTab = () => {
             <select
               value={selectedTag}
               onChange={(e) => setSelectedTag(e.target.value)}
-              className="appearance-none bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-2.5 pr-10 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all cursor-pointer h-full text-sm"
+              className="appearance-none bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-2.5 pr-10 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all cursor-pointer h-full text-sm"
             >
               <option value="">All Tags</option>
               {allTags.map(tag => (
@@ -158,7 +158,7 @@ export const EndpointsTab = () => {
 
       {/* Endpoints Grid */}
       {filteredEndpoints.length === 0 ? (
-        <div className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800 rounded-2xl p-12 text-center shadow-sm dark:shadow-xl">
+        <div className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-12 text-center shadow-sm dark:shadow-xl">
           <Server className="w-12 h-12 text-slate-400 mx-auto mb-4" />
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Endpoints Found</h3>
           <p className="text-slate-600 dark:text-slate-400 text-sm max-w-md mx-auto mb-6">
@@ -177,7 +177,7 @@ export const EndpointsTab = () => {
               key={endpoint.id}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-[#182234] border border-slate-200 dark:border-slate-800/90 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30 hover:border-sky-500/40 transition-all flex flex-col justify-between"
+              className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800/90 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30 hover:border-sky-400/50 hover:shadow-sky-400/10 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex justify-between items-start mb-4">
@@ -189,7 +189,7 @@ export const EndpointsTab = () => {
                       href={endpoint.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-1 mt-1 truncate max-w-[240px]"
+                      className="text-xs text-sky-500 dark:text-sky-400 hover:underline flex items-center gap-1 mt-1 truncate max-w-[240px]"
                     >
                       <span className="truncate">{endpoint.url}</span>
                       <ArrowUpRight size={13} className="shrink-0" />
@@ -217,12 +217,12 @@ export const EndpointsTab = () => {
                     <Clock size={13} /> {endpoint.checkIntervalSeconds || 60}s
                   </span>
                   {endpoint.alertsEnabled && (
-                    <span className="flex items-center gap-1 text-sky-600 dark:text-sky-400" title={`Email Alerts Active (${endpoint.alertEmail || 'Account Email'})`}>
+                    <span className="flex items-center gap-1 text-sky-500 dark:text-sky-400" title={`Email Alerts Active (${endpoint.alertEmail || 'Account Email'})`}>
                       <Mail size={13} /> Email
                     </span>
                   )}
                   {endpoint.discordWebhookUrl && (
-                    <span className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400" title="Discord Webhook Active">
+                    <span className="flex items-center gap-1 text-sky-500 dark:text-sky-400" title="Discord Webhook Active">
                       <MessageSquare size={13} /> Discord
                     </span>
                   )}
@@ -231,7 +231,7 @@ export const EndpointsTab = () => {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => openEditModal(endpoint)}
-                    className="p-2 text-slate-600 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    className="p-2 text-slate-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
                     title="Edit Endpoint"
                   >
                     <Edit3 size={16} />

@@ -1,6 +1,6 @@
 import api from './api';
 import toast from 'react-hot-toast';
-
+import { STORAGE_KEYS } from '../config/constants';
 export const authService = {
   async register(email, password, username) {
     try {
@@ -12,14 +12,17 @@ export const authService = {
 
       if (response.data?.accessToken) {
         localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
+        localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('vixiem_access_token', response.data.accessToken);
       }
       if (response.data?.refreshToken) {
         localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
         localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
       }
       if (response.data?.user) {
         localStorage.setItem('vixiem_user', JSON.stringify(response.data.user));
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.data.user));
       }
 
       toast.success('Registration successful!');
@@ -40,14 +43,17 @@ export const authService = {
 
       if (response.data?.accessToken) {
         localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
+        localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('vixiem_access_token', response.data.accessToken);
       }
       if (response.data?.refreshToken) {
         localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
         localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
       }
       if (response.data?.user) {
         localStorage.setItem('vixiem_user', JSON.stringify(response.data.user));
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.data.user));
       }
 
       toast.success('Login successful!');
@@ -70,14 +76,17 @@ export const authService = {
 
       if (response.data?.accessToken) {
         localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
+        localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('vixiem_access_token', response.data.accessToken);
       }
       if (response.data?.refreshToken) {
         localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
         localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
       }
       if (response.data?.user) {
         localStorage.setItem('vixiem_user', JSON.stringify(response.data.user));
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.data.user));
       }
 
       toast.success('Google Login successful!');
@@ -97,6 +106,9 @@ export const authService = {
     }
     localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
     localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.USER);
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('vixiem_access_token');
     localStorage.removeItem('vixiem_refresh_token');
     localStorage.removeItem('vixiem_user');

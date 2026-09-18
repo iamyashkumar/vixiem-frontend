@@ -96,7 +96,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl relative flex flex-col max-h-[90vh] my-auto overflow-hidden"
+          className="bg-white dark:bg-[#0D0D10] border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl relative flex flex-col max-h-[90vh] my-auto overflow-hidden"
         >
           <div className="flex justify-between items-center p-5 sm:p-6 border-b border-slate-200 dark:border-slate-800 shrink-0 relative z-10">
             <h3 className="text-xl sm:text-2xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
@@ -122,7 +122,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm"
+                  className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm"
                   placeholder="e.g. Production Payment API"
                 />
               </div>
@@ -139,7 +139,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
                   type="text"
                   value={formData.url}
                   onChange={(e) => setFormData({ ...formData, url: e.target.value })}
-                  className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 font-mono text-sm"
+                  className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 font-mono text-sm"
                   placeholder="https://api.yourdomain.com/health"
                 />
               </div>
@@ -157,7 +157,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
                   min="30"
                   value={formData.checkIntervalSeconds}
                   onChange={(e) => setFormData({ ...formData, checkIntervalSeconds: parseInt(e.target.value) || 0 })}
-                  className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all font-display text-lg"
+                  className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all font-display text-lg"
                 />
               </div>
               {errors.checkIntervalSeconds && <p className="mt-1.5 text-sm text-rose-500 flex items-center gap-1"><X size={14}/> {errors.checkIntervalSeconds}</p>}
@@ -165,7 +165,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
 
             <div>
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 tracking-wide uppercase">Tags (optional)</label>
-              <div className="bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 rounded-xl p-2.5 focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 transition-all flex flex-wrap gap-2 min-h-[52px]">
+              <div className="bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 rounded-xl p-2.5 focus-within:border-sky-400 focus-within:ring-1 focus-within:ring-sky-500 transition-all flex flex-wrap gap-2 min-h-[52px]">
                 {formData.tags.map(tag => (
                   <span key={tag} className="flex items-center gap-1.5 px-2.5 py-1 bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-300 rounded-lg text-xs uppercase tracking-wider font-medium">
                     {tag}
@@ -186,31 +186,31 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
             </div>
 
             <div className="space-y-4 pt-2">
-              <div className="flex items-center p-3 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors cursor-pointer" onClick={() => setFormData({ ...formData, isActive: !formData.isActive })}>
+              <div className="flex items-center p-3 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors cursor-pointer" onClick={() => setFormData({ ...formData, isActive: !formData.isActive })}>
                 <input
                   type="checkbox"
                   id="isActive"
                   checked={formData.isActive}
                   onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-5 h-5 text-sky-500 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 rounded focus:ring-sky-500 cursor-pointer"
+                  className="w-5 h-5 text-sky-400 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 rounded focus:ring-sky-400 cursor-pointer"
                 />
                 <label htmlFor="isActive" className="ml-3 text-sm font-medium text-slate-800 dark:text-slate-200 cursor-pointer flex-1">
                   Active (Enable Monitoring)
                 </label>
               </div>
 
-              <div className="flex items-center p-3 bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors cursor-pointer" onClick={() => setFormData({ ...formData, alertsEnabled: !formData.alertsEnabled })}>
+              <div className="flex items-center p-3 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors cursor-pointer" onClick={() => setFormData({ ...formData, alertsEnabled: !formData.alertsEnabled })}>
                 <input
                   type="checkbox"
                   id="alertsEnabled"
                   checked={formData.alertsEnabled}
                   onChange={(e) => setFormData({ ...formData, alertsEnabled: e.target.checked })}
                   onClick={(e) => e.stopPropagation()}
-                  className="w-5 h-5 text-sky-500 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 rounded focus:ring-sky-500 cursor-pointer"
+                  className="w-5 h-5 text-sky-400 bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 rounded focus:ring-sky-400 cursor-pointer"
                 />
                 <label htmlFor="alertsEnabled" className="ml-3 flex items-center text-sm font-medium text-slate-800 dark:text-slate-200 cursor-pointer flex-1">
-                  <Mail size={18} className="mr-2.5 text-sky-500 dark:text-sky-400" />
+                  <Mail size={18} className="mr-2.5 text-sky-400 dark:text-sky-400" />
                   Receive Email Alerts
                 </label>
               </div>
@@ -226,7 +226,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
                       type="email"
                       value={formData.alertEmail}
                       onChange={(e) => setFormData({ ...formData, alertEmail: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-2.5 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all text-sm"
+                      className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-2.5 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all text-sm"
                       placeholder="alerts@yourcompany.com (Defaults to account email)"
                     />
                   </div>
@@ -235,18 +235,18 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
 
               <div className="pt-2 border-t border-slate-100 dark:border-slate-800/60">
                 <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 tracking-wide uppercase flex items-center gap-2">
-                  <MessageSquare size={16} className="text-indigo-500 dark:text-indigo-400" />
+                  <MessageSquare size={16} className="text-sky-400 dark:text-sky-400" />
                   Discord Webhook Alert (Optional)
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                    <Bell size={18} className="text-indigo-500/70" />
+                    <Bell size={18} className="text-sky-400/70" />
                   </div>
                   <input
                     type="url"
                     value={formData.discordWebhookUrl}
                     onChange={(e) => setFormData({ ...formData, discordWebhookUrl: e.target.value })}
-                    className="w-full bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all font-mono text-xs"
+                    className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-12 px-4 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all font-mono text-xs"
                     placeholder="https://discord.com/api/webhooks/..."
                   />
                 </div>

@@ -13,7 +13,7 @@ export const ConfirmDeleteModal = ({ isOpen, onClose, onConfirm, endpointName, t
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="bg-white dark:bg-[#131C2E] border border-slate-200 dark:border-slate-800 p-8 w-full max-w-md shadow-2xl rounded-2xl relative overflow-hidden group"
+          className="bg-white dark:bg-[#0D0D10] border border-slate-200 dark:border-slate-800 p-8 w-full max-w-md shadow-2xl rounded-2xl relative overflow-hidden group"
         >
           <div className="flex justify-between items-start mb-6 relative z-10">
             <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl">

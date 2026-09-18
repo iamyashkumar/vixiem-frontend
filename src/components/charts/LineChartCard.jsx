@@ -4,7 +4,7 @@ import { EmptyChartState } from './EmptyChartState';
 
 export const LineChartCard = ({ title, data, dataKey, xAxisKey, color = "#0ea5e9", height = 300 }) => {
   return (
-    <div className="bg-[#182234] border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/30 w-full">
+    <div className="bg-[#141418] border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/30 w-full">
       <h3 className="text-lg font-bold text-white mb-6">{title}</h3>
       
       {(!data || data.length === 0) ? (

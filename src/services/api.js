@@ -37,7 +37,7 @@ if (typeof window !== 'undefined') {
 // However, because frontend (5173) and backend (8080) are different origins (ports),
 // Axios will not automatically read and send the XSRF-TOKEN cookie. We must inject it manually.
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN) || localStorage.getItem('accessToken');
+  const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN) || localStorage.getItem('accessToken') || localStorage.getItem('vixiem_access_token');
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
@@ -124,9 +124,11 @@ api.interceptors.response.use(
           .then((res) => {
             if (res.data?.accessToken) {
               localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.data.accessToken);
+              localStorage.setItem('accessToken', res.data.accessToken);
               localStorage.setItem('vixiem_access_token', res.data.accessToken);
               if (res.data.refreshToken) {
                 localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.data.refreshToken);
+                localStorage.setItem('refreshToken', res.data.refreshToken);
                 localStorage.setItem('vixiem_refresh_token', res.data.refreshToken);
               }
             }
