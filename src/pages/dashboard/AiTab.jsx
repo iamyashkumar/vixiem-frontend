@@ -135,7 +135,7 @@ export const AiTab = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <div className="flex justify-between items-center mb-5">
               <h3 className="font-display font-semibold text-slate-900 dark:text-white flex items-center gap-2">
@@ -163,7 +163,7 @@ export const AiTab = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <h3 className="font-display font-semibold text-slate-900 dark:text-white mb-5 text-lg">Select Errors to Analyze</h3>
             
@@ -241,7 +241,7 @@ export const AiTab = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-8 min-h-[660px] shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl p-8 min-h-[660px] shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             {aiError === 'QUOTA' && (
               <div className="p-6 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-600 dark:text-rose-400 flex flex-col items-center text-center">

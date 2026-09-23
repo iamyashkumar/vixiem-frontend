@@ -222,7 +222,7 @@ export const LogsTab = () => {
       </div>
 
       {/* Logs Table */}
-      <div className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-xl dark:shadow-black/30">
+      <div className="bg-white/85 dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-xl dark:shadow-black/30">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>

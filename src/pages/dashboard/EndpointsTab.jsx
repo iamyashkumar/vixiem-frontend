@@ -158,7 +158,7 @@ export const EndpointsTab = () => {
 
       {/* Endpoints Grid */}
       {filteredEndpoints.length === 0 ? (
-        <div className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-12 text-center shadow-sm dark:shadow-xl">
+        <div className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl p-12 text-center shadow-sm dark:shadow-xl">
           <Server className="w-12 h-12 text-slate-400 mx-auto mb-4" />
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Endpoints Found</h3>
           <p className="text-slate-600 dark:text-slate-400 text-sm max-w-md mx-auto mb-6">
@@ -177,7 +177,7 @@ export const EndpointsTab = () => {
               key={endpoint.id}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800/90 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30 hover:border-sky-400/50 hover:shadow-sky-400/10 transition-all flex flex-col justify-between"
+              className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800/90 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30 hover:border-sky-400/50 hover:shadow-sky-400/10 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex justify-between items-start mb-4">
