@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { LogOut, X, FileText, Activity, LayoutDashboard, Cpu } from 'lucide-react';
 import { Logo } from './common/Logo';
@@ -35,42 +35,46 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         )}
       </AnimatePresence>
 
-      <motion.aside
-        className={`fixed md:sticky top-24 left-0 h-[calc(100vh-8rem)] w-64 bg-white/45 dark:bg-[#0D0D10]/50 backdrop-blur-2xl border border-white/70 dark:border-white/[0.08] rounded-2xl p-5 z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.03)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.3)] ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+      <aside
+        className={`fixed md:sticky top-20 left-0 h-[calc(100vh-5rem)] w-60 bg-white dark:bg-[#0D121F] border-r border-slate-200 dark:border-slate-800 p-4 z-40 transform transition-transform duration-200 ease-in-out flex flex-col shrink-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
       >
-        <div className="flex items-center justify-between md:hidden mb-5 pb-3 border-b border-sky-200 dark:border-sky-400/20">
+        <div className="flex items-center justify-between md:hidden mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
           <Logo size="sm" />
-          <button onClick={() => setSidebarOpen(false)} className="text-zinc-500 dark:text-zinc-400 hover:text-sky-400 p-1">
-            <X size={22} />
+          <button onClick={() => setSidebarOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 p-1">
+            <X size={20} />
           </button>
         </div>
 
-        <nav className="flex flex-col gap-2 flex-grow mt-1">
+        <div className="text-[11px] font-mono uppercase tracking-wider font-bold text-slate-400 px-3 mb-2">
+          Platform
+        </div>
+
+        <nav className="flex flex-col gap-1 flex-grow">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
               onClick={() => setSidebarOpen(false)}
-              className={`px-4 py-3 rounded-xl flex items-center font-medium text-sm transition-all duration-200 ${
+              className={`px-3.5 py-2.5 rounded-lg flex items-center font-medium text-xs sm:text-sm transition-all duration-150 ${
                 isActive(item.path)
-                  ? 'text-sky-700 dark:text-sky-300 bg-sky-500/15 dark:bg-sky-400/15 shadow-sm border border-sky-400/30 font-bold backdrop-blur-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/[0.05] border border-transparent'
+                  ? 'text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/10 font-bold border border-sky-200 dark:border-sky-500/20'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/60'
               }`}
             >
-              <item.icon size={18} className={`mr-3 shrink-0 ${isActive(item.path) ? 'text-sky-500 dark:text-sky-400' : ''}`} /> {item.name}
+              <item.icon size={17} className={`mr-2.5 shrink-0 ${isActive(item.path) ? 'text-sky-500' : 'text-slate-400'}`} /> {item.name}
             </Link>
           ))}
         </nav>
 
-        <div className="pt-4 border-t border-slate-200/60 dark:border-white/[0.08]">
+        <div className="pt-3 border-t border-slate-200 dark:border-slate-800">
           <button
             onClick={logout}
-            className="w-full px-4 py-2.5 rounded-xl flex items-center text-sm font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all duration-200"
+            className="w-full px-3.5 py-2 rounded-lg flex items-center text-xs sm:text-sm font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
           >
-            <LogOut size={18} className="mr-3" /> Logout
+            <LogOut size={16} className="mr-2.5" /> Logout
           </button>
         </div>
-      </motion.aside>
+      </aside>
     </>
   );
 };
