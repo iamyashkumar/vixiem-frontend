@@ -36,7 +36,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       </AnimatePresence>
 
       <motion.aside
-        className={`fixed md:sticky top-24 left-0 h-[calc(100vh-8rem)] w-64 bg-white dark:bg-[#0D0D10] border border-sky-200/80 dark:border-sky-400/20 rounded-2xl p-5 z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-lg dark:shadow-xl dark:shadow-black/60 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        className={`fixed md:sticky top-24 left-0 h-[calc(100vh-8rem)] w-64 bg-white/85 dark:bg-[#0D0D10]/85 backdrop-blur-xl border border-sky-200/80 dark:border-sky-400/20 rounded-2xl p-5 z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-lg dark:shadow-xl dark:shadow-black/60 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
       >
         <div className="flex items-center justify-between md:hidden mb-5 pb-3 border-b border-sky-200 dark:border-sky-400/20">
           <Logo size="sm" />

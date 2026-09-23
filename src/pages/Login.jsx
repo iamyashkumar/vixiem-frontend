@@ -100,10 +100,10 @@ export const Login = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen flex bg-slate-50 dark:bg-[#0D0D10] text-slate-800 dark:text-slate-200 transition-colors duration-200 pt-20">
+      <div className="min-h-screen flex bg-transparent text-slate-800 dark:text-slate-200 transition-colors duration-200 pt-20">
         
         {/* Left Side - Graphic Panel */}
-        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-white dark:bg-[#08080A] border-r border-slate-200 dark:border-slate-800 items-center justify-center">
+        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-white/40 dark:bg-[#08080A]/40 backdrop-blur-md border-r border-slate-200/80 dark:border-slate-800/80 items-center justify-center">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sky-400/10 blur-[140px] pointer-events-none"></div>
           
           <div className="relative z-20 flex flex-col items-center text-center px-12">
@@ -119,7 +119,7 @@ export const Login = () => {
         <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative">
           
           <motion.div
-            className="w-full max-w-md bg-white dark:bg-[#0D0D10] border border-slate-200 dark:border-slate-800 p-10 rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/50 relative z-10"
+            className="w-full max-w-md bg-white/90 dark:bg-[#0D0D10]/90 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 p-10 rounded-2xl shadow-xl dark:shadow-2xl dark:shadow-black/50 relative z-10"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}

@@ -34,11 +34,11 @@ export const VerifyEmail = () => {
   }, [token]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0D0D10] flex flex-col justify-center items-center p-4 transition-colors duration-200">
+    <div className="min-h-screen bg-transparent flex flex-col justify-center items-center p-4 transition-colors duration-200">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="max-w-md w-full bg-white dark:bg-[#0D0D10] p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl dark:shadow-black/50 text-center"
+        className="max-w-md w-full bg-white/90 dark:bg-[#0D0D10]/90 backdrop-blur-xl p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-xl dark:shadow-2xl dark:shadow-black/50 text-center"
       >
         {status === 'loading' && (
           <div className="flex flex-col items-center">
