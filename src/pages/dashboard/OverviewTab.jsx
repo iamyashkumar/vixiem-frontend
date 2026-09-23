@@ -77,7 +77,7 @@ export const OverviewTab = () => {
   const totalRequests = (summary?.totalRequests || 134053).toLocaleString();
 
   return (
-    <div className="space-y-5 w-full animate-in fade-in duration-300">
+    <div className="space-y-3.5 w-full animate-in fade-in duration-300">
       
       {/* 1. EXECUTIVE HEALTH BANNER (Clean 2D Box with Full Light & Dark Support) */}
       <div className="bg-white dark:bg-[#0D121F] text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800/90 rounded-xl p-5 sm:px-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5 transition-colors">
@@ -129,11 +129,11 @@ export const OverviewTab = () => {
 
       </div>
 
-      {/* 2. FIVE 2D METRIC KPI CARDS (Structured 2D Boxes, Light & Dark) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
+      {/* 2. FIVE 2D METRIC KPI STRIP (Unified Continuous 2D Box with 0 Gap, Internal Dividers) */}
+      <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl overflow-hidden shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-800 transition-colors">
         
         {/* KPI 1: Total Requests */}
-        <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-4 sm:p-5 shadow-sm hover:border-emerald-500/40 transition-colors flex flex-col justify-between">
+        <div className="p-4 sm:p-5 flex flex-col justify-between hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
             <span className="font-semibold text-slate-700 dark:text-slate-300">Total Requests</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-mono text-[11px] font-bold">+5%</span>
@@ -157,7 +157,7 @@ export const OverviewTab = () => {
         </div>
 
         {/* KPI 2: Error Rate */}
-        <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-4 sm:p-5 shadow-sm hover:border-rose-500/40 transition-colors flex flex-col justify-between">
+        <div className="p-4 sm:p-5 flex flex-col justify-between hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
             <span className="font-semibold text-slate-700 dark:text-slate-300">Error Rate</span>
             <span className="text-slate-400 font-mono text-[11px]">Stable</span>
@@ -174,7 +174,7 @@ export const OverviewTab = () => {
         </div>
 
         {/* KPI 3: P95 Latency */}
-        <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-4 sm:p-5 shadow-sm hover:border-amber-500/40 transition-colors flex flex-col justify-between">
+        <div className="p-4 sm:p-5 flex flex-col justify-between hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
             <span className="font-semibold text-slate-700 dark:text-slate-300">P95 Latency</span>
             <span className="text-amber-500 font-mono text-[11px]">Avg</span>
@@ -191,7 +191,7 @@ export const OverviewTab = () => {
         </div>
 
         {/* KPI 4: Uptime Metric */}
-        <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-4 sm:p-5 shadow-sm hover:border-cyan-500/40 transition-colors flex flex-col justify-between">
+        <div className="p-4 sm:p-5 flex flex-col justify-between hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
             <span className="font-semibold text-slate-700 dark:text-slate-300">System Uptime</span>
             <span className="text-cyan-600 dark:text-cyan-400 font-mono text-[11px]">Target Met</span>
@@ -208,7 +208,7 @@ export const OverviewTab = () => {
         </div>
 
         {/* KPI 5: Active Endpoints */}
-        <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-4 sm:p-5 shadow-sm hover:border-purple-500/40 transition-colors flex flex-col justify-between">
+        <div className="p-4 sm:p-5 flex flex-col justify-between hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
             <span className="font-semibold text-slate-700 dark:text-slate-300">Active APIs</span>
             <span className="text-purple-600 dark:text-purple-400 font-mono text-[11px]">Healthy</span>
