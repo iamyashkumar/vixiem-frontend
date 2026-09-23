@@ -7,7 +7,6 @@ import {
   Plus,
   RefreshCw,
   Server,
-  Globe,
   Activity,
   ArrowUpRight
 } from 'lucide-react';
@@ -18,15 +17,6 @@ import { AnalyticsChart } from '../../components/dashboard/AnalyticsChart';
 import { PageLoader } from '../../components/PageLoader';
 import { ApiError } from '../../components/ApiError';
 
-// 6 Major Global Datacenter Regions matching mockup
-const REGIONAL_NODES = [
-  { city: 'SF (San Francisco)', rtt: '12ms', status: 'Up' },
-  { city: 'London', rtt: '18ms', status: 'Up' },
-  { city: 'Frankfurt', rtt: '22ms', status: 'Up' },
-  { city: 'Mumbai', rtt: '25ms', status: 'Up' },
-  { city: 'Tokyo', rtt: '31ms', status: 'Up' },
-  { city: 'Sydney', rtt: '38ms', status: 'Up' },
-];
 
 export const OverviewTab = () => {
   const [loading, setLoading] = useState(true);
@@ -236,28 +226,7 @@ export const OverviewTab = () => {
 
       </div>
 
-      {/* 3. REGIONAL EDGE NETWORK STATUS (Structured 2D Box, Light & Dark) */}
-      <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-5 shadow-sm text-slate-900 dark:text-white transition-colors">
-        <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
-          Regional Edge Network Status
-        </h3>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-slate-800 gap-3 sm:gap-0">
-          {REGIONAL_NODES.map((node, index) => (
-            <div key={index} className="sm:px-4 py-2 sm:py-0 flex items-center justify-between">
-              <div className="truncate pr-2">
-                <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">{node.city}</p>
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">{node.rtt}</p>
-              </div>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30">
-                {node.status}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 4. LATENCY TREND CHART (Structured 2D Box, Light & Dark) */}
+      {/* 3. LATENCY TREND CHART (Structured 2D Box, Light & Dark) */}
       <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-5 sm:p-6 shadow-sm text-slate-900 dark:text-white transition-colors">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
           <div>
@@ -265,7 +234,7 @@ export const OverviewTab = () => {
               Latency Trend
             </h3>
             <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
-              Round-trip response duration across global edge nodes ({timeRange.toUpperCase()}).
+              Round-trip API response duration over time ({timeRange.toUpperCase()}).
             </p>
           </div>
 
@@ -290,7 +259,7 @@ export const OverviewTab = () => {
         <AnalyticsChart data={trendData} />
       </div>
 
-      {/* 5. ACTIVE API ENDPOINTS TABLE (Structured 2D Box, Light & Dark) */}
+      {/* 4. ACTIVE API ENDPOINTS TABLE (Structured 2D Box, Light & Dark) */}
       <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-5 sm:p-6 shadow-sm text-slate-900 dark:text-white transition-colors">
         <div className="flex items-center justify-between mb-4">
           <div>
