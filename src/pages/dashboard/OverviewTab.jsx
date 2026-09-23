@@ -77,10 +77,10 @@ export const OverviewTab = () => {
   const totalRequests = (summary?.totalRequests || 134053).toLocaleString();
 
   return (
-    <div className="space-y-3.5 w-full animate-in fade-in duration-300">
+    <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-2xl overflow-hidden shadow-sm divide-y divide-slate-200 dark:divide-slate-800 transition-colors w-full animate-in fade-in duration-300">
       
-      {/* 1. EXECUTIVE HEALTH BANNER (Clean 2D Box with Full Light & Dark Support) */}
-      <div className="bg-white dark:bg-[#0D121F] text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800/90 rounded-xl p-5 sm:px-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5 transition-colors">
+      {/* 1. EXECUTIVE HEALTH BANNER (Docked Top Section, 0 Gap) */}
+      <div className="text-slate-900 dark:text-white p-5 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-5 transition-colors">
         
         {/* Left: Operational Checkmark Badge & Headline */}
         <div className="flex items-center gap-4">
@@ -129,8 +129,8 @@ export const OverviewTab = () => {
 
       </div>
 
-      {/* 2. FIVE 2D METRIC KPI STRIP (Unified Continuous 2D Box with 0 Gap, Internal Dividers) */}
-      <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl overflow-hidden shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-800 transition-colors">
+      {/* 2. FIVE 2D METRIC KPI STRIP (Seamless Attached Section, 0 Gap) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-800 transition-colors">
         
         {/* KPI 1: Total Requests */}
         <div className="p-4 sm:p-5 flex flex-col justify-between hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
@@ -226,8 +226,8 @@ export const OverviewTab = () => {
 
       </div>
 
-      {/* 3. LATENCY TREND CHART (Structured 2D Box, Light & Dark) */}
-      <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-5 sm:p-6 shadow-sm text-slate-900 dark:text-white transition-colors">
+      {/* 3. LATENCY TREND CHART (Seamless Attached Section, 0 Gap) */}
+      <div className="p-5 sm:p-6 text-slate-900 dark:text-white transition-colors">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
           <div>
             <h3 className="text-base font-bold font-display text-slate-900 dark:text-white tracking-tight">
@@ -259,8 +259,8 @@ export const OverviewTab = () => {
         <AnalyticsChart data={trendData} />
       </div>
 
-      {/* 4. ACTIVE API ENDPOINTS TABLE (Structured 2D Box, Light & Dark) */}
-      <div className="bg-white dark:bg-[#0D121F] border border-slate-200 dark:border-slate-800/90 rounded-xl p-5 sm:p-6 shadow-sm text-slate-900 dark:text-white transition-colors">
+      {/* 4. ACTIVE API ENDPOINTS TABLE (Seamless Attached Section, 0 Gap) */}
+      <div className="p-5 sm:p-6 text-slate-900 dark:text-white transition-colors">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="text-base font-bold font-display text-slate-900 dark:text-white tracking-tight">
