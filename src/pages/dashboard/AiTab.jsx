@@ -135,18 +135,18 @@ export const AiTab = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <div className="flex justify-between items-center mb-5">
               <h3 className="font-display font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                 <Zap className="w-5 h-5 text-sky-400 fill-sky-400" />
                 Daily AI Quota
               </h3>
-              <span className="text-xs font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-slate-700 dark:text-slate-300 tracking-wider">
+              <span className="text-xs font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-neutral-700 rounded-md text-slate-700 dark:text-slate-300 tracking-wider">
                 {limitStatus?.subscriptionPlan || 'FREE'}
               </span>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-[#08080A] rounded-full h-2.5 mb-3 overflow-hidden border border-slate-200 dark:border-slate-800">
+            <div className="w-full bg-slate-100 dark:bg-neutral-900 rounded-full h-2.5 mb-3 overflow-hidden border border-slate-200 dark:border-neutral-800">
               <div 
                 className={`h-full rounded-full transition-all duration-1000 ${percentage > 90 ? 'bg-rose-500' : percentage > 75 ? 'bg-sky-400' : 'bg-sky-400 dark:bg-sky-400'}`}
                 style={{ width: `${percentage}%` }}
@@ -163,19 +163,19 @@ export const AiTab = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <h3 className="font-display font-semibold text-slate-900 dark:text-white mb-5 text-lg">Select Errors to Analyze</h3>
             
             <div className="mb-5">
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 tracking-wide uppercase">Target Endpoint</label>
               <select
-                className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all"
+                className="w-full bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all"
                 value={selectedEndpoint}
                 onChange={(e) => setSelectedEndpoint(e.target.value)}
               >
                 {endpoints.map(ep => (
-                  <option key={ep.id} value={ep.id} className="bg-white dark:bg-[#08080A] text-slate-900 dark:text-white">{ep.name} ({ep.url})</option>
+                  <option key={ep.id} value={ep.id} className="bg-white dark:bg-neutral-900 text-slate-900 dark:text-white">{ep.name} ({ep.url})</option>
                 ))}
               </select>
             </div>
@@ -184,7 +184,7 @@ export const AiTab = () => {
               {loadingLogs ? (
                 <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-slate-400" /></div>
               ) : errorLogs.length === 0 ? (
-                <div className="text-center py-12 text-sm text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-[#08080A] rounded-xl border border-slate-200 dark:border-slate-800">No recent errors found for this endpoint.</div>
+                <div className="text-center py-12 text-sm text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-neutral-900 rounded-xl border border-slate-200 dark:border-neutral-800">No recent errors found for this endpoint.</div>
               ) : (
                 errorLogs.map(log => (
                   <label 
@@ -192,7 +192,7 @@ export const AiTab = () => {
                     className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
                       selectedLogs.includes(log.id) 
                         ? 'bg-sky-400/10 dark:bg-sky-400/10 border-sky-400/50 dark:border-sky-400/50 shadow-sm' 
-                        : 'bg-slate-50 dark:bg-[#08080A] border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                        : 'bg-slate-50 dark:bg-neutral-900 border-slate-200 dark:border-neutral-800 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <div className="pt-0.5">
@@ -241,7 +241,7 @@ export const AiTab = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 min-h-[660px] shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-8 min-h-[660px] shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             {aiError === 'QUOTA' && (
               <div className="p-6 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-600 dark:text-rose-400 flex flex-col items-center text-center">
@@ -261,7 +261,7 @@ export const AiTab = () => {
 
             {!analyzing && !analysisResult && !aiError && (
               <div className="flex flex-col items-center justify-center h-[550px] text-center text-slate-500 dark:text-slate-400">
-                <div className="w-20 h-20 rounded-full bg-slate-100 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 flex items-center justify-center mb-6 text-sky-400 dark:text-sky-400">
+                <div className="w-20 h-20 rounded-full bg-slate-100 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 flex items-center justify-center mb-6 text-sky-400 dark:text-sky-400">
                   <Brain size={40} />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display mb-2">No Analysis Running</h3>
@@ -281,7 +281,7 @@ export const AiTab = () => {
 
             {analysisResult && (
               <div className="space-y-6 animate-in fade-in duration-300">
-                <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+                <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-neutral-800">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
                       <CheckCircle className="w-5 h-5" />
@@ -302,19 +302,19 @@ export const AiTab = () => {
                       navigator.clipboard.writeText(JSON.stringify(analysisResult, null, 2));
                       toast.success('Analysis copied to clipboard');
                     }}
-                    className="p-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-xl transition-all flex items-center gap-1.5 text-xs font-semibold"
+                    className="p-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-neutral-700 text-slate-700 dark:text-slate-300 rounded-xl transition-all flex items-center gap-1.5 text-xs font-semibold"
                   >
                     <Copy size={15} /> Copy Report
                   </button>
                 </div>
 
                 <div className="space-y-5">
-                  <div className="p-5 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                  <div className="p-5 bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm">
                     <h4 className="text-xs font-semibold text-sky-500 dark:text-sky-400 uppercase tracking-wider mb-2">ROOT CAUSE</h4>
                     <p className="text-sm font-medium text-slate-900 dark:text-white leading-relaxed">{analysisResult.rootCause || analysisResult.summary || 'Root cause identified.'}</p>
                   </div>
 
-                  <div className="p-5 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                  <div className="p-5 bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm">
                     <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">SUGGESTED RESOLUTION</h4>
                     {Array.isArray(analysisResult.recommendations) && analysisResult.recommendations.length > 0 ? (
                       <ul className="space-y-2.5">

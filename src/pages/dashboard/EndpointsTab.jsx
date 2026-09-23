@@ -126,7 +126,7 @@ export const EndpointsTab = () => {
               placeholder="Search endpoints..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-2.5 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all text-sm"
+              className="w-full bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 text-slate-900 dark:text-white rounded-xl pl-10 px-4 py-2.5 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all text-sm"
             />
           </div>
           
@@ -134,7 +134,7 @@ export const EndpointsTab = () => {
             <select
               value={selectedTag}
               onChange={(e) => setSelectedTag(e.target.value)}
-              className="appearance-none bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-2.5 pr-10 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all cursor-pointer h-full text-sm"
+              className="appearance-none bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 text-slate-900 dark:text-white rounded-xl px-4 py-2.5 pr-10 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all cursor-pointer h-full text-sm"
             >
               <option value="">All Tags</option>
               {allTags.map(tag => (
@@ -158,7 +158,7 @@ export const EndpointsTab = () => {
 
       {/* Endpoints Grid */}
       {filteredEndpoints.length === 0 ? (
-        <div className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-12 text-center shadow-sm dark:shadow-xl">
+        <div className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-12 text-center shadow-sm dark:shadow-xl">
           <Server className="w-12 h-12 text-slate-400 mx-auto mb-4" />
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Endpoints Found</h3>
           <p className="text-slate-600 dark:text-slate-400 text-sm max-w-md mx-auto mb-6">
@@ -171,13 +171,13 @@ export const EndpointsTab = () => {
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
           {filteredEndpoints.map(endpoint => (
             <motion.div
               key={endpoint.id}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800/90 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30 hover:border-sky-400/50 hover:shadow-sky-400/10 transition-all flex flex-col justify-between"
+              className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800/90 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30 hover:border-sky-400/50 hover:shadow-sky-400/10 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex justify-between items-start mb-4">
@@ -202,7 +202,7 @@ export const EndpointsTab = () => {
                 {endpoint.tags && endpoint.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mb-5">
                     {endpoint.tags.map((t, idx) => (
-                      <span key={idx} className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] px-2 py-0.5 rounded-md font-mono border border-slate-200 dark:border-slate-700">
+                      <span key={idx} className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] px-2 py-0.5 rounded-md font-mono border border-slate-200 dark:border-neutral-700">
                         #{t}
                       </span>
                     ))}
@@ -211,7 +211,7 @@ export const EndpointsTab = () => {
               </div>
 
               {/* Endpoint Footer Info */}
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between mt-4">
+              <div className="pt-4 border-t border-slate-100 dark:border-neutral-800 flex items-center justify-between mt-4">
                 <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
                   <span className="flex items-center gap-1 font-mono">
                     <Clock size={13} /> {endpoint.checkIntervalSeconds || 60}s

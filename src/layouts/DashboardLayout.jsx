@@ -17,11 +17,11 @@ export const DashboardLayout = () => {
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         
         <div className="flex-1 flex flex-col w-full min-w-0">
-          {/* Header ONLY shown on Overview page as requested */}
+          {/* Header ONLY shown on Overview page */}
           {isOverview ? (
             <Header setSidebarOpen={setSidebarOpen} />
           ) : (
-            /* Minimal mobile hamburger button for non-overview pages so mobile users can open sidebar */
+            /* Minimal mobile hamburger button for non-overview pages */
             <div className="md:hidden flex items-center px-4 py-3 bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 sticky top-20 z-20">
               <button
                 onClick={() => setSidebarOpen(true)}
@@ -33,7 +33,8 @@ export const DashboardLayout = () => {
             </div>
           )}
           
-          <main className={`flex-1 w-full min-w-0 ${isOverview ? '' : 'p-6 sm:p-8 max-w-7xl'}`}>
+          {/* 100% Full Width across ALL pages, no max-w-7xl constraint */}
+          <main className={`flex-1 w-full min-w-0 ${isOverview ? '' : 'p-6 sm:px-8 py-6'}`}>
             <AnimatePresence mode="wait">
               <PageTransition key={location.pathname}>
                 <Outlet />
