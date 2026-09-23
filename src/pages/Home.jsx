@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { PageTransition } from '../components/animations/PageTransition';
+import { GlobeCanvas } from '../components/animations/GlobeCanvas';
 import { 
   Zap, 
   BarChart3, 
