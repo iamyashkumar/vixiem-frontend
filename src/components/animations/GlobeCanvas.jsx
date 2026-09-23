@@ -52,7 +52,7 @@ const generatePoints = () => {
 };
 generatePoints();
 
-export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactive = true }) => {
+export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.44, interactive = true }) => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -67,14 +67,7 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
     let width = 0;
     let height = 0;
 
-    let isDark = document.documentElement.classList.contains('dark');
-    const observer = new MutationObserver(() => {
-      isDark = document.documentElement.classList.contains('dark');
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
+    const getIsDark = () => document.documentElement.classList.contains('dark');
 
     const setupCanvas = () => {
       if (!container || !canvas) return;
@@ -91,7 +84,12 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
     };
 
     setupCanvas();
-    window.addEventListener('resize', setupCanvas);
+
+    // Use ResizeObserver so dimensions are ALWAYS 100% accurate down to the pixel
+    const resizeObserver = new ResizeObserver(() => {
+      setupCanvas();
+    });
+    resizeObserver.observe(container);
 
     // Globe Physics & Rotation State
     let rotX = 0.28; // Axial tilt
@@ -100,7 +98,7 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
     let targetTiltY = 0;
 
     const handleMouseMove = (e) => {
-      if (!interactive) return;
+      if (!interactive || width === 0 || height === 0) return;
       const rect = container.getBoundingClientRect();
       const normX = ((e.clientX - rect.left) / width - 0.5) * 2;
       const normY = ((e.clientY - rect.top) / height - 0.5) * 2;
@@ -159,23 +157,32 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
         return;
       }
 
+      const isDark = getIsDark();
+
       ctx.clearRect(0, 0, width, height);
 
       rotX += (targetTiltX - rotX) * 0.05;
       rotY += 0.0024; // Smooth natural orbit
 
       const globeRadius = Math.min(width, height) * globeSizeFactor;
+      // ALWAYS center the globe at the exact center of this container
       const globeCenterX = width * 0.5;
       const globeCenterY = height * 0.5;
 
-      // 1. Ambient Radial Glow behind Globe
+      // 1. Ambient Radial Glow behind Globe (Tuned for Light & Dark mode)
       const glowGrad = ctx.createRadialGradient(
         globeCenterX, globeCenterY, globeRadius * 0.2,
         globeCenterX, globeCenterY, globeRadius * 1.55
       );
-      glowGrad.addColorStop(0, 'rgba(14, 165, 233, 0.22)');
-      glowGrad.addColorStop(0.45, 'rgba(6, 182, 212, 0.08)');
-      glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      if (isDark) {
+        glowGrad.addColorStop(0, 'rgba(14, 165, 233, 0.22)');
+        glowGrad.addColorStop(0.45, 'rgba(6, 182, 212, 0.08)');
+        glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      } else {
+        glowGrad.addColorStop(0, 'rgba(56, 189, 248, 0.32)');
+        glowGrad.addColorStop(0.45, 'rgba(14, 165, 233, 0.12)');
+        glowGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      }
 
       ctx.fillStyle = glowGrad;
       ctx.fillRect(0, 0, width, height);
@@ -184,10 +191,10 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
       ctx.save();
       ctx.beginPath();
       ctx.arc(globeCenterX, globeCenterY, globeRadius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(14, 165, 233, 0.035)';
+      ctx.fillStyle = isDark ? 'rgba(14, 165, 233, 0.035)' : 'rgba(56, 189, 248, 0.04)';
       ctx.fill();
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
-      ctx.lineWidth = 1.4;
+      ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(14, 165, 233, 0.45)';
+      ctx.lineWidth = isDark ? 1.4 : 1.6;
       ctx.stroke();
       ctx.restore();
 
@@ -199,9 +206,11 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
         let started = false;
         for (let lon = -180; lon <= 180; lon += 6) {
           const pt = project3D(lat, lon, globeRadius, globeCenterX, globeCenterY);
-          const opacity = pt.z < 0 ? 0.09 : 0.32;
-          ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
-          ctx.lineWidth = lat === 0 ? 1.5 : 0.8;
+          const opacity = pt.z < 0 ? (isDark ? 0.09 : 0.12) : (isDark ? 0.32 : 0.45);
+          ctx.strokeStyle = isDark
+            ? `rgba(56, 189, 248, ${opacity})`
+            : `rgba(14, 165, 233, ${opacity})`;
+          ctx.lineWidth = lat === 0 ? 1.5 : 0.9;
 
           if (!started) {
             ctx.moveTo(pt.x, pt.y);
@@ -221,9 +230,11 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
         let started = false;
         for (let lat = -90; lat <= 90; lat += 6) {
           const pt = project3D(lat, lon, globeRadius, globeCenterX, globeCenterY);
-          const opacity = pt.z < 0 ? 0.08 : 0.28;
-          ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
-          ctx.lineWidth = 0.8;
+          const opacity = pt.z < 0 ? (isDark ? 0.08 : 0.1) : (isDark ? 0.28 : 0.4);
+          ctx.strokeStyle = isDark
+            ? `rgba(56, 189, 248, ${opacity})`
+            : `rgba(14, 165, 233, ${opacity})`;
+          ctx.lineWidth = 0.9;
 
           if (!started) {
             ctx.moveTo(pt.x, pt.y);
@@ -266,8 +277,8 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
         }
       }
       ctx.setLineDash([4, 10]);
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
-      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.45)' : 'rgba(14, 165, 233, 0.55)';
+      ctx.lineWidth = 1.3;
       ctx.stroke();
       ctx.restore();
 
@@ -277,7 +288,9 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
         if (p.z > -globeRadius * 0.25) {
           const depthAlpha = Math.max(0.1, (p.z + globeRadius) / (globeRadius * 2));
           ctx.save();
-          ctx.fillStyle = `rgba(56, 189, 248, ${depthAlpha * 0.65})`;
+          ctx.fillStyle = isDark
+            ? `rgba(56, 189, 248, ${depthAlpha * 0.65})`
+            : `rgba(14, 165, 233, ${depthAlpha * 0.8})`;
           ctx.beginPath();
           ctx.arc(p.x, p.y, Math.max(0.8, 1.4 * p.scale), 0, Math.PI * 2);
           ctx.fill();
@@ -303,8 +316,8 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
           ctx.beginPath();
           ctx.moveTo(p1.x, p1.y);
           ctx.quadraticCurveTo(pMid.x, pMid.y, p2.x, p2.y);
-          ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
-          ctx.lineWidth = 1.4;
+          ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.45)' : 'rgba(14, 165, 233, 0.6)';
+          ctx.lineWidth = 1.5;
           ctx.stroke();
           ctx.restore();
         }
@@ -324,7 +337,7 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
             radius: 2,
             maxRadius: 24,
             opacity: 1,
-            color: pkt.type === 'green' ? '#10B981' : '#0EA5E9',
+            color: pkt.type === 'green' ? '#10B981' : (isDark ? '#38BDF8' : '#0EA5E9'),
           });
         }
 
@@ -333,7 +346,7 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
 
         const t = pkt.progress;
         const curLat = (1 - t) * (1 - t) * dc1.lat + 2 * (1 - t) * t * ((dc1.lat + dc2.lat) * 0.5) + t * t * dc2.lat;
-        const curLon = (1 - t) * (1 - t) * dc1.lon + 2 * (1 - t) * t * ((dc1.lat + dc2.lat) * 0.5) + t * t * dc2.lon;
+        const curLon = (1 - t) * (1 - t) * dc1.lon + 2 * (1 - t) * t * ((dc1.lat + dc2.lon) * 0.5) + t * t * dc2.lon;
         const arcLift = Math.sin(t * Math.PI) * (globeRadius * 0.22);
         const curRadius = globeRadius + arcLift;
 
@@ -341,13 +354,16 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
 
         if (p.z > -globeRadius * 0.4) {
           ctx.save();
-          const color = pkt.type === 'green' ? '#34D399' : '#38BDF8';
+          const isGreen = pkt.type === 'green';
+          const color = isGreen
+            ? (isDark ? '#34D399' : '#10B981')
+            : (isDark ? '#38BDF8' : '#0EA5E9');
           ctx.fillStyle = color;
           ctx.shadowColor = color;
           ctx.shadowBlur = 12;
 
           ctx.beginPath();
-          ctx.arc(p.x, p.y, Math.max(2.2, 3.4 * p.scale), 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, Math.max(2.4, 3.6 * p.scale), 0, Math.PI * 2);
           ctx.fill();
 
           ctx.fillStyle = '#FFFFFF';
@@ -387,16 +403,17 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
         const p = project3D(dc.lat, dc.lon, globeRadius, globeCenterX, globeCenterY);
         if (p.z > -globeRadius * 0.25) {
           ctx.save();
-          ctx.fillStyle = '#38BDF8';
-          ctx.shadowColor = '#38BDF8';
+          const hubColor = isDark ? '#38BDF8' : '#0EA5E9';
+          ctx.fillStyle = hubColor;
+          ctx.shadowColor = hubColor;
           ctx.shadowBlur = 9;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, Math.max(2.8, 4.2 * p.scale), 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, Math.max(3, 4.4 * p.scale), 0, Math.PI * 2);
           ctx.fill();
 
           if (p.z > globeRadius * 0.2) {
             ctx.font = 'bold 9px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.95)' : 'rgba(15, 23, 42, 0.9)';
             ctx.shadowBlur = 0;
             ctx.fillText(dc.id, p.x + 6, p.y + 3);
           }
@@ -411,11 +428,10 @@ export const GlobeCanvas = ({ className = '', globeSizeFactor = 0.42, interactiv
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', setupCanvas);
+      resizeObserver.disconnect();
       if (interactive) {
         window.removeEventListener('mousemove', handleMouseMove);
       }
-      observer.disconnect();
     };
   }, [globeSizeFactor, interactive]);
 

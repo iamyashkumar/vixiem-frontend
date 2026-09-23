@@ -104,46 +104,57 @@ export const Login = () => {
       <div className="min-h-screen flex bg-transparent text-slate-800 dark:text-slate-200 transition-colors duration-200 pt-20">
         
         {/* Left Side - 3D Globe Graphic Showcase Panel */}
-        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-gradient-to-br from-slate-950 via-[#0A101D] to-slate-900 border-r border-slate-800 items-center justify-center">
-          {/* Dedicated 3D Interactive Wireframe Globe */}
+        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-gradient-to-b from-sky-50/70 via-slate-50 to-sky-100/40 dark:from-[#06080E] dark:via-[#090D17] dark:to-[#040609] border-r border-slate-200 dark:border-slate-800/80 items-center justify-center transition-colors duration-300">
+          {/* 3D Wireframe Globe centered DIRECTLY behind the text */}
           <GlobeCanvas className="absolute inset-0 w-full h-full pointer-events-none" globeSizeFactor={0.46} />
 
-          {/* Cinematic Vignette Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/50 pointer-events-none" />
+          {/* Soft Center Radial Glow to keep text 100% readable over 3D Globe */}
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.4) 45%, transparent 75%)",
+            }}
+          />
+          <div 
+            className="absolute inset-0 pointer-events-none hidden dark:block"
+            style={{
+              background: "radial-gradient(circle at 50% 50%, rgba(8, 12, 22, 0.75) 0%, rgba(8, 12, 22, 0.4) 45%, transparent 75%)",
+            }}
+          />
 
-          {/* Luminous Brand Showcase Content */}
-          <div className="relative z-20 flex flex-col items-center text-center px-10 pointer-events-none max-w-md">
+          {/* Luminous Brand Showcase Content directly over the Globe */}
+          <div className="relative z-10 flex flex-col items-center text-center px-10 pointer-events-none max-w-md my-auto">
             {/* Live Indicator Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 text-xs font-semibold tracking-wider uppercase mb-8 shadow-lg shadow-sky-500/10 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 dark:bg-sky-500/15 border border-sky-400/30 text-sky-700 dark:text-sky-300 text-xs font-semibold tracking-wider uppercase mb-7 shadow-sm backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               Global API Telemetry Active
             </div>
 
-            <div className="mb-6 transform hover:scale-105 transition-transform duration-300">
+            <div className="mb-5 transform hover:scale-105 transition-transform duration-300 drop-shadow-md">
               <Logo size="xl" showText={false} link={false} />
             </div>
 
-            <h2 className="text-4xl sm:text-5xl font-display font-extrabold text-white mb-4 tracking-tight leading-tight">
-              Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-cyan-300 to-sky-300">Vixiem</span>
+            <h2 className="text-4xl sm:text-5xl font-display font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight">
+              Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-sky-400 to-cyan-500 dark:from-sky-400 dark:via-sky-300 dark:to-cyan-300">Vixiem</span>
             </h2>
 
-            <p className="text-base text-slate-300 font-normal leading-relaxed max-w-sm mb-8">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-relaxed max-w-sm mb-7">
               Experience the next generation of real-time API monitoring, latency metrics, and AI-powered anomaly intelligence.
             </p>
 
             {/* Global Mesh Live Metrics Strip */}
-            <div className="grid grid-cols-3 gap-3 w-full bg-slate-900/80 border border-slate-800/90 backdrop-blur-md p-3.5 rounded-xl text-left shadow-xl">
+            <div className="grid grid-cols-3 gap-2.5 w-full bg-white/85 dark:bg-slate-900/85 border border-slate-200/90 dark:border-slate-800/90 backdrop-blur-md p-3.5 rounded-xl text-left shadow-md dark:shadow-xl">
               <div>
-                <p className="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Uptime SLA</p>
-                <p className="text-sm font-bold text-emerald-400 font-mono mt-0.5">99.99%</p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider">Uptime SLA</p>
+                <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">99.99%</p>
               </div>
               <div>
-                <p className="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Avg Latency</p>
-                <p className="text-sm font-bold text-sky-400 font-mono mt-0.5">14.2 ms</p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider">Avg Latency</p>
+                <p className="text-sm font-bold text-sky-600 dark:text-sky-400 font-mono mt-0.5">14.2 ms</p>
               </div>
               <div>
-                <p className="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Edge Mesh</p>
-                <p className="text-sm font-bold text-cyan-300 font-mono mt-0.5">10 Hubs</p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider">Edge Mesh</p>
+                <p className="text-sm font-bold text-cyan-600 dark:text-cyan-300 font-mono mt-0.5">10 Hubs</p>
               </div>
             </div>
           </div>
