@@ -139,23 +139,23 @@ export const LogsTab = () => {
   if (error && logs.length === 0) return <ApiError message={error} onRetry={() => fetchLogs()} />;
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500 pb-10">
-      {/* Header & Controls */}
-      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
+    <div className="space-y-6 animate-in fade-in duration-500 pb-10">
+      {/* Header & Controls (Fixed / Sticky at Top on Scroll) */}
+      <div className="sticky top-20 z-30 bg-slate-50/95 dark:bg-black/95 backdrop-blur-md -mx-6 sm:-mx-8 px-6 sm:px-8 py-4 border-b border-slate-200 dark:border-neutral-800 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 transition-colors">
         <div>
            <div className="flex items-center gap-3 mb-1">
-             <h2 className="text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Monitoring Logs</h2>
-             <span className="bg-sky-400/10 text-sky-500 dark:text-sky-400 font-semibold text-xs px-3 py-1 rounded-full border border-sky-400/20">
+             <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Monitoring Logs</h2>
+             <span className="bg-slate-200 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 font-mono font-semibold text-xs px-2.5 py-0.5 rounded-full border border-slate-300 dark:border-neutral-700">
                {totalElements} entries
              </span>
              {isLiveConnected && (
-               <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-xs px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1.5 animate-in fade-in">
-                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+               <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-xs px-2.5 py-0.5 rounded-full border border-emerald-500/20 flex items-center gap-1.5 animate-in fade-in font-mono">
+                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                  LIVE SSE
                </span>
              )}
            </div>
-           <p className="text-slate-600 dark:text-slate-400 font-light">Real-time event and error logs.</p>
+           <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-normal">Real-time event and error logs.</p>
         </div>
         
         <div className="flex flex-wrap sm:flex-nowrap w-full xl:w-auto gap-3">
@@ -163,7 +163,7 @@ export const LogsTab = () => {
           <select
             value={filters.level || ''}
             onChange={(e) => handleFilterChange('level', e.target.value)}
-            className="flex-1 sm:w-36 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all h-full text-sm"
+            className="flex-1 sm:w-36 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all h-full text-sm font-medium"
           >
             <option value="">All Levels</option>
             <option value="INFO">INFO</option>
@@ -182,17 +182,17 @@ export const LogsTab = () => {
           >
             <button
               type="submit"
-              className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 hover:text-sky-400 transition-colors"
+              className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 hover:text-emerald-500 transition-colors"
               title="Click to search"
             >
               <Search size={16} />
             </button>
             <input
               type="text"
-              placeholder="Search logs (e.g. Github, 200, UP)..."
+              placeholder="Search logs (e.g. 200, ERROR)..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-9 pr-8 py-2.5 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all h-full text-sm"
+              className="w-full bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 text-slate-900 dark:text-white rounded-xl pl-9 pr-8 py-2.5 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all h-full text-sm"
             />
             {searchTerm && (
               <button
@@ -213,27 +213,27 @@ export const LogsTab = () => {
           <button
             onClick={() => fetchLogs(false)}
             disabled={isRefreshing}
-            className={`p-2.5 bg-slate-50 dark:bg-[#08080A] border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl transition-all flex items-center justify-center ${isRefreshing ? 'opacity-50' : ''}`}
+            className={`p-2.5 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-800 text-slate-700 dark:text-slate-300 rounded-xl transition-all flex items-center justify-center ${isRefreshing ? 'opacity-50' : ''}`}
             title="Refresh Logs"
           >
-            <RefreshCw size={20} className={isRefreshing ? "animate-spin text-sky-400" : ""} />
+            <RefreshCw size={18} className={isRefreshing ? "animate-spin text-emerald-500" : ""} />
           </button>
         </div>
       </div>
 
       {/* Logs Table */}
-      <div className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-xl dark:shadow-black/30">
+      <div className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-xl dark:shadow-black/30">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 dark:bg-[#08080A] border-b border-slate-200 dark:border-slate-800 text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold font-display">
+              <tr className="bg-slate-50 dark:bg-neutral-950 border-b border-slate-200 dark:border-neutral-800 text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold font-display">
                 <th className="px-6 py-5">Timestamp</th>
                 <th className="px-6 py-5">Level</th>
                 <th className="px-6 py-5">Source</th>
                 <th className="px-6 py-5">Message</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80">
+            <tbody className="divide-y divide-slate-100 dark:divide-neutral-800/80">
               {logs.length === 0 ? (
                 <tr>
                   <td colSpan="4" className="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
@@ -245,7 +245,7 @@ export const LogsTab = () => {
                 logs.map((log, idx) => (
                   <tr 
                     key={log.id || `log-${idx}`} 
-                    className={`transition-all duration-500 ${log.id && log.id === highlightLogId ? 'bg-sky-400/10 dark:bg-sky-400/20 ring-1 ring-sky-500/40' : 'hover:bg-slate-50/80 dark:hover:bg-slate-800/30'}`}
+                    className={`transition-all duration-500 ${log.id && log.id === highlightLogId ? 'bg-sky-400/10 dark:bg-sky-400/20 ring-1 ring-sky-500/40' : 'hover:bg-slate-50/80 dark:hover:bg-neutral-900/40'}`}
                   >
                     <td className="px-6 py-4 text-xs font-mono text-slate-600 dark:text-slate-400 whitespace-nowrap">
                       {formatDate(log.timestamp)}
@@ -276,7 +276,7 @@ export const LogsTab = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-[#08080A] border-t border-slate-200 dark:border-slate-800">
+          <div className="flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-neutral-950 border-t border-slate-200 dark:border-neutral-800">
             <span className="text-xs text-slate-600 dark:text-slate-400">
               Page <span className="font-semibold text-slate-900 dark:text-white">{page + 1}</span> of <span className="font-semibold text-slate-900 dark:text-white">{totalPages}</span>
             </span>
@@ -284,14 +284,14 @@ export const LogsTab = () => {
               <button
                 onClick={() => setPage(p => Math.max(0, p - 1))}
                 disabled={page === 0}
-                className="p-2 bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 rounded-lg transition-all text-slate-700 dark:text-slate-300"
+                className="p-2 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-800 disabled:opacity-40 rounded-lg transition-all text-slate-700 dark:text-slate-300"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
-                className="p-2 bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 rounded-lg transition-all text-slate-700 dark:text-slate-300"
+                className="p-2 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-800 disabled:opacity-40 rounded-lg transition-all text-slate-700 dark:text-slate-300"
               >
                 <ChevronRight size={18} />
               </button>
