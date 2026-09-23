@@ -160,10 +160,6 @@ public class Application {
           
           {/* Ambient Warm Gold Glow Blob */}
           <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-sky-400/15 dark:bg-sky-400/10 blur-[130px] rounded-full pointer-events-none -z-10 animate-pulse-slow"></div>
-          {/* 3D Global Wireframe Globe in Hero Background */}
-          <div className="absolute -right-10 lg:right-6 top-1/2 -translate-y-1/2 w-[420px] lg:w-[600px] h-[420px] lg:h-[600px] pointer-events-none -z-10 opacity-30 dark:opacity-40">
-            <GlobeCanvas className="w-full h-full" globeSizeFactor={0.42} />
-          </div>
 
           <motion.div 
             className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10"

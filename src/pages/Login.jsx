@@ -104,9 +104,9 @@ export const Login = () => {
       <div className="min-h-screen flex bg-transparent text-slate-800 dark:text-slate-200 transition-colors duration-200 pt-20">
         
         {/* Left Side - 3D Globe Graphic Showcase Panel */}
-        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-gradient-to-b from-sky-50/70 via-slate-50 to-sky-100/40 dark:from-[#06080E] dark:via-[#090D17] dark:to-[#040609] border-r border-slate-200 dark:border-slate-800/80 items-center justify-center transition-colors duration-300">
+        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-transparent border-r border-slate-200 dark:border-slate-800/80 items-center justify-center transition-colors duration-300">
           {/* 3D Wireframe Globe centered DIRECTLY behind the text */}
-          <GlobeCanvas className="absolute inset-0 w-full h-full pointer-events-none" globeSizeFactor={0.46} />
+          
 
           {/* Soft Center Radial Glow to keep text 100% readable over 3D Globe */}
           <div 
