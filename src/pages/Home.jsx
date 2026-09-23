@@ -354,7 +354,7 @@ public class Application {
         </section>
 
         {/* SDK CODE PREVIEW */}
-        <section className="w-full bg-sky-50/30 dark:bg-[#0D0D10]/60 py-16 sm:py-20 border-y border-slate-200 dark:border-slate-800">
+        <section className="w-full bg-transparent py-16 sm:py-20">
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
             <div className="text-center max-w-2xl mx-auto mb-10">
               <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 dark:text-white font-display mb-3">
@@ -448,7 +448,7 @@ public class Application {
         </section>
 
         {/* HOW IT WORKS */}
-        <section id="how-it-works" className="w-full bg-sky-50/30 dark:bg-[#0D0D10]/60 py-20 border-y border-slate-200 dark:border-slate-800">
+        <section id="how-it-works" className="w-full bg-transparent py-20">
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
             <div className="text-center max-w-2xl mx-auto mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white font-display mb-3">
@@ -564,7 +564,7 @@ public class Application {
         </section>
 
         {/* STATS BANNER */}
-        <section className="w-full bg-sky-50/30 dark:bg-[#0D0D10] py-16 border-y border-slate-200 dark:border-slate-800">
+        <section className="w-full bg-transparent py-16">
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
               {stats.map((stat, index) => (

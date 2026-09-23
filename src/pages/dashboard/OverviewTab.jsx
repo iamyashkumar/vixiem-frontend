@@ -12,7 +12,7 @@ const StatCard = ({ label, value, icon: Icon, colorClass, bgBadgeClass, index })
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: index * 0.05 }}
     whileHover={{ translateY: -3 }}
-    className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800/90 rounded-2xl p-5 shadow-sm dark:shadow-lg dark:shadow-black/30 transition-all duration-300 hover:border-sky-400/50 hover:shadow-sky-400/10"
+    className="bg-white/80 dark:bg-[#141418]/80 backdrop-blur-md border border-slate-200 dark:border-slate-800/90 rounded-2xl p-5 shadow-sm dark:shadow-lg dark:shadow-black/30 transition-all duration-300 hover:border-sky-400/50 hover:shadow-sky-400/10"
   >
     <div className="flex justify-between items-start mb-3">
       <div className={`p-2.5 rounded-xl ${bgBadgeClass || 'bg-slate-100 dark:bg-[#08080A]'} border border-slate-200 dark:border-slate-700/60`}>
@@ -110,7 +110,7 @@ export const OverviewTab = () => {
            initial={{ opacity: 0, y: 15 }}
            animate={{ opacity: 1, y: 0 }}
            transition={{ delay: 0.3 }}
-           className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 col-span-1 lg:col-span-2 shadow-sm dark:shadow-xl dark:shadow-black/30"
+           className="bg-white/80 dark:bg-[#141418]/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 col-span-1 lg:col-span-2 shadow-sm dark:shadow-xl dark:shadow-black/30"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
              <div>

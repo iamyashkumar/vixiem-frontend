@@ -106,6 +106,18 @@ export const AnimatedBackground = () => {
       type: idx % 3 === 0 ? 'green' : 'sky',
     }));
 
+    // Floating Ambient Telemetry Signal Particles (Drifts dynamically across whole viewport)
+    const ambientParticles = Array.from({ length: 30 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.0004,
+      vy: -0.0002 - Math.random() * 0.0004,
+      radius: 1 + Math.random() * 2,
+      opacity: 0.2 + Math.random() * 0.5,
+      type: Math.random() > 0.6 ? 'green' : 'sky',
+      pulse: Math.random() * Math.PI * 2,
+    }));
+
     // Ping ripple rings expanding from datacenters
     const pingRings = [];
 
@@ -135,20 +147,21 @@ export const AnimatedBackground = () => {
       return { x: projX, y: projY, z: z2, scale };
     };
 
-    const render = () => {
+    const render = (timestamp) => {
       if (document.hidden) {
         animationFrameId = requestAnimationFrame(render);
         return;
       }
 
       const isDark = getIsDark();
+      const time = timestamp * 0.001;
 
       ctx.clearRect(0, 0, width, height);
 
       rotX += (targetTiltX - rotX) * 0.05;
       rotY += 0.0022; // Smooth natural orbit
 
-      // Positioning: Centered globally so it frames all pages (Home, Login, Signup, Dashboard)
+      // Position the 3D globe centered gracefully across the viewport
       const globeRadius = Math.min(width * 0.35, Math.min(height * 0.44, 450));
       const globeCenterX = width * 0.5;
       const globeCenterY = height * 0.48;
@@ -171,7 +184,33 @@ export const AnimatedBackground = () => {
       ctx.fillStyle = glowGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // 2. Translucent Sphere Body
+      // 2. Render Floating Ambient Telemetry Signal Particles (Dynamic background life across all pages)
+      ambientParticles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y < 0) p.y = 1;
+        if (p.x < 0) p.x = 1;
+        if (p.x > 1) p.x = 0;
+
+        const px = p.x * width;
+        const py = p.y * height;
+        const pulseAlpha = p.opacity * (0.6 + Math.sin(time * 2 + p.pulse) * 0.4);
+
+        ctx.save();
+        const pColor = p.type === 'green'
+          ? (isDark ? `rgba(52, 211, 153, ${pulseAlpha})` : `rgba(16, 185, 129, ${pulseAlpha * 0.8})`)
+          : (isDark ? `rgba(56, 189, 248, ${pulseAlpha})` : `rgba(14, 165, 233, ${pulseAlpha * 0.8})`);
+
+        ctx.fillStyle = pColor;
+        ctx.shadowColor = pColor;
+        ctx.shadowBlur = isDark ? 8 : 4;
+        ctx.beginPath();
+        ctx.arc(px, py, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // 3. Translucent Sphere Body
       ctx.save();
       ctx.beginPath();
       ctx.arc(globeCenterX, globeCenterY, globeRadius, 0, Math.PI * 2);
@@ -182,7 +221,7 @@ export const AnimatedBackground = () => {
       ctx.stroke();
       ctx.restore();
 
-      // 3. Draw 3D Latitude Rings
+      // 4. Draw 3D Latitude Rings
       const latitudes = [-60, -40, -20, 0, 20, 40, 60];
       latitudes.forEach((lat) => {
         ctx.save();
@@ -207,7 +246,7 @@ export const AnimatedBackground = () => {
         ctx.restore();
       });
 
-      // 4. Draw 3D Longitude Meridians
+      // 5. Draw 3D Longitude Meridians
       for (let lon = -180; lon < 180; lon += 30) {
         ctx.save();
         ctx.beginPath();
@@ -231,7 +270,7 @@ export const AnimatedBackground = () => {
         ctx.restore();
       }
 
-      // 5. Draw 3D Outer Orbital Telemetry Ring
+      // 6. Draw 3D Outer Orbital Telemetry Ring
       ctx.save();
       ctx.beginPath();
       const orbitRadius = globeRadius * 1.28;
@@ -266,7 +305,7 @@ export const AnimatedBackground = () => {
       ctx.stroke();
       ctx.restore();
 
-      // 6. Draw Procedural Landmass / Network Dots
+      // 7. Draw Procedural Landmass / Network Dots
       CONTINENT_POINTS.forEach((pt) => {
         const p = project3D(pt.lat, pt.lon, globeRadius, globeCenterX, globeCenterY);
         if (p.z > -globeRadius * 0.25) {
@@ -282,7 +321,7 @@ export const AnimatedBackground = () => {
         }
       });
 
-      // 7. Draw 3D Curved Telemetry Arcs
+      // 8. Draw 3D Curved Telemetry Arcs
       ARCS_CONFIG.forEach((arc) => {
         const dc1 = DATACENTERS[arc.from];
         const dc2 = DATACENTERS[arc.to];
@@ -307,7 +346,7 @@ export const AnimatedBackground = () => {
         }
       });
 
-      // 8. Render Flowing Telemetry Packets
+      // 9. Render Flowing Telemetry Packets
       packets.forEach((pkt) => {
         pkt.progress += pkt.speed;
         const arc = ARCS_CONFIG[pkt.arcIndex];
@@ -358,7 +397,7 @@ export const AnimatedBackground = () => {
         }
       });
 
-      // 9. Render Destination Ping Rings
+      // 10. Render Destination Ping Rings
       for (let i = pingRings.length - 1; i >= 0; i--) {
         const ring = pingRings[i];
         ring.radius += 0.7;
@@ -382,7 +421,7 @@ export const AnimatedBackground = () => {
         }
       }
 
-      // 10. Draw Global Datacenter Hub Markers
+      // 11. Draw Global Datacenter Hub Markers
       DATACENTERS.forEach((dc) => {
         const p = project3D(dc.lat, dc.lon, globeRadius, globeCenterX, globeCenterY);
         if (p.z > -globeRadius * 0.25) {

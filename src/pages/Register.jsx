@@ -288,26 +288,9 @@ export const Register = () => {
         </div>
 
         {/* Right Side - 3D Globe Graphic Showcase Panel */}
-        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-transparent border-l border-slate-200 dark:border-slate-800/80 items-center justify-center transition-colors duration-300">
-          {/* 3D Wireframe Globe centered DIRECTLY behind the text */}
-          
-
-          {/* Soft Center Radial Glow to keep text 100% readable over 3D Globe */}
-          <div 
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.4) 45%, transparent 75%)",
-            }}
-          />
-          <div 
-            className="absolute inset-0 pointer-events-none hidden dark:block"
-            style={{
-              background: "radial-gradient(circle at 50% 50%, rgba(8, 12, 22, 0.75) 0%, rgba(8, 12, 22, 0.4) 45%, transparent 75%)",
-            }}
-          />
-
-          {/* Luminous Brand Showcase Content directly over the Globe */}
-          <div className="relative z-10 flex flex-col items-center text-center px-10 pointer-events-none max-w-md my-auto">
+        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-transparent border-l border-slate-200/80 dark:border-slate-800/80 items-center justify-center transition-colors duration-300">
+          {/* Luminous Brand Showcase Content directly over the Globe with NO white circle */}
+          <div className="relative z-10 flex flex-col items-center justify-center text-center px-10 pointer-events-none max-w-md mx-auto h-full py-12">
             {/* Live Indicator Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 dark:bg-sky-500/15 border border-sky-400/30 text-sky-700 dark:text-sky-300 text-xs font-semibold tracking-wider uppercase mb-7 shadow-sm backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -327,7 +310,7 @@ export const Register = () => {
             </p>
 
             {/* Global Mesh Live Metrics Strip */}
-            <div className="grid grid-cols-3 gap-2.5 w-full bg-white/85 dark:bg-slate-900/85 border border-slate-200/90 dark:border-slate-800/90 backdrop-blur-md p-3.5 rounded-xl text-left shadow-md dark:shadow-xl">
+            <div className="grid grid-cols-3 gap-2.5 w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200/90 dark:border-slate-800/90 backdrop-blur-md p-3.5 rounded-xl text-left shadow-sm dark:shadow-xl">
               <div>
                 <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider">Setup Time</p>
                 <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">2 Mins</p>
@@ -343,6 +326,7 @@ export const Register = () => {
             </div>
           </div>
         </div>
+
       </div>
     </PageTransition>
   );
