@@ -256,7 +256,9 @@ export const AnimatedBackground = () => {
         ctx.restore();
       });
 
-      // 3. Translucent Sphere Body with subtle rim
+      // 3. Draw 3D Globe for Home and Auth pages (Dashboard has dedicated 3D Globe canvas card)
+      const isDashboardRoute = pathnameRef.current?.startsWith('/dashboard');
+      if (!isDashboardRoute) {
       ctx.save();
       ctx.beginPath();
       ctx.arc(globeCenterX, globeCenterY, globeRadius, 0, Math.PI * 2);
@@ -489,6 +491,7 @@ export const AnimatedBackground = () => {
           ctx.restore();
         }
       });
+      } // end !isDashboardRoute
 
       animationFrameId = requestAnimationFrame(render);
     };
