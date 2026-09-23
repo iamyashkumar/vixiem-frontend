@@ -18,6 +18,10 @@ export const Login = () => {
   const [resending, setResending] = useState(false);
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  React.useEffect(() => {
     if (isAuthenticated) {
       navigate('/dashboard', { replace: true });
     }
@@ -96,7 +100,7 @@ export const Login = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen flex bg-slate-50 dark:bg-[#0D0D10] text-slate-800 dark:text-slate-200 transition-colors duration-200">
+      <div className="min-h-screen flex bg-slate-50 dark:bg-[#0D0D10] text-slate-800 dark:text-slate-200 transition-colors duration-200 pt-20">
         
         {/* Left Side - Graphic Panel */}
         <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-white dark:bg-[#08080A] border-r border-slate-200 dark:border-slate-800 items-center justify-center">

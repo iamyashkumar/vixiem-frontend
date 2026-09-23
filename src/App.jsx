@@ -36,6 +36,12 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith('/dashboard');
+  const isAuthRoute = ['/login', '/register', '/verify-email'].includes(location.pathname);
+
+  // Automatically scroll to top on every navigation so pages never open pre-scrolled
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [location.pathname]);
 
   useEffect(() => {
     warmupBackend();
@@ -87,7 +93,7 @@ export default function App() {
         </AnimatePresence>
       </Suspense>
 
-      {!isDashboardRoute && <Footer />}
+      {!isDashboardRoute && !isAuthRoute && <Footer />}
     </ErrorBoundary>
   );
 }

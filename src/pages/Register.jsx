@@ -118,7 +118,7 @@ export const Register = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen flex bg-slate-50 dark:bg-[#0D0D10] text-slate-800 dark:text-slate-200 transition-colors duration-200">
+      <div className="min-h-screen flex bg-slate-50 dark:bg-[#0D0D10] text-slate-800 dark:text-slate-200 transition-colors duration-200 pt-20">
         
         {/* Left Side - Form */}
         <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative overflow-y-auto">
