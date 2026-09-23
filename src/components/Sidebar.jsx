@@ -36,7 +36,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       </AnimatePresence>
 
       <motion.aside
-        className={`fixed md:sticky top-24 left-0 h-[calc(100vh-8rem)] w-64 bg-white/85 dark:bg-[#0D0D10]/85 backdrop-blur-xl border border-sky-200/80 dark:border-sky-400/20 rounded-2xl p-5 z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-lg dark:shadow-xl dark:shadow-black/60 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        className={`fixed md:sticky top-24 left-0 h-[calc(100vh-8rem)] w-64 bg-white/45 dark:bg-[#0D0D10]/50 backdrop-blur-2xl border border-white/70 dark:border-white/[0.08] rounded-2xl p-5 z-50 transform transition-transform duration-300 ease-in-out flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.03)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.3)] ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
       >
         <div className="flex items-center justify-between md:hidden mb-5 pb-3 border-b border-sky-200 dark:border-sky-400/20">
           <Logo size="sm" />
@@ -53,8 +53,8 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               onClick={() => setSidebarOpen(false)}
               className={`px-4 py-3 rounded-xl flex items-center font-medium text-sm transition-all duration-200 ${
                 isActive(item.path)
-                  ? 'text-sky-800 dark:text-sky-300 bg-sky-400/20 dark:bg-sky-400/10 shadow-sm border border-sky-400/40 font-bold'
-                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-sky-50 dark:hover:bg-sky-400/10 border border-transparent'
+                  ? 'text-sky-700 dark:text-sky-300 bg-sky-500/15 dark:bg-sky-400/15 shadow-sm border border-sky-400/30 font-bold backdrop-blur-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/[0.05] border border-transparent'
               }`}
             >
               <item.icon size={18} className={`mr-3 shrink-0 ${isActive(item.path) ? 'text-sky-500 dark:text-sky-400' : ''}`} /> {item.name}
@@ -62,12 +62,14 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           ))}
         </nav>
 
-        <button
-          onClick={logout}
-          className="mt-auto px-4 py-3 rounded-xl flex items-center text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/30 border border-transparent font-medium text-sm transition-all duration-200 w-full"
-        >
-          <LogOut size={18} className="mr-3 shrink-0" /> Logout
-        </button>
+        <div className="pt-4 border-t border-slate-200/60 dark:border-white/[0.08]">
+          <button
+            onClick={logout}
+            className="w-full px-4 py-2.5 rounded-xl flex items-center text-sm font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all duration-200"
+          >
+            <LogOut size={18} className="mr-3" /> Logout
+          </button>
+        </div>
       </motion.aside>
     </>
   );

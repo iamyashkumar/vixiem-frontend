@@ -11,13 +11,13 @@ export const DashboardLayout = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen text-slate-900 dark:text-slate-100 bg-transparent pt-20 flex relative w-full px-3 sm:px-6 lg:px-8 gap-4 lg:gap-6 transition-colors duration-200">
+      <div className="min-h-screen text-slate-900 dark:text-slate-100 bg-transparent pt-24 pb-12 flex relative w-full max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 gap-6 transition-colors duration-200">
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         
-        <div className="flex-1 flex flex-col w-full min-w-0 overflow-hidden my-3 sm:my-4 bg-white/75 dark:bg-[#0D0D10]/75 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/60 rounded-2xl shadow-sm dark:shadow-xl dark:shadow-black/40 relative z-10 transition-colors duration-200">
+        <div className="flex-1 flex flex-col w-full min-w-0 relative z-10">
           <Header setSidebarOpen={setSidebarOpen} />
           
-          <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+          <main className="flex-1 overflow-visible">
             <AnimatePresence mode="wait">
               <PageTransition key={location.pathname}>
                 <Outlet />

@@ -111,6 +111,13 @@ export const AnimatedBackground = () => {
           radius: Math.min(width * 0.18, Math.min(height * 0.36, 300)),
         };
       }
+      if (isLg && path.startsWith('/dashboard')) {
+        return {
+          targetX: width * 0.58,
+          targetY: height * 0.48,
+          radius: Math.min(width * 0.28, Math.min(height * 0.44, 400)),
+        };
+      }
       return {
         targetX: width * 0.5,
         targetY: height * 0.50,
