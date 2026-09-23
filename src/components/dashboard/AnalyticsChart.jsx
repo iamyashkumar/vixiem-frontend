@@ -78,8 +78,8 @@ export const AnalyticsChart = ({ endpointId, data: propData }) => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-slate-900 border border-slate-700/80 p-3 rounded-xl shadow-xl text-xs font-mono text-white">
-          <p className="text-slate-400 font-semibold mb-1">{label}</p>
+        <div className="bg-black border border-neutral-800 p-3 rounded-xl shadow-xl text-xs font-mono text-white">
+          <p className="text-neutral-400 font-semibold mb-1">{label}</p>
           <p className="text-emerald-400 font-bold flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
             Avg Latency: {payload[0].value}ms
@@ -90,8 +90,8 @@ export const AnalyticsChart = ({ endpointId, data: propData }) => {
     return null;
   };
 
-  const gridColor = isDark ? "#1E293B" : "#F1F5F9";
-  const axisColor = isDark ? "#64748B" : "#94A3B8";
+  const gridColor = isDark ? "#262626" : "#F1F5F9";
+  const axisColor = isDark ? "#737373" : "#94A3B8";
 
   return (
     <div className="w-full h-72">

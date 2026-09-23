@@ -36,11 +36,11 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       </AnimatePresence>
 
       <aside
-        className={`fixed md:sticky top-20 left-0 h-[calc(100vh-5rem)] w-60 bg-white dark:bg-[#0D121F] border-r border-slate-200 dark:border-slate-800 p-4 z-40 transform transition-transform duration-200 ease-in-out flex flex-col shrink-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        className={`fixed md:sticky top-20 left-0 h-[calc(100vh-5rem)] w-60 bg-white dark:bg-black border-r border-slate-200 dark:border-neutral-800 p-4 z-40 transform transition-transform duration-200 ease-in-out flex flex-col shrink-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
       >
-        <div className="flex items-center justify-between md:hidden mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between md:hidden mb-4 pb-3 border-b border-slate-200 dark:border-neutral-800">
           <Logo size="sm" />
-          <button onClick={() => setSidebarOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 p-1">
+          <button onClick={() => setSidebarOpen(false)} className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white p-1">
             <X size={20} />
           </button>
         </div>
@@ -57,16 +57,16 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               onClick={() => setSidebarOpen(false)}
               className={`px-3.5 py-2.5 rounded-lg flex items-center font-medium text-xs sm:text-sm transition-all duration-150 ${
                 isActive(item.path)
-                  ? 'text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/10 font-bold border border-sky-200 dark:border-sky-500/20'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/60'
+                  ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-neutral-900 font-bold border border-slate-200 dark:border-neutral-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-neutral-900/60'
               }`}
             >
-              <item.icon size={17} className={`mr-2.5 shrink-0 ${isActive(item.path) ? 'text-sky-500' : 'text-slate-400'}`} /> {item.name}
+              <item.icon size={17} className={`mr-2.5 shrink-0 ${isActive(item.path) ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`} /> {item.name}
             </Link>
           ))}
         </nav>
 
-        <div className="pt-3 border-t border-slate-200 dark:border-slate-800">
+        <div className="pt-3 border-t border-slate-200 dark:border-neutral-800">
           <button
             onClick={logout}
             className="w-full px-3.5 py-2 rounded-lg flex items-center text-xs sm:text-sm font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"

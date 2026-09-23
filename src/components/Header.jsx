@@ -9,11 +9,11 @@ export const Header = ({ setSidebarOpen }) => {
   const displayName = user?.username || (user?.email ? user.email.split('@')[0] : 'User');
 
   return (
-    <div className="flex items-center justify-between px-6 py-4 w-full bg-white dark:bg-[#0D121F] border-b border-slate-200 dark:border-slate-800 sticky top-20 z-20 transition-colors duration-200">
+    <div className="flex items-center justify-between px-6 py-4 w-full bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 sticky top-20 z-20 transition-colors duration-200">
       <div className="flex items-center">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="text-slate-600 dark:text-slate-400 hover:text-sky-500 transition-colors mr-3.5 md:hidden"
+          className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors mr-3.5 md:hidden"
           aria-label="Open sidebar"
         >
           <Menu size={22} />
@@ -29,7 +29,7 @@ export const Header = ({ setSidebarOpen }) => {
             </span>
           </div>
           <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-0.5 hidden sm:block">
-            Welcome back, <span className="text-sky-600 dark:text-sky-400 font-semibold">{displayName}</span>
+            Welcome back, <span className="text-slate-900 dark:text-white font-bold">{displayName}</span>
           </p>
         </div>
       </div>
