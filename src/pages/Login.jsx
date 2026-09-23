@@ -104,7 +104,7 @@ export const Login = () => {
       <div className="min-h-screen flex bg-transparent text-slate-800 dark:text-slate-200 transition-colors duration-200 pt-20">
         
         {/* Left Side - 3D Globe Graphic Showcase Panel */}
-        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-transparent border-r border-slate-200/80 dark:border-slate-800/80 items-center justify-center transition-colors duration-300">
+        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-transparent items-center justify-center transition-colors duration-300">
           {/* Luminous Brand Showcase Content directly over the Globe with NO white circle */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center px-10 pointer-events-none max-w-md mx-auto h-full">
             {/* Live Indicator Badge */}
