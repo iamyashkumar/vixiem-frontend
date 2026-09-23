@@ -100,14 +100,14 @@ export const AnimatedBackground = () => {
       if (isLg && path === '/login') {
         return {
           targetX: width * 0.25,
-          targetY: height * 0.5,
+          targetY: Math.max(260, height * 0.38),
           radius: Math.min(width * 0.18, Math.min(height * 0.38, 320)),
         };
       }
       if (isLg && path === '/register') {
         return {
           targetX: width * 0.75,
-          targetY: height * 0.5,
+          targetY: Math.max(260, height * 0.38),
           radius: Math.min(width * 0.18, Math.min(height * 0.38, 320)),
         };
       }
