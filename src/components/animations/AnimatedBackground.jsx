@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const noiseSvg = `data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E`;
 
@@ -56,6 +57,9 @@ generatePoints();
 
 export const AnimatedBackground = () => {
   const canvasRef = useRef(null);
+  const location = useLocation();
+  const pathnameRef = useRef(location.pathname);
+  pathnameRef.current = location.pathname;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -88,6 +92,36 @@ export const AnimatedBackground = () => {
     let rotY = 0.6;  // Spinning angle
     let targetTiltX = 0.28;
     let targetTiltY = 0;
+
+    // Dynamic Responsive Positioning per Route
+    const getTargetLayout = () => {
+      const isLg = width >= 1024;
+      const path = pathnameRef.current;
+      if (isLg && path === '/login') {
+        return {
+          targetX: width * 0.25,
+          targetY: height * 0.5,
+          radius: Math.min(width * 0.18, Math.min(height * 0.38, 320)),
+        };
+      }
+      if (isLg && path === '/register') {
+        return {
+          targetX: width * 0.75,
+          targetY: height * 0.5,
+          radius: Math.min(width * 0.18, Math.min(height * 0.38, 320)),
+        };
+      }
+      return {
+        targetX: width * 0.5,
+        targetY: height * 0.48,
+        radius: Math.min(width * 0.35, Math.min(height * 0.44, 450)),
+      };
+    };
+
+    const initialLayout = getTargetLayout();
+    let currentCenterX = initialLayout.targetX;
+    let currentCenterY = initialLayout.targetY;
+    let currentRadius = initialLayout.radius;
 
     const handleMouseMove = (e) => {
       if (width === 0 || height === 0) return;
@@ -161,23 +195,28 @@ export const AnimatedBackground = () => {
       rotX += (targetTiltX - rotX) * 0.05;
       rotY += 0.0022; // Smooth natural orbit
 
-      // Position the 3D globe centered gracefully across the viewport
-      const globeRadius = Math.min(width * 0.35, Math.min(height * 0.44, 450));
-      const globeCenterX = width * 0.5;
-      const globeCenterY = height * 0.48;
+      // Smoothly transition globe position & size per route layout
+      const layout = getTargetLayout();
+      currentCenterX += (layout.targetX - currentCenterX) * 0.08;
+      currentCenterY += (layout.targetY - currentCenterY) * 0.08;
+      currentRadius += (layout.radius - currentRadius) * 0.08;
 
-      // 1. Ambient Radial Glow behind Globe (Tuned for Light & Dark mode)
+      const globeRadius = currentRadius;
+      const globeCenterX = currentCenterX;
+      const globeCenterY = currentCenterY;
+
+      // 1. Ambient Radial Glow behind Globe (Smoothly diffused, zero harsh circular edges)
       const glowGrad = ctx.createRadialGradient(
-        globeCenterX, globeCenterY, globeRadius * 0.2,
-        globeCenterX, globeCenterY, globeRadius * 1.6
+        globeCenterX, globeCenterY, globeRadius * 0.15,
+        globeCenterX, globeCenterY, globeRadius * 1.5
       );
       if (isDark) {
-        glowGrad.addColorStop(0, 'rgba(14, 165, 233, 0.20)');
-        glowGrad.addColorStop(0.45, 'rgba(6, 182, 212, 0.07)');
+        glowGrad.addColorStop(0, 'rgba(14, 165, 233, 0.12)');
+        glowGrad.addColorStop(0.5, 'rgba(6, 182, 212, 0.04)');
         glowGrad.addColorStop(1, 'rgba(8, 8, 10, 0)');
       } else {
-        glowGrad.addColorStop(0, 'rgba(56, 189, 248, 0.28)');
-        glowGrad.addColorStop(0.45, 'rgba(14, 165, 233, 0.10)');
+        glowGrad.addColorStop(0, 'rgba(56, 189, 248, 0.12)');
+        glowGrad.addColorStop(0.5, 'rgba(14, 165, 233, 0.04)');
         glowGrad.addColorStop(1, 'rgba(250, 252, 255, 0)');
       }
 
@@ -210,14 +249,14 @@ export const AnimatedBackground = () => {
         ctx.restore();
       });
 
-      // 3. Translucent Sphere Body
+      // 3. Translucent Sphere Body with subtle rim
       ctx.save();
       ctx.beginPath();
       ctx.arc(globeCenterX, globeCenterY, globeRadius, 0, Math.PI * 2);
-      ctx.fillStyle = isDark ? 'rgba(14, 165, 233, 0.03)' : 'rgba(56, 189, 248, 0.035)';
+      ctx.fillStyle = isDark ? 'rgba(14, 165, 233, 0.02)' : 'rgba(56, 189, 248, 0.02)';
       ctx.fill();
-      ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.30)' : 'rgba(14, 165, 233, 0.40)';
-      ctx.lineWidth = isDark ? 1.4 : 1.6;
+      ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.16)' : 'rgba(14, 165, 233, 0.20)';
+      ctx.lineWidth = 1.0;
       ctx.stroke();
       ctx.restore();
 
