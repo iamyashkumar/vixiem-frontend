@@ -6,6 +6,7 @@ import { PageTransition } from '../components/animations/PageTransition';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { Logo } from '../components/common/Logo';
+import { GlobeCanvas } from '../components/animations/GlobeCanvas';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -102,16 +103,49 @@ export const Login = () => {
     <PageTransition>
       <div className="min-h-screen flex bg-transparent text-slate-800 dark:text-slate-200 transition-colors duration-200 pt-20">
         
-        {/* Left Side - Graphic Panel */}
-        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-white/40 dark:bg-[#08080A]/40 backdrop-blur-md border-r border-slate-200/80 dark:border-slate-800/80 items-center justify-center">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sky-400/10 blur-[140px] pointer-events-none"></div>
-          
-          <div className="relative z-20 flex flex-col items-center text-center px-12">
-            <div className="mb-8 transform scale-125">
+        {/* Left Side - 3D Globe Graphic Showcase Panel */}
+        <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-gradient-to-br from-slate-950 via-[#0A101D] to-slate-900 border-r border-slate-800 items-center justify-center">
+          {/* Dedicated 3D Interactive Wireframe Globe */}
+          <GlobeCanvas className="absolute inset-0 w-full h-full pointer-events-none" globeSizeFactor={0.46} />
+
+          {/* Cinematic Vignette Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/50 pointer-events-none" />
+
+          {/* Luminous Brand Showcase Content */}
+          <div className="relative z-20 flex flex-col items-center text-center px-10 pointer-events-none max-w-md">
+            {/* Live Indicator Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 text-xs font-semibold tracking-wider uppercase mb-8 shadow-lg shadow-sky-500/10 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Global API Telemetry Active
+            </div>
+
+            <div className="mb-6 transform hover:scale-105 transition-transform duration-300">
               <Logo size="xl" showText={false} link={false} />
             </div>
-            <h2 className="text-5xl font-display font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Welcome to <span className="text-sky-400 dark:text-sky-400">Vixiem</span></h2>
-            <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-md">Experience the next generation of API monitoring and intelligence.</p>
+
+            <h2 className="text-4xl sm:text-5xl font-display font-extrabold text-white mb-4 tracking-tight leading-tight">
+              Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-cyan-300 to-sky-300">Vixiem</span>
+            </h2>
+
+            <p className="text-base text-slate-300 font-normal leading-relaxed max-w-sm mb-8">
+              Experience the next generation of real-time API monitoring, latency metrics, and AI-powered anomaly intelligence.
+            </p>
+
+            {/* Global Mesh Live Metrics Strip */}
+            <div className="grid grid-cols-3 gap-3 w-full bg-slate-900/80 border border-slate-800/90 backdrop-blur-md p-3.5 rounded-xl text-left shadow-xl">
+              <div>
+                <p className="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Uptime SLA</p>
+                <p className="text-sm font-bold text-emerald-400 font-mono mt-0.5">99.99%</p>
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Avg Latency</p>
+                <p className="text-sm font-bold text-sky-400 font-mono mt-0.5">14.2 ms</p>
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Edge Mesh</p>
+                <p className="text-sm font-bold text-cyan-300 font-mono mt-0.5">10 Hubs</p>
+              </div>
+            </div>
           </div>
         </div>
 
