@@ -7,6 +7,7 @@ import { LogStatusBadge } from '../../components/LogStatusBadge';
 import { PageLoader } from '../../components/PageLoader';
 import { ApiError } from '../../components/ApiError';
 import { TitleGraphBackdrop } from '../../components/animations/TitleGraphBackdrop';
+import { formatLogTimestamp } from '../../utils/helpers';
 
 import { config } from '../../config/env';
 
@@ -154,8 +155,7 @@ export const LogsTab = () => {
   };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString();
+    return formatLogTimestamp(dateString);
   };
 
   if (loading && logs.length === 0) return <PageLoader />;

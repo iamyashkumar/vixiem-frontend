@@ -7,6 +7,7 @@ import { logsService } from '../../services/logsService';
 import toast from 'react-hot-toast';
 import { TitleGraphBackdrop } from '../../components/animations/TitleGraphBackdrop';
 import { PageLoader } from '../../components/PageLoader';
+import { formatTimeOnly } from '../../utils/helpers';
 
 const getCachedAi = () => {
   try {
@@ -225,7 +226,7 @@ export const AiTab = () => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-center mb-1.5">
-                        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{new Date(log.timestamp).toLocaleTimeString()}</span>
+                        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{formatTimeOnly(log.timestamp)}</span>
                         <span className="text-[10px] font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">ERROR</span>
                       </div>
                       <p className="text-xs text-slate-800 dark:text-slate-200 font-mono truncate">{log.message}</p>
