@@ -59,7 +59,7 @@ export const OverviewTab = () => {
       }
       
       const uptimeVal = parseFloat(sum?.uptimePercentage || 99.99);
-      const avgResp = sum?.averageResponseTime || 36;
+      const avgResp = sum?.averageResponseTime != null ? sum.averageResponseTime : 15;
       const hasEndpoints = (sum?.totalEndpoints || 0) > 0 || (eps && eps.length > 0);
 
       const trend = hasEndpoints ? [
@@ -101,7 +101,7 @@ export const OverviewTab = () => {
   }
 
   const totalEps = (endpoints && endpoints.length) || (summary?.totalEndpoints) || 0;
-  const avgLatency = summary?.averageResponseTime || 36;
+  const avgLatency = summary?.averageResponseTime != null ? summary.averageResponseTime : 0;
   const uptimeStr = summary?.uptimePercentage || '99.99';
   const totalRequests = (summary?.totalRequests || 134053).toLocaleString();
 
@@ -147,7 +147,10 @@ export const OverviewTab = () => {
           <div className="h-9 w-px bg-slate-200 dark:border-neutral-800 hidden sm:block" />
 
           <button
-            onClick={() => fetchData(true)}
+            onClick={() => {
+              sessionStorage.removeItem('vixiem_overview_cache');
+              fetchData(true);
+            }}
             disabled={refreshing}
             className="p-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-neutral-700"
             title="Refresh Data"
