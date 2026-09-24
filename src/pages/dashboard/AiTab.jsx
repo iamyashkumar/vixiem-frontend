@@ -6,11 +6,21 @@ import { endpointsService } from '../../services/endpointsService';
 import { logsService } from '../../services/logsService';
 import toast from 'react-hot-toast';
 import { TitleGraphBackdrop } from '../../components/animations/TitleGraphBackdrop';
+import { PageLoader } from '../../components/PageLoader';
+
+const getCachedAi = () => {
+  try {
+    const cached = sessionStorage.getItem('vixiem_ai_cache');
+    if (cached) return JSON.parse(cached);
+  } catch (e) {}
+  return null;
+};
 
 export const AiTab = () => {
-  const [limitStatus, setLimitStatus] = useState(null);
-  const [stats, setStats] = useState(null);
-  const [loadingInitial, setLoadingInitial] = useState(true);
+  const cached = getCachedAi();
+  const [limitStatus, setLimitStatus] = useState(cached?.limitStatus || { limit: 50, used: 0, remainingCalls: 50 });
+  const [stats, setStats] = useState(cached?.stats || null);
+  const [loadingInitial, setLoadingInitial] = useState(!cached);
 
   const [endpoints, setEndpoints] = useState([]);
   const [selectedEndpoint, setSelectedEndpoint] = useState('');
@@ -29,18 +39,30 @@ export const AiTab = () => {
 
   const fetchInitialData = async () => {
     try {
-      setLoadingInitial(true);
-      const [limitRes, statsRes, endpointsRes] = await Promise.all([
+      if (!cached) setLoadingInitial(true);
+      const fetchPromise = Promise.all([
         aiService.getLimitStatus().catch(() => null),
         aiService.getStats().catch(() => null),
         endpointsService.getEndpoints().catch(() => [])
       ]);
+      const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve('TIMEOUT'), 800));
+      const raceResult = await Promise.race([fetchPromise, timeoutPromise]);
+      let limitRes, statsRes, endpointsRes;
+      if (raceResult === 'TIMEOUT') {
+        setLoadingInitial(false);
+        [limitRes, statsRes, endpointsRes] = await fetchPromise;
+      } else {
+        [limitRes, statsRes, endpointsRes] = raceResult;
+      }
       if (limitRes) setLimitStatus(limitRes);
       if (statsRes) setStats(statsRes);
       if (endpointsRes && endpointsRes.length > 0) {
         setEndpoints(endpointsRes);
         setSelectedEndpoint(endpointsRes[0].id);
       }
+      try {
+        sessionStorage.setItem('vixiem_ai_cache', JSON.stringify({ limitStatus: limitRes, stats: statsRes }));
+      } catch (e) {}
     } catch (err) {
       console.error('Error fetching AI initial data', err);
     } finally {
@@ -104,11 +126,7 @@ export const AiTab = () => {
   };
 
   if (loadingInitial) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <Loader2 className="w-8 h-8 text-sky-400 animate-spin" />
-      </div>
-    );
+    return <PageLoader message="Connecting to AI telemetry engine..." />;
   }
 
   const limit = limitStatus?.limit || 50;

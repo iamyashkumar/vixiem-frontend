@@ -19,9 +19,18 @@ const StatusBadge = ({ isUp }) => (
   </span>
 );
 
+const getCachedEndpoints = () => {
+  try {
+    const cached = sessionStorage.getItem('vixiem_endpoints_cache');
+    if (cached) return JSON.parse(cached);
+  } catch (e) {}
+  return null;
+};
+
 export const EndpointsTab = () => {
-  const [endpoints, setEndpoints] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const cached = getCachedEndpoints();
+  const [endpoints, setEndpoints] = useState(cached || []);
+  const [loading, setLoading] = useState(!cached);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState('');
@@ -35,13 +44,25 @@ export const EndpointsTab = () => {
 
   const fetchEndpoints = async () => {
     try {
-      setLoading(true);
+      if (!cached && endpoints.length === 0) setLoading(true);
       setError(null);
-      const data = await endpointsService.getEndpoints();
-      setEndpoints(data);
+      const fetchPromise = endpointsService.getEndpoints();
+      const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve('TIMEOUT'), 800));
+      const raceResult = await Promise.race([fetchPromise, timeoutPromise]);
+      let data;
+      if (raceResult === 'TIMEOUT') {
+        setLoading(false);
+        data = await fetchPromise;
+      } else {
+        data = raceResult;
+      }
+      setEndpoints(data || []);
+      try {
+        sessionStorage.setItem('vixiem_endpoints_cache', JSON.stringify(data || []));
+      } catch (e) {}
     } catch (err) {
       console.error(err);
-      setError("Failed to fetch monitored endpoints. Please try again.");
+      if (endpoints.length === 0) setError("Failed to fetch monitored endpoints. Please try again.");
     } finally {
       setLoading(false);
     }

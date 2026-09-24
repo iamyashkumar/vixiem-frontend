@@ -17,24 +17,46 @@ import { AnalyticsChart } from '../../components/dashboard/AnalyticsChart';
 import { PageLoader } from '../../components/PageLoader';
 import { ApiError } from '../../components/ApiError';
 
+const getCachedOverview = () => {
+  try {
+    const cached = sessionStorage.getItem('vixiem_overview_cache');
+    if (cached) return JSON.parse(cached);
+  } catch (e) {}
+  return null;
+};
+
 export const OverviewTab = () => {
-  const [loading, setLoading] = useState(true);
+  const cached = getCachedOverview();
+  const [loading, setLoading] = useState(!cached);
   const [error, setError] = useState(null);
-  const [summary, setSummary] = useState(null);
-  const [endpoints, setEndpoints] = useState([]);
+  const [summary, setSummary] = useState(cached?.summary || null);
+  const [endpoints, setEndpoints] = useState(cached?.endpoints || []);
   const [timeRange, setTimeRange] = useState('24h');
-  const [trendData, setTrendData] = useState([]);
+  const [trendData, setTrendData] = useState(cached?.trendData || []);
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async (isManual = false) => {
     if (isManual) setRefreshing(true);
-    else setLoading(true);
+    else if (!summary && !cached) setLoading(true);
     setError(null);
     try {
-      const [sum, eps] = await Promise.all([
+      // Fast fetch with sub-second resolution
+      const fetchPromise = Promise.all([
         analyticsService.getSummary().catch(() => null),
         endpointsService.getEndpoints().catch(() => [])
       ]);
+      const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve('TIMEOUT'), 800));
+
+      const raceResult = await Promise.race([fetchPromise, timeoutPromise]);
+      let sum, eps;
+      if (raceResult === 'TIMEOUT') {
+        setLoading(false);
+        const [delayedSum, delayedEps] = await fetchPromise;
+        sum = delayedSum;
+        eps = delayedEps;
+      } else {
+        [sum, eps] = raceResult;
+      }
       
       const uptimeVal = parseFloat(sum?.uptimePercentage || 99.99);
       const avgResp = sum?.averageResponseTime || 36;
@@ -49,12 +71,17 @@ export const OverviewTab = () => {
         { time: '08:00 PM', formattedDate: '08:00 PM', avgResponseTime: avgResp },
       ] : [];
 
-      setSummary(sum);
-      setEndpoints(eps || []);
-      setTrendData(trend);
+      if (sum || eps) {
+        setSummary(sum);
+        setEndpoints(eps || []);
+        setTrendData(trend);
+        try {
+          sessionStorage.setItem('vixiem_overview_cache', JSON.stringify({ summary: sum, endpoints: eps || [], trendData: trend }));
+        } catch (e) {}
+      }
     } catch (err) {
       console.error('Failed to load dashboard overview data', err);
-      setError('Failed to load real-time analytics. Please retry.');
+      if (!summary && !cached) setError('Failed to load real-time analytics. Please retry.');
     } finally {
       setLoading(false);
       setRefreshing(false);

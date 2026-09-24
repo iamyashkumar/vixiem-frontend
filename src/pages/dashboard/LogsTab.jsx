@@ -10,10 +10,19 @@ import { TitleGraphBackdrop } from '../../components/animations/TitleGraphBackdr
 
 import { config } from '../../config/env';
 
+const getCachedLogs = () => {
+  try {
+    const cached = sessionStorage.getItem('vixiem_logs_cache');
+    if (cached) return JSON.parse(cached);
+  } catch (e) {}
+  return null;
+};
+
 export const LogsTab = () => {
-  const [logs, setLogs] = useState([]);
+  const cached = getCachedLogs();
+  const [logs, setLogs] = useState(cached?.content || []);
   const [endpoints, setEndpoints] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!cached);
   const [error, setError] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLiveConnected, setIsLiveConnected] = useState(false);
@@ -49,8 +58,9 @@ export const LogsTab = () => {
   };
 
   const fetchLogs = useCallback(async (showLoader = true) => {
-    if (showLoader) setLoading(true);
-    setIsRefreshing(!showLoader);
+    const hasInitialLogs = logs.length > 0 || !!cached;
+    if (showLoader && !hasInitialLogs) setLoading(true);
+    setIsRefreshing(true);
     setError(null);
     try {
       const isUp = filters.status === 'UP' ? true : filters.status === 'DOWN' ? false : null;
@@ -58,13 +68,25 @@ export const LogsTab = () => {
       if (filters.level) params.level = filters.level;
       if (filters.keyword) params.keyword = filters.keyword;
       
-      const response = await logsService.getLogs(params);
+      const fetchPromise = logsService.getLogs(params);
+      const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve('TIMEOUT'), 800));
+      const raceResult = await Promise.race([fetchPromise, timeoutPromise]);
+      let response;
+      if (raceResult === 'TIMEOUT') {
+        setLoading(false);
+        response = await fetchPromise;
+      } else {
+        response = raceResult;
+      }
       setLogs(response.content || []);
       setTotalPages(response.totalPages || 1);
       setTotalElements(response.totalElements || 0);
+      try {
+        sessionStorage.setItem('vixiem_logs_cache', JSON.stringify(response));
+      } catch (e) {}
     } catch (err) {
       console.error(err);
-      setError("Failed to fetch logs. Please try again.");
+      if (logs.length === 0) setError("Failed to fetch logs. Please try again.");
     } finally {
       setLoading(false);
       setIsRefreshing(false);

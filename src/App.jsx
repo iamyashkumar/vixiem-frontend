@@ -44,6 +44,22 @@ export default function App() {
   }, [location.pathname]);
 
   useEffect(() => {
+    // Preload dashboard route chunks in idle time for sub-second switches
+    const preload = () => {
+      import('./layouts/DashboardLayout');
+      import('./pages/dashboard/OverviewTab');
+      import('./pages/dashboard/EndpointsTab');
+      import('./pages/dashboard/LogsTab');
+      import('./pages/dashboard/AiTab');
+    };
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      window.requestIdleCallback(preload);
+    } else {
+      setTimeout(preload, 800);
+    }
+  }, []);
+
+  useEffect(() => {
     warmupBackend();
     authService.fetchCsrf().catch(() => {});
     const handleLogout = () => {
