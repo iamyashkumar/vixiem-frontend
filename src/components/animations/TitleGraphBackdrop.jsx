@@ -18,10 +18,10 @@ export const TitleGraphBackdrop = () => {
     resize();
     window.addEventListener('resize', resize);
 
-    // Laser beam properties
+    // Laser beam properties - Snappy speed & Electric Blue theme
     let beamX = 0;
-    const beamSpeed = 1.8; // Smooth sweep speed
-    const beamRadius = 110; // Width of glow influence
+    const beamSpeed = 3.2; // Faster, energetic sweep speed
+    const beamRadius = 120; // Width of laser glow influence
     const dotSpacing = 18; // Spacing between matrix dots
 
     const render = () => {
@@ -42,51 +42,50 @@ export const TitleGraphBackdrop = () => {
         beamX = -beamRadius;
       }
 
-      // 1. Draw Laser Scanner Beam (Vertical gradient bar)
+      // 1. Draw Electric Blue Laser Scanner Beam
       if (beamX > 0 && beamX < width) {
-        // Soft ambient glow bar behind the laser
-        const glowGrad = ctx.createLinearGradient(beamX - 40, 0, beamX + 10, 0);
-        glowGrad.addColorStop(0, 'rgba(16, 185, 129, 0)');
-        glowGrad.addColorStop(0.7, isDark ? 'rgba(16, 185, 129, 0.08)' : 'rgba(16, 185, 129, 0.05)');
-        glowGrad.addColorStop(1, isDark ? 'rgba(16, 185, 129, 0.20)' : 'rgba(16, 185, 129, 0.12)');
+        // Trailing soft blue glow bar behind the laser
+        const glowGrad = ctx.createLinearGradient(beamX - 45, 0, beamX + 10, 0);
+        glowGrad.addColorStop(0, 'rgba(14, 165, 233, 0)');
+        glowGrad.addColorStop(0.7, isDark ? 'rgba(14, 165, 233, 0.08)' : 'rgba(2, 132, 199, 0.05)');
+        glowGrad.addColorStop(1, isDark ? 'rgba(56, 189, 248, 0.22)' : 'rgba(14, 165, 233, 0.15)');
         
         ctx.fillStyle = glowGrad;
-        ctx.fillRect(beamX - 40, 0, 40, height);
+        ctx.fillRect(beamX - 45, 0, 45, height);
 
-        // Core thin laser line
+        // Core sharp electric blue laser line
         const lineGrad = ctx.createLinearGradient(0, 0, 0, height);
-        lineGrad.addColorStop(0, 'rgba(16, 185, 129, 0)');
-        lineGrad.addColorStop(0.2, isDark ? 'rgba(16, 185, 129, 0.45)' : 'rgba(16, 185, 129, 0.35)');
-        lineGrad.addColorStop(0.5, isDark ? 'rgba(52, 211, 153, 0.85)' : 'rgba(5, 150, 105, 0.70)');
-        lineGrad.addColorStop(0.8, isDark ? 'rgba(16, 185, 129, 0.45)' : 'rgba(16, 185, 129, 0.35)');
-        lineGrad.addColorStop(1, 'rgba(16, 185, 129, 0)');
+        lineGrad.addColorStop(0, 'rgba(14, 165, 233, 0)');
+        lineGrad.addColorStop(0.2, isDark ? 'rgba(14, 165, 233, 0.50)' : 'rgba(2, 132, 199, 0.40)');
+        lineGrad.addColorStop(0.5, isDark ? 'rgba(56, 189, 248, 0.95)' : 'rgba(14, 165, 233, 0.85)');
+        lineGrad.addColorStop(0.8, isDark ? 'rgba(14, 165, 233, 0.50)' : 'rgba(2, 132, 199, 0.40)');
+        lineGrad.addColorStop(1, 'rgba(14, 165, 233, 0)');
 
         ctx.beginPath();
         ctx.moveTo(beamX, 0);
         ctx.lineTo(beamX, height);
         ctx.strokeStyle = lineGrad;
-        ctx.lineWidth = 1.5;
-        ctx.shadowColor = '#10B981';
-        ctx.shadowBlur = 10;
+        ctx.lineWidth = 1.6;
+        ctx.shadowColor = '#38BDF8';
+        ctx.shadowBlur = 12;
         ctx.stroke();
         ctx.shadowBlur = 0; // reset
       }
 
-      // 2. Draw Dot Matrix Grid with Interactive Illumination
+      // 2. Draw Dot Matrix Grid with Electric Blue Illumination
       const baseAlpha = isDark ? 0.08 : 0.07;
       const baseRadius = 1.2;
 
       for (let x = dotSpacing / 2; x < width; x += dotSpacing) {
-        // Distance to the sweeping beam
         const dist = Math.abs(x - beamX);
         const inGlow = dist < beamRadius;
 
-        // Phosphor decay curve: dots behind the beam stay lit slightly longer
+        // Phosphor decay curve
         const isTrailing = x < beamX && dist < beamRadius * 0.9;
         const proximity = inGlow ? Math.pow(1 - dist / beamRadius, isTrailing ? 1.5 : 2.5) : 0;
 
         for (let y = dotSpacing / 2; y < height; y += dotSpacing) {
-          // Edge fade (dots fade out smoothly near top, bottom, and side borders)
+          // Edge fade
           const edgeFadeX = Math.min(1, Math.min(x / 40, (width - x) / 40));
           const edgeFadeY = Math.min(1, Math.min(y / 20, (height - y) / 20));
           const edgeMultiplier = edgeFadeX * edgeFadeY;
@@ -94,17 +93,17 @@ export const TitleGraphBackdrop = () => {
           ctx.beginPath();
           
           if (proximity > 0.05) {
-            // Illuminated Dot (swept by laser radar)
+            // Illuminated Blue Dot
             const dotR = baseRadius + proximity * 1.5;
             ctx.arc(x, y, dotR, 0, Math.PI * 2);
 
-            const rAlpha = Math.min(1, (baseAlpha + proximity * 0.75) * edgeMultiplier);
+            const rAlpha = Math.min(1, (baseAlpha + proximity * 0.85) * edgeMultiplier);
             ctx.fillStyle = isDark
-              ? `rgba(52, 211, 153, ${rAlpha})`
-              : `rgba(16, 185, 129, ${rAlpha})`;
+              ? `rgba(56, 189, 248, ${rAlpha})`
+              : `rgba(14, 165, 233, ${rAlpha})`;
 
             if (proximity > 0.4) {
-              ctx.shadowColor = '#10B981';
+              ctx.shadowColor = '#0EA5E9';
               ctx.shadowBlur = proximity * 8;
             }
             ctx.fill();
