@@ -120,8 +120,8 @@ export const AiTab = () => {
     <div className="space-y-8 animate-in fade-in duration-500 pb-10">
       <div className="relative overflow-hidden p-6 rounded-2xl bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 flex items-center gap-4 mb-8 transition-colors">
         <TitleGraphBackdrop />
-        <div className="relative z-10 w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center border border-emerald-200 dark:border-emerald-500/20 shadow-sm shrink-0">
-          <Brain className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+        <div className="relative z-10 w-12 h-12 rounded-xl bg-sky-50 dark:bg-sky-500/10 flex items-center justify-center border border-sky-200 dark:border-sky-500/20 shadow-sm shrink-0">
+          <Brain className="w-6 h-6 text-sky-600 dark:text-sky-400" />
         </div>
         <div className="relative z-10">
            <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">AI Error Analysis</h2>
@@ -285,7 +285,7 @@ export const AiTab = () => {
               <div className="space-y-6 animate-in fade-in duration-300">
                 <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-neutral-800">
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+                    <div className="flex items-center gap-2 text-sky-600 dark:text-sky-400 font-bold text-sm">
                       <CheckCircle className="w-5 h-5" />
                       AI Diagnosis Complete
                     </div>
@@ -293,7 +293,7 @@ export const AiTab = () => {
                       <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border font-mono ${
                         analysisResult.severity === 'HIGH' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30' :
                         analysisResult.severity === 'MEDIUM' ? 'bg-sky-400/10 text-sky-500 dark:text-sky-400 border-sky-400/30' :
-                        'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                        'bg-emerald-500/10 text-sky-600 dark:text-sky-400 border-emerald-500/30'
                       }`}>
                         {analysisResult.severity} SEVERITY
                       </span>
@@ -317,7 +317,7 @@ export const AiTab = () => {
                   </div>
 
                   <div className="p-5 bg-slate-50 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm">
-                    <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">SUGGESTED RESOLUTION</h4>
+                    <h4 className="text-xs font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-3">SUGGESTED RESOLUTION</h4>
                     {Array.isArray(analysisResult.recommendations) && analysisResult.recommendations.length > 0 ? (
                       <ul className="space-y-2.5">
                         {analysisResult.recommendations.map((rec, i) => (
