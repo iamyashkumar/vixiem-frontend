@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { TitleGraphBackdrop } from './animations/TitleGraphBackdrop';
 
 export const Header = ({ setSidebarOpen }) => {
   const { user } = useAuth();
@@ -9,8 +10,11 @@ export const Header = ({ setSidebarOpen }) => {
   const displayName = user?.username || (user?.email ? user.email.split('@')[0] : 'User');
 
   return (
-    <div className="flex items-center justify-between px-6 py-4 w-full bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 sticky top-20 z-20 transition-colors duration-200">
-      <div className="flex items-center">
+    <div className="relative overflow-hidden flex items-center justify-between px-6 py-4 w-full bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 sticky top-20 z-20 transition-colors duration-200">
+      {/* Localized graph animation strictly behind header text */}
+      <TitleGraphBackdrop />
+
+      <div className="relative z-10 flex items-center">
         <button
           onClick={() => setSidebarOpen(true)}
           className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors mr-3.5 md:hidden"
@@ -34,8 +38,8 @@ export const Header = ({ setSidebarOpen }) => {
         </div>
       </div>
 
-      {/* Right status info - NO duplicate theme toggle button */}
-      <div className="flex items-center gap-3">
+      {/* Right status info */}
+      <div className="relative z-10 flex items-center gap-3">
         <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400">
           <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
           <span className="hidden sm:inline font-medium">Telemetry Connected</span>

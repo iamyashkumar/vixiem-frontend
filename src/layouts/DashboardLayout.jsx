@@ -3,7 +3,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import { PageTransition } from '../components/animations/PageTransition';
-import { TelemetryGraphBackground } from '../components/animations/TelemetryGraphBackground';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 
@@ -14,19 +13,16 @@ export const DashboardLayout = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-black pt-20 flex relative w-full transition-colors duration-200 overflow-hidden">
-        {/* Ambient Telemetry Graph Animation Behind Text & Content across all pages */}
-        <TelemetryGraphBackground />
-
+      <div className="min-h-screen text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-black pt-20 flex relative w-full transition-colors duration-200">
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         
-        <div className="flex-1 flex flex-col w-full min-w-0 relative z-10">
+        <div className="flex-1 flex flex-col w-full min-w-0">
           {/* Header ONLY shown on Overview page */}
           {isOverview ? (
             <Header setSidebarOpen={setSidebarOpen} />
           ) : (
             /* Minimal mobile hamburger button for non-overview pages */
-            <div className="md:hidden flex items-center px-4 py-3 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-slate-200 dark:border-neutral-800 sticky top-20 z-20">
+            <div className="md:hidden flex items-center px-4 py-3 bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 sticky top-20 z-20">
               <button
                 onClick={() => setSidebarOpen(true)}
                 className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
@@ -37,7 +33,6 @@ export const DashboardLayout = () => {
             </div>
           )}
           
-          {/* 100% Full Width across ALL pages */}
           <main className={`flex-1 w-full min-w-0 ${isOverview ? '' : 'p-6 sm:px-8 py-6'}`}>
             <AnimatePresence mode="wait">
               <PageTransition key={location.pathname}>

@@ -79,7 +79,7 @@ export const OverviewTab = () => {
   const totalRequests = (summary?.totalRequests || 134053).toLocaleString();
 
   return (
-    <div className="bg-white/85 dark:bg-black/70 backdrop-blur-sm border-b border-slate-200 dark:border-neutral-800 divide-y divide-slate-200 dark:divide-neutral-800 transition-colors w-full animate-in fade-in duration-300">
+    <div className="bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 divide-y divide-slate-200 dark:divide-neutral-800 transition-colors w-full animate-in fade-in duration-300">
       
       {/* 1. EXECUTIVE HEALTH BANNER (Docked Top Section, 0 Side Gaps) */}
       <div className="text-slate-900 dark:text-white p-6 sm:px-8 flex flex-col md:flex-row md:items-center justify-between gap-5 transition-colors">

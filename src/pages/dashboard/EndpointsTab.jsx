@@ -6,6 +6,7 @@ import { PageLoader } from '../../components/PageLoader';
 import { ApiError } from '../../components/ApiError';
 import { EndpointModal } from '../../components/modals/EndpointModal';
 import { ConfirmDeleteModal } from '../../components/modals/ConfirmDeleteModal';
+import { TitleGraphBackdrop } from '../../components/animations/TitleGraphBackdrop';
 
 const StatusBadge = ({ isUp }) => (
   <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold font-mono tracking-wider flex items-center gap-1.5 border ${
@@ -109,11 +110,12 @@ export const EndpointsTab = () => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-10">
-      {/* Header Actions */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-           <h2 className="text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Monitored Endpoints</h2>
-           <p className="text-slate-600 dark:text-slate-400 font-light mt-1">Manage and monitor your API targets.</p>
+      {/* Header Actions with Localized Graph Backdrop behind Text */}
+      <div className="relative overflow-hidden p-6 rounded-2xl bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-colors">
+        <TitleGraphBackdrop />
+        <div className="relative z-10">
+           <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Monitored Endpoints</h2>
+           <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">Manage and monitor your API targets.</p>
         </div>
         
         <div className="flex w-full sm:w-auto gap-4">
@@ -158,7 +160,7 @@ export const EndpointsTab = () => {
 
       {/* Endpoints Grid */}
       {filteredEndpoints.length === 0 ? (
-        <div className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl p-12 text-center shadow-sm dark:shadow-xl">
+        <div className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-12 text-center shadow-sm dark:shadow-xl">
           <Server className="w-12 h-12 text-slate-400 mx-auto mb-4" />
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No Endpoints Found</h3>
           <p className="text-slate-600 dark:text-slate-400 text-sm max-w-md mx-auto mb-6">
@@ -177,7 +179,7 @@ export const EndpointsTab = () => {
               key={endpoint.id}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800/90 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30 hover:border-sky-400/50 hover:shadow-sky-400/10 transition-all flex flex-col justify-between"
+              className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800/90 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30 hover:border-sky-400/50 hover:shadow-sky-400/10 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex justify-between items-start mb-4">

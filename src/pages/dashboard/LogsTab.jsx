@@ -6,6 +6,7 @@ import { endpointsService } from '../../services/endpointsService';
 import { LogStatusBadge } from '../../components/LogStatusBadge';
 import { PageLoader } from '../../components/PageLoader';
 import { ApiError } from '../../components/ApiError';
+import { TitleGraphBackdrop } from '../../components/animations/TitleGraphBackdrop';
 
 import { config } from '../../config/env';
 
@@ -140,9 +141,10 @@ export const LogsTab = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500 pb-10">
-      {/* Header & Controls (Fixed / Sticky at Top on Scroll) */}
-      <div className="sticky top-20 z-30 bg-slate-50/95 dark:bg-black/95 backdrop-blur-md -mx-6 sm:-mx-8 px-6 sm:px-8 py-4 border-b border-slate-200 dark:border-neutral-800 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 transition-colors">
-        <div>
+      {/* Header & Controls (Fixed / Sticky at Top with Graph Backdrop behind Text) */}
+      <div className="sticky top-20 z-30 relative overflow-hidden bg-white/95 dark:bg-black/95 backdrop-blur-md -mx-6 sm:-mx-8 px-6 sm:px-8 py-4 border-b border-slate-200 dark:border-neutral-800 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 transition-colors">
+        <TitleGraphBackdrop />
+        <div className="relative z-10">
            <div className="flex items-center gap-3 mb-1">
              <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Monitoring Logs</h2>
              <span className="bg-slate-200 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 font-mono font-semibold text-xs px-2.5 py-0.5 rounded-full border border-slate-300 dark:border-neutral-700">
@@ -222,7 +224,7 @@ export const LogsTab = () => {
       </div>
 
       {/* Logs Table */}
-      <div className="bg-white/85 dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-xl dark:shadow-black/30">
+      <div className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-xl dark:shadow-black/30">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>

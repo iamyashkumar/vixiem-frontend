@@ -5,6 +5,7 @@ import { aiService } from '../../services/aiService';
 import { endpointsService } from '../../services/endpointsService';
 import { logsService } from '../../services/logsService';
 import toast from 'react-hot-toast';
+import { TitleGraphBackdrop } from '../../components/animations/TitleGraphBackdrop';
 
 export const AiTab = () => {
   const [limitStatus, setLimitStatus] = useState(null);
@@ -117,13 +118,14 @@ export const AiTab = () => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-10">
-      <div className="flex items-center gap-4 mb-8">
-        <div className="w-14 h-14 rounded-2xl bg-sky-400/10 dark:bg-sky-400/20 flex items-center justify-center border border-sky-400/40 dark:border-sky-400/30 shadow-[0_0_20px_rgba(14,165,233,0.2)]">
-          <Brain className="w-7 h-7 text-sky-500 dark:text-sky-400" />
+      <div className="relative overflow-hidden p-6 rounded-2xl bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 flex items-center gap-4 mb-8 transition-colors">
+        <TitleGraphBackdrop />
+        <div className="relative z-10 w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center border border-emerald-200 dark:border-emerald-500/20 shadow-sm shrink-0">
+          <Brain className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
         </div>
-        <div>
-           <h2 className="text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">AI Error Analysis</h2>
-           <p className="text-slate-600 dark:text-slate-400 font-light mt-1">Leverage AI to instantly diagnose endpoint failures.</p>
+        <div className="relative z-10">
+           <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">AI Error Analysis</h2>
+           <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">Leverage AI to instantly diagnose endpoint failures.</p>
         </div>
       </div>
 
@@ -135,7 +137,7 @@ export const AiTab = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <div className="flex justify-between items-center mb-5">
               <h3 className="font-display font-semibold text-slate-900 dark:text-white flex items-center gap-2">
@@ -163,7 +165,7 @@ export const AiTab = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-6 flex flex-col h-[550px] shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             <h3 className="font-display font-semibold text-slate-900 dark:text-white mb-5 text-lg">Select Errors to Analyze</h3>
             
@@ -241,7 +243,7 @@ export const AiTab = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-black/70 backdrop-blur-sm border border-slate-200 dark:border-neutral-800 rounded-2xl p-8 min-h-[660px] shadow-sm dark:shadow-xl dark:shadow-black/30"
+            className="bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl p-8 min-h-[660px] shadow-sm dark:shadow-xl dark:shadow-black/30"
           >
             {aiError === 'QUOTA' && (
               <div className="p-6 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-600 dark:text-rose-400 flex flex-col items-center text-center">
