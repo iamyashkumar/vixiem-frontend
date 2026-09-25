@@ -153,7 +153,7 @@ public class Application {
 
   return (
     <PageTransition>
-      <main id="main-content" className="min-h-screen text-slate-800 dark:text-slate-200 bg-transparent overflow-x-hidden selection:bg-sky-400 selection:text-white pt-24 sm:pt-28 pb-16 w-full">
+      <div className="min-h-screen text-slate-800 dark:text-slate-200 bg-transparent overflow-x-hidden selection:bg-sky-400 selection:text-white pt-24 sm:pt-28 pb-16 w-full">
         
         {/* HERO SECTION - STRIPE / LINEAR STYLE */}
         <section className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 pb-16 lg:pb-24">
@@ -612,7 +612,7 @@ public class Application {
           </div>
         </section>
 
-      </main>
+      </div>
     </PageTransition>
   );
 };

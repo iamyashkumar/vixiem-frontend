@@ -44,8 +44,8 @@ export default function App() {
   }, [location.pathname]);
 
   useEffect(() => {
-    // Only preload heavy dashboard route chunks if user is authenticated or on dashboard
-    if (!authService.isAuthenticated() && !isDashboardRoute) return;
+    // Only preload heavy dashboard route chunks if user is already on/navigating to dashboard
+    if (!isDashboardRoute) return;
 
     const preload = () => {
       import('./layouts/DashboardLayout');
@@ -57,7 +57,7 @@ export default function App() {
     if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
       window.requestIdleCallback(preload);
     } else {
-      setTimeout(preload, 1000);
+      setTimeout(preload, 800);
     }
   }, [isDashboardRoute]);
 
@@ -82,7 +82,7 @@ export default function App() {
         <Navbar />
         <ThemeToggleFAB />
 
-        <div className="flex-1 flex flex-col">
+        <main id="main-content" className="flex-1 flex flex-col">
           <Suspense fallback={<LoadingSpinner />}>
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname.split('/')[1] || 'home'}>
@@ -112,7 +112,7 @@ export default function App() {
               </Routes>
             </AnimatePresence>
           </Suspense>
-        </div>
+        </main>
 
         {!isDashboardRoute && !isAuthRoute && <Footer />}
       </div>
