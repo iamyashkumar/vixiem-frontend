@@ -153,7 +153,7 @@ public class Application {
 
   return (
     <PageTransition>
-      <div className="min-h-screen text-slate-800 dark:text-slate-200 bg-transparent overflow-x-hidden selection:bg-sky-400 selection:text-white pt-24 sm:pt-28 pb-16 w-full">
+      <main id="main-content" className="min-h-screen text-slate-800 dark:text-slate-200 bg-transparent overflow-x-hidden selection:bg-sky-400 selection:text-white pt-24 sm:pt-28 pb-16 w-full">
         
         {/* HERO SECTION - STRIPE / LINEAR STYLE */}
         <section className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 pb-16 lg:pb-24">
@@ -199,7 +199,7 @@ public class Application {
                 {isAuthenticated ? (
                   <Link 
                     to="/dashboard" 
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-base shadow-lg shadow-sky-500/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-slate-950 font-bold text-base shadow-lg shadow-sky-400/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
                   >
                     Go to Dashboard
                     <ChevronRight className="w-4 h-4" />
@@ -208,7 +208,7 @@ public class Application {
                   <>
                     <Link 
                       to="/register" 
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-base shadow-lg shadow-sky-500/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-slate-950 font-bold text-base shadow-lg shadow-sky-400/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
                     >
                       Start Monitoring Free
                       <ChevronRight className="w-4 h-4" />
@@ -380,7 +380,7 @@ public class Application {
                       onClick={() => setActiveCodeTab(tab.id)}
                       className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all shrink-0 ${
                         activeCodeTab === tab.id
-                          ? 'bg-sky-400 text-white font-extrabold shadow-md shadow-sky-500/20'
+                          ? 'bg-sky-400 text-slate-950 font-bold shadow-md shadow-sky-500/20'
                           : 'text-slate-400 hover:text-white hover:bg-slate-800'
                       }`}
                     >
@@ -465,7 +465,7 @@ public class Application {
                 return (
                   <div key={idx} className="bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl p-7 shadow-sm dark:shadow-none">
                     <div className="flex items-center justify-between mb-5">
-                      <span className="text-3xl font-extrabold text-sky-400/40 font-display">{step.step}</span>
+                      <span className="text-3xl font-extrabold text-sky-600 dark:text-sky-400 font-display">{step.step}</span>
                       <div className="w-10 h-10 bg-sky-400/10 border border-sky-400/30 rounded-xl flex items-center justify-center">
                         <Icon className="w-5 h-5 text-sky-500 dark:text-sky-400" />
                       </div>
@@ -493,7 +493,7 @@ public class Application {
               <button
                 onClick={() => setBillingCycle('monthly')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  billingCycle === 'monthly' ? 'bg-sky-400 text-white font-extrabold shadow-md shadow-sky-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  billingCycle === 'monthly' ? 'bg-sky-400 text-slate-950 font-bold shadow-md shadow-sky-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Monthly Billing
@@ -501,7 +501,7 @@ public class Application {
               <button
                 onClick={() => setBillingCycle('annual')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 ${
-                  billingCycle === 'annual' ? 'bg-sky-400 text-white font-extrabold shadow-md shadow-sky-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  billingCycle === 'annual' ? 'bg-sky-400 text-slate-950 font-bold shadow-md shadow-sky-500/20' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 <span>Annual Billing</span>
@@ -523,7 +523,7 @@ public class Application {
                   }`}
                 >
                   {plan.highlight && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-400 via-sky-400 to-sky-400 text-white font-black text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow">
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-400 via-sky-400 to-sky-400 text-slate-950 font-black text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow">
                       Most Popular
                     </div>
                   )}
@@ -551,7 +551,7 @@ public class Application {
                     to={plan.link}
                     className={`w-full py-3 rounded-xl font-semibold text-center text-sm transition-all ${
                       plan.highlight
-                        ? 'btn-primary text-white shadow-md'
+                        ? 'btn-primary text-slate-950 shadow-md'
                         : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700'
                     }`}
                   >
@@ -612,7 +612,7 @@ public class Application {
           </div>
         </section>
 
-      </div>
+      </main>
     </PageTransition>
   );
 };

@@ -8,7 +8,7 @@ import { LoadingSpinner } from './components/common/LoadingSpinner';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 // Lazy load pages
-const Home = lazy(() => import('./pages/Home'));
+import Home from './pages/Home';
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const Status = lazy(() => import('./pages/Status'));
@@ -75,41 +75,45 @@ export default function App() {
       onReset={() => window.location.reload()}
       onError={(error) => console.error("Global Error Boundary caught:", error)}
     >
-      <AnimatedBackground />
-      <Navbar />
-      <ThemeToggleFAB />
+      <div className="flex flex-col min-h-screen">
+        <AnimatedBackground />
+        <Navbar />
+        <ThemeToggleFAB />
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname.split('/')[1] || 'home'}>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/verify-email" element={<VerifyEmail />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="overview" replace />} />
-            <Route path="overview" element={<OverviewTab />} />
-            <Route path="endpoints" element={<EndpointsTab />} />
-            <Route path="logs" element={<LogsTab />} />
-            <Route path="ai" element={<AiTab />} />
-            <Route path="settings" element={<SettingsTab />} />
-          </Route>
-          <Route path="/status" element={<Status />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<Navigate to="/404" replace />} />
-          </Routes>
-        </AnimatePresence>
-      </Suspense>
+        <div className="flex-1 flex flex-col">
+          <Suspense fallback={<LoadingSpinner />}>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname.split('/')[1] || 'home'}>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/verify-email" element={<VerifyEmail />} />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <DashboardLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<Navigate to="overview" replace />} />
+                  <Route path="overview" element={<OverviewTab />} />
+                  <Route path="endpoints" element={<EndpointsTab />} />
+                  <Route path="logs" element={<LogsTab />} />
+                  <Route path="ai" element={<AiTab />} />
+                  <Route path="settings" element={<SettingsTab />} />
+                </Route>
+                <Route path="/status" element={<Status />} />
+                <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" replace />} />
+              </Routes>
+            </AnimatePresence>
+          </Suspense>
+        </div>
 
-      {!isDashboardRoute && !isAuthRoute && <Footer />}
+        {!isDashboardRoute && !isAuthRoute && <Footer />}
+      </div>
     </ErrorBoundary>
   );
 }
