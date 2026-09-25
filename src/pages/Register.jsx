@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { PageTransition } from '../components/animations/PageTransition';
 import { Mail, Lock, User, Eye, EyeOff, Check, X, CheckCircle } from 'lucide-react';
-import { useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { Logo } from '../components/common/Logo';
 import { GlobeCanvas } from '../components/animations/GlobeCanvas';
 
@@ -332,4 +332,12 @@ export const Register = () => {
   );
 };
 
-export default Register;
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '804602267087-d7s242t4t960shink1df3m0vi5h8tetd.apps.googleusercontent.com';
+
+const RegisterWithOAuth = (props) => (
+  <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+    <Register {...props} />
+  </GoogleOAuthProvider>
+);
+
+export default RegisterWithOAuth;

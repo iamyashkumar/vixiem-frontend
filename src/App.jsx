@@ -62,8 +62,16 @@ export default function App() {
   }, [isDashboardRoute]);
 
   useEffect(() => {
-    warmupBackend();
-    authService.fetchCsrf().catch(() => {});
+    const initBackend = () => {
+      warmupBackend();
+      authService.fetchCsrf().catch(() => {});
+    };
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      window.requestIdleCallback(initBackend);
+    } else {
+      setTimeout(initBackend, 1500);
+    }
+
     const handleLogout = () => {
       navigate('/login');
     };

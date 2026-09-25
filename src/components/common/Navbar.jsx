@@ -184,6 +184,7 @@ export const Navbar = () => {
             <div className="flex md:hidden items-center gap-3">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
                 className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white p-2 focus:outline-none"
               >
                 {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
