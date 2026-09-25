@@ -101,6 +101,7 @@ export const Navbar = () => {
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setProfileOpen(!profileOpen)}
+                    aria-label="User Profile Menu"
                     className="p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all border border-transparent focus:outline-none flex items-center gap-1.5"
                     title="User Profile Menu"
                   >

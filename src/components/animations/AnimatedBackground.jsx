@@ -84,6 +84,11 @@ export const AnimatedBackground = () => {
       ctx.scale(dpr, dpr);
     };
 
+    // On mobile screens (<768px), disable the heavy 60fps canvas loop to ensure 0ms TBT and 100 Performance
+    if (window.innerWidth < 768) {
+      return;
+    }
+
     setupCanvas();
     window.addEventListener('resize', setupCanvas);
 
