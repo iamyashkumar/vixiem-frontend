@@ -44,7 +44,9 @@ export default function App() {
   }, [location.pathname]);
 
   useEffect(() => {
-    // Preload dashboard route chunks in idle time for sub-second switches
+    // Only preload heavy dashboard route chunks if user is authenticated or on dashboard
+    if (!authService.isAuthenticated() && !isDashboardRoute) return;
+
     const preload = () => {
       import('./layouts/DashboardLayout');
       import('./pages/dashboard/OverviewTab');
@@ -55,9 +57,9 @@ export default function App() {
     if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
       window.requestIdleCallback(preload);
     } else {
-      setTimeout(preload, 800);
+      setTimeout(preload, 1000);
     }
-  }, []);
+  }, [isDashboardRoute]);
 
   useEffect(() => {
     warmupBackend();
