@@ -159,14 +159,9 @@ public class Application {
           {/* Ambient Warm Gold Glow Blob */}
           <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-sky-400/15 dark:bg-sky-400/10 blur-[130px] rounded-full pointer-events-none -z-10 animate-pulse-slow"></div>
 
-          <motion.div 
-            className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
                         {/* Left Column */}
-            <motion.div variants={itemVariants} className="lg:col-span-7 xl:col-span-7 text-center lg:text-left space-y-6">
+            <div className="lg:col-span-7 xl:col-span-7 text-center lg:text-left space-y-6">
               
               {/* Datadog Live Status Badge */}
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-sky-500/10 dark:bg-sky-500/15 border border-sky-500/25 text-sky-700 dark:text-sky-300 text-xs font-semibold tracking-wide">
@@ -227,10 +222,15 @@ public class Application {
                 <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 2-minute SDK setup</span>
                 <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 99.99% Uptime SLA</span>
               </div>
-            </motion.div>
+            </div>
 
             {/* Right Live Telemetry Terminal (Datadog Developer Style) */}
-            <motion.div variants={itemVariants} className="lg:col-span-5 xl:col-span-5 w-full">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.3 }} 
+              className="lg:col-span-5 xl:col-span-5 w-full"
+            >
               <div className="rounded-2xl bg-white dark:bg-[#08080A] border border-zinc-200 dark:border-zinc-800/90 shadow-2xl shadow-sky-500/10 overflow-hidden w-full transition-all">
                 
                 {/* Console Header Bar */}
@@ -348,7 +348,7 @@ public class Application {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </section>
 
         {/* SDK CODE PREVIEW */}
