@@ -26,11 +26,16 @@ export const warmupBackend = async () => {
   }
 };
 
-// Fire warmup ping immediately when api module loads, and repeat every 3 minutes
-warmupBackend();
-if (typeof window !== 'undefined') {
-  setInterval(warmupBackend, 180000);
-}
+// Background warmup triggered on user interaction or deferred idle
+let hasWarmedUp = false;
+export const triggerWarmup = () => {
+  if (hasWarmedUp) return;
+  hasWarmedUp = true;
+  warmupBackend();
+  if (typeof window !== 'undefined') {
+    setInterval(warmupBackend, 300000);
+  }
+};
 
 // We no longer need a request interceptor to inject Authorization headers 
 // because HttpOnly cookies are handled automatically by Axios.

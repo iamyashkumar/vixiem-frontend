@@ -99,3 +99,16 @@ html.light body, html[data-theme='light'] body {
 #root {
   min-height: 100vh;
 }
+
+@keyframes loaderLaser {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(180%);
+  }
+}
+
+.animate-loader-laser {
+  animation: loaderLaser 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}

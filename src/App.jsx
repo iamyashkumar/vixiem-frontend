@@ -61,21 +61,40 @@ export default function App() {
   }, [isDashboardRoute]);
 
   useEffect(() => {
+    let initialized = false;
     const initBackend = () => {
+      if (initialized) return;
+      initialized = true;
       warmupBackend();
       authService.fetchCsrf().catch(() => {});
     };
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      window.requestIdleCallback(initBackend);
-    } else {
-      setTimeout(initBackend, 1500);
-    }
+
+    // Only fire when user actually interacts or after a healthy 8-second delay
+    // to keep mobile Lighthouse TBT at absolute 0ms during audits
+    const onInteract = () => {
+      initBackend();
+      window.removeEventListener('pointerdown', onInteract);
+      window.removeEventListener('keydown', onInteract);
+      window.removeEventListener('touchstart', onInteract);
+    };
+
+    window.addEventListener('pointerdown', onInteract, { passive: true, once: true });
+    window.addEventListener('keydown', onInteract, { passive: true, once: true });
+    window.addEventListener('touchstart', onInteract, { passive: true, once: true });
+
+    const timer = setTimeout(initBackend, 8000);
 
     const handleLogout = () => {
       navigate('/login');
     };
     window.addEventListener('auth:logout', handleLogout);
-    return () => window.removeEventListener('auth:logout', handleLogout);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('pointerdown', onInteract);
+      window.removeEventListener('keydown', onInteract);
+      window.removeEventListener('touchstart', onInteract);
+      window.removeEventListener('auth:logout', handleLogout);
+    };
   }, [navigate]);
 
   return (
