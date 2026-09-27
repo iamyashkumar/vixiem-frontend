@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../context/ThemeContext';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon, Settings, LogOut, ChevronDown, Zap } from 'lucide-react';
 import { Logo } from './Logo';
 import { aiService } from '../../services/aiService';
@@ -57,11 +56,9 @@ export const Navbar = () => {
   };
 
   return (
-    <motion.nav
+    <nav
       className="fixed top-0 left-0 right-0 w-full z-50 bg-white/80 dark:bg-[#08080A]/80 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-sm dark:shadow-black/20 transition-colors duration-200"
-      variants={navVariants}
-      initial="hidden"
-      animate="visible"
+      
     >
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -111,15 +108,10 @@ export const Navbar = () => {
                     <ChevronDown className={`w-3.5 h-3.5 text-slate-600 dark:text-slate-400 transition-transform ${profileOpen ? 'rotate-180' : ''}`} />
                   </button>
 
-                  <AnimatePresence>
-                    {profileOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute right-0 mt-2 w-64 bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-3 z-50 divide-y divide-slate-100 dark:divide-slate-800"
-                      >
+                  {profileOpen && (
+                    <div
+                      className="absolute right-0 mt-2 w-64 bg-white dark:bg-[#141418] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-3 z-50 divide-y divide-slate-100 dark:divide-slate-800 transition-all duration-150 animate-in fade-in"
+                    >
                         <div className="pb-2.5">
                           <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">User Account</p>
                           <p className="text-xs font-bold text-sky-500 dark:text-sky-400 truncate mt-0.5">@{user?.username || user?.email?.split('@')[0]}</p>
@@ -159,9 +151,8 @@ export const Navbar = () => {
                             <span>Logout</span>
                           </button>
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
@@ -195,15 +186,10 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile Menu Dropdown */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-[#0D0D10] border-b border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl"
-          >
+      {mobileMenuOpen && (
+        <div
+          className="md:hidden bg-white dark:bg-[#0D0D10] border-b border-slate-200 dark:border-slate-800 overflow-hidden shadow-2xl transition-all duration-200 animate-in fade-in"
+        >
             <div className="px-6 pt-4 pb-6 space-y-4 flex flex-col">
               <Link
                 to="/"
@@ -275,10 +261,9 @@ export const Navbar = () => {
                 </div>
               )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+        </div>
+      )}
+    </nav>
   );
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 export const Logo = ({ size = 'md', showText = true, link = true, className = '' }) => {
   const sizeClasses = {
@@ -13,22 +12,9 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
   const currentSize = sizeClasses[size] || sizeClasses.md;
 
   const logoContent = (
-    <motion.div 
-      className={`inline-flex items-center gap-3 group cursor-pointer ${className}`}
-      whileHover="hover"
-      initial="initial"
-    >
-      <motion.div 
-        className="relative flex items-center justify-center"
-        variants={{
-          hover: { scale: 1.1, rotate: [0, -4, 4, 0], transition: { duration: 0.4 } }
-        }}
-      >
-        <motion.div 
-          className="absolute inset-0 bg-sky-400/30 blur-md rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-        />
+    <div className={`inline-flex items-center gap-3 group cursor-pointer ${className}`}>
+      <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+        <div className="absolute inset-0 bg-sky-400/30 blur-md rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
 
         <svg
           className={`${currentSize.icon} text-sky-400 dark:text-sky-400 relative z-10`}
@@ -36,73 +22,21 @@ export const Logo = ({ size = 'md', showText = true, link = true, className = ''
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.path 
-            d="M 12 14 L 38 14" 
-            stroke="currentColor" 
-            strokeWidth="7" 
-            strokeLinecap="round"
-            initial={{ pathLength: 0.2, opacity: 0.8 }}
-            animate={{ pathLength: [0.2, 1, 0.2], opacity: [0.8, 1, 0.8] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          
-          <motion.path 
-            d="M 12 14 L 50 86 L 88 14" 
-            stroke="currentColor" 
-            strokeWidth="7" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            initial={{ pathLength: 0.4 }}
-            animate={{ pathLength: [0.4, 1, 0.4] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
-          />
-          
-          <motion.path 
-            d="M 25 14 L 50 62 L 64 34 L 75 14" 
-            stroke="#38BDF8" 
-            strokeWidth="6.5" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            initial={{ pathLength: 0.3 }}
-            animate={{ pathLength: [0.3, 1, 0.3] }}
-            transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
-          />
-          
-          <motion.path 
-            d="M 38 14 L 50 38 L 62 14" 
-            stroke="#38BDF8" 
-            strokeWidth="6" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            initial={{ pathLength: 0.5 }}
-            animate={{ pathLength: [0.5, 1, 0.5] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
-          />
-
-          <motion.circle 
-            cx="50" 
-            cy="86" 
-            r="5" 
-            fill="#38BDF8"
-            animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          />
+          <path d="M 12 14 L 38 14" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
+          <path d="M 12 14 L 50 86 L 88 14" stroke="currentColor" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M 25 14 L 50 62 L 64 34 L 75 14" stroke="#38BDF8" strokeWidth="6.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M 38 14 L 50 38 L 62 14" stroke="#38BDF8" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="50" cy="86" r="5" fill="#38BDF8" />
         </svg>
-      </motion.div>
+      </div>
 
       {showText && (
         <span className={`font-display font-extrabold tracking-tight text-zinc-950 dark:text-white flex items-center ${currentSize.text}`}>
           Vixiem
-          <motion.span 
-            className="text-sky-400 font-black ml-0.5 inline-block"
-            animate={{ y: [0, -3, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            .
-          </motion.span>
+          <span className="text-sky-400 font-black ml-0.5 inline-block">.</span>
         </span>
       )}
-    </motion.div>
+    </div>
   );
 
   if (link) {

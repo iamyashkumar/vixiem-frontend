@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Logo } from './Logo';
 
 export const Footer = () => {
@@ -34,14 +33,14 @@ export const Footer = () => {
             </p>
             <div className="flex gap-4">
               {['Twitter', 'GitHub', 'Discord'].map((social) => (
-                <motion.a
+                <a
                   key={social}
                   href={`#${social.toLowerCase()}`}
                   className="text-slate-500 dark:text-slate-400 hover:text-sky-400 dark:hover:text-sky-400 transition-colors"
-                  whileHover={{ y: -2 }}
+                  className="text-slate-500 dark:text-slate-400 hover:text-sky-400 dark:hover:text-sky-400 transition-all hover:-translate-y-0.5"
                 >
                   <span className="text-sm font-medium">{social}</span>
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
