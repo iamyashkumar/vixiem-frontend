@@ -1,0 +1,19 @@
+# Vixiem
+
+> Vixiem is an automated real-time API health intelligence and endpoint observability platform.
+
+Vixiem provides continuous latency tracking, instant downtime alerts, AI-driven root cause diagnostics, and developer-first SDK integrations for modern web applications.
+
+## Platform Links
+
+- [Overview](https://vixiem.vercel.app/): Main landing page with live telemetry metrics, endpoint tracking features, and pricing tiers.
+- [Register](https://vixiem.vercel.app/register): Create a free account to begin monitoring your API endpoints.
+- [Login](https://vixiem.vercel.app/login): Access the developer dashboard, API keys, and incident management logs.
+- [System Status](https://vixiem.vercel.app/status): Real-time platform status, response latency, and global region availability.
+
+## Developer Features
+
+- Real-Time Endpoint Health Monitoring (HTTP status codes, latency percentiles, error rate tracking)
+- Automated AI Error Diagnostics and intelligent triage recommendations
+- Multi-region synthetic health probes across global datacenters
+- SDK Support for Node.js, Python, Java, and Go in under two minutes

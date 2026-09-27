@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { Suspense, lazy, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
 import { AnimatedBackground } from './components/animations/AnimatedBackground';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
@@ -92,8 +91,7 @@ export default function App() {
 
         <main id="main-content" className="flex-1 flex flex-col">
           <Suspense fallback={<LoadingSpinner />}>
-            <AnimatePresence mode="wait">
-              <Routes location={location} key={location.pathname.split('/')[1] || 'home'}>
+                          <Routes location={location} key={location.pathname.split('/')[1] || 'home'}>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
@@ -118,8 +116,7 @@ export default function App() {
                 <Route path="/404" element={<NotFound />} />
                 <Route path="*" element={<Navigate to="/404" replace />} />
               </Routes>
-            </AnimatePresence>
-          </Suspense>
+                      </Suspense>
         </main>
 
         {!isDashboardRoute && !isAuthRoute && <Footer />}

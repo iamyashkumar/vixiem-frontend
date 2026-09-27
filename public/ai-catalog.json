@@ -1,0 +1,29 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Vixiem",
+    "identifier": "urn:air:vixiem.vercel.app:host:vixiem",
+    "documentationUrl": "https://vixiem.vercel.app/",
+    "logoUrl": "https://vixiem.vercel.app/favicon.svg"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:vixiem.vercel.app:api:monitoring",
+      "displayName": "Vixiem API Monitoring and Health Intelligence",
+      "type": "application/vnd.oai.openapi+json",
+      "url": "https://vixiem.vercel.app/llms.txt",
+      "description": "Real-time API endpoint observability, uptime monitoring, latency tracking, and automated AI diagnostics.",
+      "tags": [
+        "api-monitoring",
+        "observability",
+        "uptime",
+        "developer-tools"
+      ],
+      "representativeQueries": [
+        "monitor API response latency",
+        "track endpoint uptime",
+        "receive downtime alerts"
+      ]
+    }
+  ]
+}

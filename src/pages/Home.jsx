@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { PageTransition } from '../components/animations/PageTransition';
 import { 
@@ -26,24 +25,7 @@ export const Home = () => {
   const [copied, setCopied] = useState(false);
   const [billingCycle, setBillingCycle] = useState('monthly');
 
-  const containerVariants = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
 
-  const itemVariants = {
-    hidden: { opacity: 1, y: 0 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.2 },
-    },
-  };
 
   const codeSnippets = {
     node: `// Install SDK: npm install @vixiem/telemetry
@@ -225,12 +207,7 @@ public class Application {
             </div>
 
             {/* Right Live Telemetry Terminal (Datadog Developer Style) */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.3 }} 
-              className="lg:col-span-5 xl:col-span-5 w-full"
-            >
+            <div className="lg:col-span-5 xl:col-span-5 w-full">
               <div className="rounded-2xl bg-white dark:bg-[#08080A] border border-zinc-200 dark:border-zinc-800/90 shadow-2xl shadow-sky-500/10 overflow-hidden w-full transition-all">
                 
                 {/* Console Header Bar */}
@@ -347,7 +324,7 @@ public class Application {
                   <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">0 Anomalies Detected</span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
