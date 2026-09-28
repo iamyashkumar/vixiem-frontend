@@ -89,9 +89,6 @@ export const AnimatedBackground = () => {
       return;
     }
 
-    setupCanvas();
-    window.addEventListener('resize', setupCanvas);
-
     // Globe Physics & Rotation State
     let rotX = 0.28; // Axial tilt
     let rotY = 0.6;  // Spinning angle
@@ -501,12 +498,36 @@ export const AnimatedBackground = () => {
       animationFrameId = requestAnimationFrame(render);
     };
 
-    animationFrameId = requestAnimationFrame(render);
+    let isCancelled = false;
+    let resizeListener = null;
+    let mouseListener = null;
+
+    const startCanvas = () => {
+      if (isCancelled || !canvasRef.current) return;
+      setupCanvas();
+      resizeListener = setupCanvas;
+      mouseListener = handleMouseMove;
+      window.addEventListener('resize', resizeListener);
+      window.addEventListener('mousemove', mouseListener, { passive: true });
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    // Defer 3D canvas calculation to requestIdleCallback so initial DOM mount task stays <20ms
+    let idleId = null;
+    let timerId = null;
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(startCanvas, { timeout: 1000 });
+    } else {
+      timerId = setTimeout(startCanvas, 300);
+    }
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', setupCanvas);
-      window.removeEventListener('mousemove', handleMouseMove);
+      isCancelled = true;
+      if (idleId && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
+      if (timerId) clearTimeout(timerId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (resizeListener) window.removeEventListener('resize', resizeListener);
+      if (mouseListener) window.removeEventListener('mousemove', mouseListener);
     };
   }, []);
 
