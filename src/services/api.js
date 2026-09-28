@@ -157,7 +157,7 @@ api.interceptors.response.use(
       }
     } else if (status && status >= 500) {
       // Suppress generic 500 toasts for AI endpoints since the UI handles them gracefully
-      if (originalRequest && !originalRequest.url.includes('/api/ai/')) {
+      if (originalRequest && !originalRequest.url.includes('/api/ai/') && !originalRequest.url.includes('/api/analytics/test-alert') && !originalRequest.url.includes('/api/analytics/send-weekly-report')) {
         toast.error('Server error. Please try again later.');
       }
     } else if (error.message === 'Network Error') {

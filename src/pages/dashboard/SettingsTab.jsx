@@ -25,11 +25,14 @@ export const SettingsTab = () => {
   const [loading, setLoading] = useState(false);
   const [testingAlert, setTestingAlert] = useState(false);
   const [sendingWeeklyReport, setSendingWeeklyReport] = useState(false);
+  const [customTestEmail, setCustomTestEmail] = useState("");
+  const [showCustomEmailInput, setShowCustomEmailInput] = useState(false);
 
   const handleTestAlert = async () => {
     try {
       setTestingAlert(true);
-      const res = await analyticsService.sendTestAlert();
+      const target = customTestEmail && customTestEmail.trim() ? customTestEmail.trim() : null;
+      const res = await analyticsService.sendTestAlert(target);
       toast.success(res.message || "Test alert email dispatched successfully!");
     } catch (err) {
       console.error("Test alert error:", err);
@@ -42,7 +45,8 @@ export const SettingsTab = () => {
   const handleSendWeeklyReport = async () => {
     try {
       setSendingWeeklyReport(true);
-      const res = await analyticsService.sendWeeklyReport();
+      const target = customTestEmail && customTestEmail.trim() ? customTestEmail.trim() : null;
+      const res = await analyticsService.sendWeeklyReport(target);
       toast.success(res.message || "Weekly telemetry digest sent to your email!");
     } catch (err) {
       console.error("Weekly report dispatch error:", err);
@@ -311,12 +315,36 @@ export const SettingsTab = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              {/* Optional Custom Test Recipient */}
+              <div className="pt-1">
+                <div className="flex items-center justify-between text-xs mb-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setShowCustomEmailInput(!showCustomEmailInput)}
+                    className="text-sky-500 hover:text-sky-400 underline font-medium cursor-pointer"
+                  >
+                    {showCustomEmailInput ? "− Use default destination email" : "+ Send test to custom recipient email"}
+                  </button>
+                </div>
+                {showCustomEmailInput && (
+                  <div className="animate-in fade-in duration-200 mb-3">
+                    <input
+                      type="email"
+                      placeholder="e.g. name@example.com (or registered Resend email)"
+                      value={customTestEmail}
+                      onChange={(e) => setCustomTestEmail(e.target.value)}
+                      className="w-full px-3.5 py-2 text-xs bg-white dark:bg-[#0b101b] border border-sky-500/40 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-1">
                 <button
                   type="button"
                   onClick={handleTestAlert}
                   disabled={testingAlert}
-                  className="flex-1 py-2.5 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200 dark:border-slate-700 disabled:opacity-50"
+                  className="flex-1 py-2.5 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors border border-slate-200 dark:border-slate-700 disabled:opacity-50 shadow-sm"
                 >
                   <Send size={15} className={testingAlert ? "animate-spin" : "text-sky-400"} />
                   {testingAlert ? "Sending Test..." : "Send Test Alert Email"}
@@ -325,12 +353,16 @@ export const SettingsTab = () => {
                   type="button"
                   onClick={handleSendWeeklyReport}
                   disabled={sendingWeeklyReport}
-                  className="flex-1 py-2.5 px-4 bg-sky-500/10 hover:bg-sky-500/20 text-sky-500 dark:text-sky-400 border border-sky-500/30 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                  className="flex-1 py-2.5 px-4 bg-sky-500/10 hover:bg-sky-500/20 text-sky-500 dark:text-sky-400 border border-sky-500/30 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-50 shadow-sm"
                 >
                   <Mail size={15} className={sendingWeeklyReport ? "animate-spin" : ""} />
                   {sendingWeeklyReport ? "Generating Report..." : "Send Weekly Report Now"}
                 </button>
               </div>
+
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-light">
+                ⚡ Real-time alerts dispatch automatically whenever an endpoint drops or recovers. Delivery uses HTTPS API (Resend) with automated SMTP failover.
+              </p>
             </div>
           </motion.div>
 

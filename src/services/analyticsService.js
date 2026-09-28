@@ -19,13 +19,15 @@ export const analyticsService = {
     return response.data;
   },
 
-  sendWeeklyReport: async () => {
-    const response = await api.post('/api/analytics/send-weekly-report');
+  sendWeeklyReport: async (email) => {
+    const payload = email ? { email } : {};
+    const response = await api.post('/api/analytics/send-weekly-report', payload);
     return response.data;
   },
 
-  sendTestAlert: async () => {
-    const response = await api.post('/api/analytics/test-alert');
+  sendTestAlert: async (email) => {
+    const payload = email ? { email } : {};
+    const response = await api.post('/api/analytics/test-alert', payload);
     return response.data;
   }
 };
