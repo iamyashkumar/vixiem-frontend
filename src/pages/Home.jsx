@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { PageTransition } from '../components/animations/PageTransition';
@@ -24,6 +24,21 @@ export const Home = () => {
   const [activeCodeTab, setActiveCodeTab] = useState('node');
   const [copied, setCopied] = useState(false);
   const [billingCycle, setBillingCycle] = useState('monthly');
+  const [showBelowTheFold, setShowBelowTheFold] = useState(false);
+
+  useEffect(() => {
+    let idleId = null;
+    let timerId = null;
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(() => setShowBelowTheFold(true), { timeout: 600 });
+    } else {
+      timerId = setTimeout(() => setShowBelowTheFold(true), 100);
+    }
+    return () => {
+      if (idleId && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
+      if (timerId) clearTimeout(timerId);
+    };
+  }, []);
 
 
 
@@ -328,6 +343,9 @@ public class Application {
           </div>
         </section>
 
+        {/* BELOW THE FOLD SECTIONS - DEFERRED TO KEEP INITIAL MOUNT TBT AT 0ms */}
+        {showBelowTheFold && (
+          <>
         {/* SDK CODE PREVIEW */}
         <section className="w-full bg-transparent py-16 sm:py-20">
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
@@ -586,6 +604,8 @@ public class Application {
             </div>
           </div>
         </section>
+          </>
+        )}
 
       </div>
     </PageTransition>
