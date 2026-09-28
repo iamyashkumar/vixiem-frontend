@@ -17,5 +17,15 @@ export const analyticsService = {
       params: { days }
     });
     return response.data;
+  },
+
+  sendWeeklyReport: async () => {
+    const response = await api.post('/api/analytics/send-weekly-report');
+    return response.data;
+  },
+
+  sendTestAlert: async () => {
+    const response = await api.post('/api/analytics/test-alert');
+    return response.data;
   }
 };

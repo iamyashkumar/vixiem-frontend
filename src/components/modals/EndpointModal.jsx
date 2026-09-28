@@ -10,7 +10,7 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
     url: '',
     checkIntervalSeconds: 60,
     isActive: true,
-    alertsEnabled: false,
+    alertsEnabled: true,
     alertEmail: '',
     discordWebhookUrl: '',
     tags: []
@@ -25,13 +25,13 @@ export const EndpointModal = ({ isOpen, onClose, onSave, initialData }) => {
         url: initialData.url || '',
         checkIntervalSeconds: initialData.checkIntervalSeconds || 60,
         isActive: initialData.isActive !== undefined ? initialData.isActive : (initialData.active !== undefined ? initialData.active : true),
-        alertsEnabled: initialData.alertsEnabled || false,
+        alertsEnabled: initialData.alertsEnabled !== undefined ? initialData.alertsEnabled : true,
         alertEmail: initialData.alertEmail || '',
         discordWebhookUrl: initialData.discordWebhookUrl || '',
         tags: initialData.tags || []
       });
     } else {
-      setFormData({ name: '', url: '', checkIntervalSeconds: 60, isActive: true, alertsEnabled: false, alertEmail: '', discordWebhookUrl: '', tags: [] });
+      setFormData({ name: '', url: '', checkIntervalSeconds: 60, isActive: true, alertsEnabled: true, alertEmail: '', discordWebhookUrl: '', tags: [] });
     }
     setTagInput('');
     setErrors({});
