@@ -19,6 +19,11 @@ export const analyticsService = {
     return response.data;
   },
 
+  getWeeklyReportData: async () => {
+    const response = await api.get('/api/analytics/weekly-report-data');
+    return response.data;
+  },
+
   sendWeeklyReport: async (email) => {
     const payload = email ? { email } : {};
     const response = await api.post('/api/analytics/send-weekly-report', payload);

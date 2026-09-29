@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Plus, Search, Server, Clock, Trash2, Edit3, ArrowUpRight, Mail, MessageSquare } from 'lucide-react';
+import { Plus, Search, Server, Clock, Trash2, Edit3, ArrowUpRight, Mail, MessageSquare, FileText } from 'lucide-react';
 import { endpointsService } from '../../services/endpointsService';
 import { PageLoader } from '../../components/PageLoader';
 import { ApiError } from '../../components/ApiError';
 import { EndpointModal } from '../../components/modals/EndpointModal';
 import { ConfirmDeleteModal } from '../../components/modals/ConfirmDeleteModal';
+import { WeeklyReportModal } from '../../components/modals/WeeklyReportModal';
 import { TitleGraphBackdrop } from '../../components/animations/TitleGraphBackdrop';
 
 const StatusBadge = ({ isUp }) => (
@@ -41,6 +42,7 @@ export const EndpointsTab = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [editingEndpoint, setEditingEndpoint] = useState(null);
   const [deletingEndpoint, setDeletingEndpoint] = useState(null);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   const fetchEndpoints = async () => {
     try {
@@ -170,8 +172,17 @@ export const EndpointsTab = () => {
           </div>
           
           <button
+            onClick={() => setIsReportModalOpen(true)}
+            className="flex items-center gap-2 h-full py-2.5 px-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-slate-800 dark:text-slate-100 rounded-xl text-sm font-semibold transition-all border border-slate-200 dark:border-neutral-700 shadow-sm cursor-pointer"
+            title="View & Download Weekly Performance Digest"
+          >
+            <FileText size={17} className="text-sky-500" />
+            <span className="hidden md:inline">Weekly Report</span>
+          </button>
+
+          <button
             onClick={openAddModal}
-            className="btn-primary flex items-center gap-2 h-full py-2.5 font-semibold shadow-md"
+            className="btn-primary flex items-center gap-2 h-full py-2.5 font-semibold shadow-md cursor-pointer"
           >
             <Plus size={18} />
             <span>Add Endpoint</span>
@@ -286,6 +297,10 @@ export const EndpointsTab = () => {
         onConfirm={handleDeleteEndpoint} 
         title="Delete Monitored Endpoint" 
         message={`Are you sure you want to delete ${deletingEndpoint?.name}? This action cannot be undone.`} 
+      />
+      <WeeklyReportModal 
+        isOpen={isReportModalOpen} 
+        onClose={() => setIsReportModalOpen(false)} 
       />
     </div>
   );
