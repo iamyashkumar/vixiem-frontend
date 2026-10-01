@@ -127,15 +127,17 @@ api.interceptors.response.use(
       return new Promise(function(resolve, reject) {
         axios.post(`${apiBaseUrl}${API_ENDPOINTS.AUTH.REFRESH}`, { refresh_token: refreshToken }, { withCredentials: true })
           .then((res) => {
-            if (res.data?.accessToken) {
-              localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.data.accessToken);
-              localStorage.setItem('accessToken', res.data.accessToken);
-              localStorage.setItem('vixiem_access_token', res.data.accessToken);
-              if (res.data.refreshToken) {
-                localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, res.data.refreshToken);
-                localStorage.setItem('refreshToken', res.data.refreshToken);
-                localStorage.setItem('vixiem_refresh_token', res.data.refreshToken);
-              }
+            const newAccessToken = res.data?.accessToken || res.data?.access_token;
+            const newRefreshToken = res.data?.refreshToken || res.data?.refresh_token;
+            if (newAccessToken) {
+              localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, newAccessToken);
+              localStorage.setItem('accessToken', newAccessToken);
+              localStorage.setItem('vixiem_access_token', newAccessToken);
+            }
+            if (newRefreshToken) {
+              localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, newRefreshToken);
+              localStorage.setItem('refreshToken', newRefreshToken);
+              localStorage.setItem('vixiem_refresh_token', newRefreshToken);
             }
             processQueue(null);
             resolve(api(originalRequest));

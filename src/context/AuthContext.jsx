@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const response = await authService.register(email, password, username);
-      if (response.accessToken && response.user) {
+      if ((response.accessToken || response.access_token) && response.user) {
         setUser(response.user);
         setIsAuthenticated(true);
       }

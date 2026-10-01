@@ -40,7 +40,7 @@ export const Login = () => {
         if (profile && profile.email) {
           const success = await loginWithGoogle(JSON.stringify({ email: profile.email, name: profile.name }));
           if (success) {
-            navigate('/dashboard');
+            navigate('/dashboard', { replace: true });
           }
         } else {
           setError('Failed to fetch Google profile details.');
@@ -72,7 +72,7 @@ export const Login = () => {
       setUnverifiedEmail('');
       const success = await login(email, password);
       if (success) {
-        navigate('/dashboard');
+        navigate('/dashboard', { replace: true });
       } else {
         setError('Login failed. Please try again.');
       }

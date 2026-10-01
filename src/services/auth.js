@@ -10,15 +10,18 @@ export const authService = {
         username,
       });
 
-      if (response.data?.accessToken) {
-        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
-        localStorage.setItem('accessToken', response.data.accessToken);
-        localStorage.setItem('vixiem_access_token', response.data.accessToken);
+      const accessToken = response.data?.accessToken || response.data?.access_token;
+      const refreshToken = response.data?.refreshToken || response.data?.refresh_token;
+
+      if (accessToken) {
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('vixiem_access_token', accessToken);
       }
-      if (response.data?.refreshToken) {
-        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
-        localStorage.setItem('refreshToken', response.data.refreshToken);
-        localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
+      if (refreshToken) {
+        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('vixiem_refresh_token', refreshToken);
       }
       if (response.data?.user) {
         localStorage.setItem('vixiem_user', JSON.stringify(response.data.user));
@@ -41,15 +44,18 @@ export const authService = {
         password,
       });
 
-      if (response.data?.accessToken) {
-        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
-        localStorage.setItem('accessToken', response.data.accessToken);
-        localStorage.setItem('vixiem_access_token', response.data.accessToken);
+      const accessToken = response.data?.accessToken || response.data?.access_token;
+      const refreshToken = response.data?.refreshToken || response.data?.refresh_token;
+
+      if (accessToken) {
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('vixiem_access_token', accessToken);
       }
-      if (response.data?.refreshToken) {
-        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
-        localStorage.setItem('refreshToken', response.data.refreshToken);
-        localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
+      if (refreshToken) {
+        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('vixiem_refresh_token', refreshToken);
       }
       if (response.data?.user) {
         localStorage.setItem('vixiem_user', JSON.stringify(response.data.user));
@@ -74,15 +80,18 @@ export const authService = {
         credential,
       });
 
-      if (response.data?.accessToken) {
-        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, response.data.accessToken);
-        localStorage.setItem('accessToken', response.data.accessToken);
-        localStorage.setItem('vixiem_access_token', response.data.accessToken);
+      const accessToken = response.data?.accessToken || response.data?.access_token;
+      const refreshToken = response.data?.refreshToken || response.data?.refresh_token;
+
+      if (accessToken) {
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('vixiem_access_token', accessToken);
       }
-      if (response.data?.refreshToken) {
-        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
-        localStorage.setItem('refreshToken', response.data.refreshToken);
-        localStorage.setItem('vixiem_refresh_token', response.data.refreshToken);
+      if (refreshToken) {
+        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('vixiem_refresh_token', refreshToken);
       }
       if (response.data?.user) {
         localStorage.setItem('vixiem_user', JSON.stringify(response.data.user));
