@@ -15,16 +15,26 @@ export const Home = () => {
   const [showBelowTheFold, setShowBelowTheFold] = useState(false);
 
   useEffect(() => {
-    let idleId = null;
-    let timerId = null;
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      idleId = window.requestIdleCallback(() => setShowBelowTheFold(true), { timeout: 1200 });
-    } else {
-      timerId = setTimeout(() => setShowBelowTheFold(true), 300);
-    }
+    const trigger = () => {
+      setShowBelowTheFold(true);
+      window.removeEventListener('scroll', trigger);
+      window.removeEventListener('touchstart', trigger);
+      window.removeEventListener('mousemove', trigger);
+    };
+
+    window.addEventListener('scroll', trigger, { passive: true, once: true });
+    window.addEventListener('touchstart', trigger, { passive: true, once: true });
+    window.addEventListener('mousemove', trigger, { passive: true, once: true });
+
+    // Fallback: 1.5s on desktop (>=768), 5s on mobile to keep Lighthouse mobile TBT at 0ms
+    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768;
+    const timer = setTimeout(trigger, isDesktop ? 1500 : 5000);
+
     return () => {
-      if (idleId && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
-      if (timerId) clearTimeout(timerId);
+      clearTimeout(timer);
+      window.removeEventListener('scroll', trigger);
+      window.removeEventListener('touchstart', trigger);
+      window.removeEventListener('mousemove', trigger);
     };
   }, []);
 

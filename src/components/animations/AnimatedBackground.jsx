@@ -552,7 +552,7 @@ export const AnimatedBackground = () => {
       {/* 2. Global Unified 3D API Mesh Canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full block"
+        className="hidden md:block absolute inset-0 w-full h-full"
       />
 
       {/* 3. Luxury Film Grain Overlay */}
