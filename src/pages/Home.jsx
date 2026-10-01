@@ -24,7 +24,7 @@ export const Home = () => {
   const [activeCodeTab, setActiveCodeTab] = useState('node');
   const [copied, setCopied] = useState(false);
   const [billingCycle, setBillingCycle] = useState('monthly');
-  const [showBelowTheFold, setShowBelowTheFold] = useState(false);
+  const [showBelowTheFold, setShowBelowTheFold] = useState(true);
 
   useEffect(() => {
     let idleId = null;
