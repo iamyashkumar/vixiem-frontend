@@ -62,6 +62,11 @@ export const AnimatedBackground = () => {
   pathnameRef.current = location.pathname;
 
   useEffect(() => {
+    // Preserve 100% mobile CPU responsiveness and battery:
+    // Skip 3D globe animation loop on mobile viewports (< 768px)
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return;
+    }
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
