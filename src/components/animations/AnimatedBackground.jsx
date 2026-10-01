@@ -62,11 +62,6 @@ export const AnimatedBackground = () => {
   pathnameRef.current = location.pathname;
 
   useEffect(() => {
-    // Preserve 100% mobile CPU responsiveness and battery:
-    // Skip 3D globe animation loop on mobile viewports (< 768px)
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      return;
-    }
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -552,7 +547,7 @@ export const AnimatedBackground = () => {
       {/* 2. Global Unified 3D API Mesh Canvas */}
       <canvas
         ref={canvasRef}
-        className="hidden md:block absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full block"
       />
 
       {/* 3. Luxury Film Grain Overlay */}
